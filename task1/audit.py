@@ -73,8 +73,22 @@ def audit_subject(s):
                 action=ACTIONS.get(s, "kept as is"))
 
 
+def add_usage(rows):
+    """Trials actually analysed vs trials annotated: windows that run past the end of the recording are dropped (never silently)."""
+    import sys; sys.path.insert(0, str(ROOT / "task1"))
+    import data
+    for r in rows:
+        d = data.load_subject(r["subject"])
+        r["n_left_used"], r["n_right_used"] = int((d["y"] == 0).sum()), int((d["y"] == 1).sum())
+        dropped = r["n_left"] + r["n_right"] - r["n_left_used"] - r["n_right_used"]
+        r["n_dropped"] = dropped
+        if dropped:
+            r["action"] += f"; {dropped} trial(s) dropped: analysis window (-1.5..4.0 s) runs past recording end (run ends mid-cue)"
+
+
 if __name__ == "__main__":
     rows = [audit_subject(s) for s in range(70, 110)]
+    add_usage(rows)
     with open(ROOT / "audit.csv", "w", newline="") as fh:
         w = csv.DictWriter(fh, fieldnames=list(rows[0])); w.writeheader(); w.writerows(rows)
     for r in rows:
