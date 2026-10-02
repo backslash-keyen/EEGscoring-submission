@@ -1,0 +1,41 @@
+subject,runs_loaded,sfreq_hz,duration_s,n_left,n_right,event_code_meaning,cue_s,alpha_peak_hz,anomalies,action
+70,"4,8,12",160.0,369.0,22,23,"T0=rest,T1=imagine left fist,T2=imagine right fist",[4.1],10.33,none,kept as is
+71,"4,8,12",160.0,375.0,22,23,"T0=rest,T1=imagine left fist,T2=imagine right fist",[4.1],7.67,none,kept as is
+72,"4,8,12",160.0,370.0,22,23,"T0=rest,T1=imagine left fist,T2=imagine right fist","[4.0, 4.1]",11.33,none,kept as is
+73,"4,8,12",160.0,369.0,23,22,"T0=rest,T1=imagine left fist,T2=imagine right fist","[4.0, 4.1]",9.5,none,kept as is
+74,"4,8,12",160.0,370.0,24,21,"T0=rest,T1=imagine left fist,T2=imagine right fist","[4.0, 4.1]",10.17,none,kept as is
+75,"4,8,12",160.0,369.0,22,23,"T0=rest,T1=imagine left fist,T2=imagine right fist",[4.1],8.17,none,kept as is
+76,"4,8,12",160.0,369.0,23,22,"T0=rest,T1=imagine left fist,T2=imagine right fist","[4.0, 4.1]",10.67,none,kept as is
+77,"4,8,12",160.0,369.0,21,24,"T0=rest,T1=imagine left fist,T2=imagine right fist",[4.1],7.5,none,kept as is
+78,"4,8,12",160.0,369.0,23,22,"T0=rest,T1=imagine left fist,T2=imagine right fist",[4.1],10.67,none,kept as is
+79,"4,8,12",160.0,375.0,22,23,"T0=rest,T1=imagine left fist,T2=imagine right fist",[4.1],9.83,none,kept as is
+80,"4,8,12",160.0,369.0,23,22,"T0=rest,T1=imagine left fist,T2=imagine right fist",[4.1],10.0,none,kept as is
+81,"4,8,12",160.0,369.0,22,23,"T0=rest,T1=imagine left fist,T2=imagine right fist",[4.1],9.5,none,kept as is
+82,"4,8,12",160.0,369.0,23,22,"T0=rest,T1=imagine left fist,T2=imagine right fist",[4.1],10.0,none,kept as is
+83,"4,8,12",160.0,375.0,22,23,"T0=rest,T1=imagine left fist,T2=imagine right fist",[4.1],10.0,none,kept as is
+84,"4,8,12",160.0,369.0,23,22,"T0=rest,T1=imagine left fist,T2=imagine right fist",[4.1],9.17,none,kept as is
+85,"4,8,12",160.0,369.0,23,22,"T0=rest,T1=imagine left fist,T2=imagine right fist",[4.1],8.0,none,kept as is
+86,"4,8,12",160.0,375.0,22,23,"T0=rest,T1=imagine left fist,T2=imagine right fist",[4.1],7.5,none,kept as is
+87,"4,8,12",160.0,369.0,22,23,"T0=rest,T1=imagine left fist,T2=imagine right fist",[4.1],10.17,none,kept as is
+88,"4,8,12",128.0,372.0,29,28,"T0=rest,T1=imagine left fist,T2=imagine right fist",[5.12],6.55,header rate [128.0] Hz,"KEEP; resample 128->160 Hz in preprocessing. Alpha-peak check (header rate) does not show the 0.8x shift a mislabelled 160 Hz file would give for all three, and 128 Hz runs have 19 trials/run at 5.12 s cues, i.e. a different protocol rather than a wrong header"
+89,"4,8,12",160.0,369.0,24,21,"T0=rest,T1=imagine left fist,T2=imagine right fist","[4.1, 4.15]",7.83,none,kept as is
+90,"4,8,12",160.0,369.0,22,23,"T0=rest,T1=imagine left fist,T2=imagine right fist",[4.1],11.0,none,kept as is
+91,"4,8,12",160.0,369.0,22,23,"T0=rest,T1=imagine left fist,T2=imagine right fist",[4.1],8.67,none,kept as is
+92,"4,8,12",128.0,372.0,27,30,"T0=rest,T1=imagine left fist,T2=imagine right fist",[5.12],9.7,header rate [128.0] Hz,"KEEP; resample 128->160 Hz in preprocessing. Alpha-peak check (header rate) does not show the 0.8x shift a mislabelled 160 Hz file would give for all three, and 128 Hz runs have 19 trials/run at 5.12 s cues, i.e. a different protocol rather than a wrong header"
+93,"4,8,12",160.0,369.0,23,22,"T0=rest,T1=imagine left fist,T2=imagine right fist",[4.1],11.33,none,kept as is
+94,"4,8,12",160.0,369.0,22,23,"T0=rest,T1=imagine left fist,T2=imagine right fist",[4.1],12.33,none,kept as is
+95,"4,8,12",160.0,375.0,23,22,"T0=rest,T1=imagine left fist,T2=imagine right fist",[4.1],11.17,none,kept as is
+96,"4,8,12",160.0,375.0,23,22,"T0=rest,T1=imagine left fist,T2=imagine right fist",[4.1],9.0,none,kept as is
+97,"4,8,12",160.0,369.0,23,22,"T0=rest,T1=imagine left fist,T2=imagine right fist",[4.1],8.0,none,kept as is
+98,"4,8,12",160.0,369.0,23,22,"T0=rest,T1=imagine left fist,T2=imagine right fist",[4.1],10.33,none,kept as is
+99,"4,8,12",160.0,369.0,22,23,"T0=rest,T1=imagine left fist,T2=imagine right fist",[4.1],8.67,none,kept as is
+100,"4,8,12",128.0,369.0,18,18,"T0=rest,T1=imagine left fist,T2=imagine right fist","[5.1, 5.12]",10.83,R4: 6L/6R trials; R8: 6L/6R trials; R12: 6L/6R trials; header rate [128.0] Hz,"KEEP; resample 128->160 Hz in preprocessing. Alpha-peak check (header rate) does not show the 0.8x shift a mislabelled 160 Hz file would give for all three, and 128 Hz runs have 19 trials/run at 5.12 s cues, i.e. a different protocol rather than a wrong header; only 6 L + 6 R per run (18 each), kept, flagged for low per-subject trial count"
+101,"4,8,12",160.0,375.0,22,23,"T0=rest,T1=imagine left fist,T2=imagine right fist",[4.1],8.33,none,kept as is
+102,"4,8,12",160.0,369.0,22,23,"T0=rest,T1=imagine left fist,T2=imagine right fist","[4.0, 4.1]",6.5,none,kept as is
+103,"4,8,12",160.0,375.0,22,23,"T0=rest,T1=imagine left fist,T2=imagine right fist",[4.1],10.33,none,kept as is
+104,"4,8,12",160.0,352.0,22,21,"T0=rest,T1=imagine left fist,T2=imagine right fist","[2.98, 4.1]",10.0,"R8: 7L/6R trials; run durations [123.0, 106.0, 123.0] s differ; cue lengths [2.98] s","KEEP; drop only the final T1 trial of run 8 (cue 2.98 s: recording ends mid-cue, shorter than the analysis window)"
+105,"4,8,12",160.0,369.0,23,22,"T0=rest,T1=imagine left fist,T2=imagine right fist",[4.1],7.83,none,kept as is
+106,"4,8,12",160.0,375.0,24,21,"T0=rest,T1=imagine left fist,T2=imagine right fist",[4.1],9.83,none,kept as is
+107,"4,8,12",160.0,375.0,24,21,"T0=rest,T1=imagine left fist,T2=imagine right fist",[4.1],10.0,none,kept as is
+108,"4,8,12",160.0,369.0,22,23,"T0=rest,T1=imagine left fist,T2=imagine right fist",[4.1],10.33,none,kept as is
+109,"4,8,12",160.0,369.0,23,22,"T0=rest,T1=imagine left fist,T2=imagine right fist",[4.1],8.17,none,kept as is
