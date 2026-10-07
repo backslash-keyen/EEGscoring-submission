@@ -1,0 +1,35 @@
+{'filter': 'zero-phase', 'decoder': 'F1', 'pooled_xs_acc': np.float64(0.743446737311768)}
+{'filter': 'zero-phase', 'decoder': 'F1_pre', 'pooled_xs_acc': np.float64(0.6123814835471277)}
+{'filter': 'zero-phase', 'decoder': 'F2', 'pooled_xs_acc': np.float64(0.649191299498048)}
+{'filter': 'zero-phase', 'decoder': 'O1', 'pooled_xs_acc': np.float64(0.6012269938650306)}
+{'filter': 'zero-phase', 'decoder': 'O1_pre', 'pooled_xs_acc': np.float64(0.5488008923591746)}
+{'filter': 'zero-phase', 'decoder': 'N2', 'pooled_xs_acc': np.float64(0.7534857780256553)}
+{'filter': 'zero-phase', 'decoder': 'N2_pre', 'pooled_xs_acc': np.float64(0.5950920245398773)}
+{'filter': 'zero-phase', 'decoder': 'M1', 'pooled_xs_acc': np.float64(0.5465699944227551)}
+{'filter': 'zero-phase', 'decoder': 'M1_pre', 'pooled_xs_acc': np.float64(0.509760178471835)}
+{'filter': 'zero-phase', 'decoder': 'A1', 'pooled_xs_acc': np.float64(0.5554935861684328)}
+{'filter': 'zero-phase', 'decoder': 'A1_pre', 'pooled_xs_acc': np.float64(0.520914668153932)}
+{'filter': 'minimum-phase', 'decoder': 'F1', 'pooled_xs_acc': np.float64(0.7189068600111544)}
+{'filter': 'minimum-phase', 'decoder': 'F1_pre', 'pooled_xs_acc': np.float64(0.48243167875069715)}
+{'filter': 'minimum-phase', 'decoder': 'F2', 'pooled_xs_acc': np.float64(0.7534857780256553)}
+{'filter': 'minimum-phase', 'decoder': 'O1', 'pooled_xs_acc': np.float64(0.5934188510875628)}
+{'filter': 'minimum-phase', 'decoder': 'O1_pre', 'pooled_xs_acc': np.float64(0.49693251533742333)}
+{'filter': 'minimum-phase', 'decoder': 'N2', 'pooled_xs_acc': np.float64(0.7060791968767429)}
+{'filter': 'minimum-phase', 'decoder': 'N2_pre', 'pooled_xs_acc': np.float64(0.4880089235917457)}
+{'filter': 'minimum-phase', 'decoder': 'M1', 'pooled_xs_acc': np.float64(0.5460122699386503)}
+{'filter': 'minimum-phase', 'decoder': 'M1_pre', 'pooled_xs_acc': np.float64(0.5220301171221416)}
+{'filter': 'minimum-phase', 'decoder': 'A1', 'pooled_xs_acc': np.float64(0.5538204127161183)}
+{'filter': 'minimum-phase', 'decoder': 'A1_pre', 'pooled_xs_acc': np.float64(0.524261015058561)}
+filter   minimum-phase  zero-phase
+decoder                           
+A1               0.554       0.555
+A1_pre           0.524       0.521
+F1               0.719       0.743
+F1_pre           0.482       0.612
+F2               0.753       0.649
+M1               0.546       0.547
+M1_pre           0.522       0.510
+N2               0.706       0.753
+N2_pre           0.488       0.595
+O1               0.593       0.601
+O1_pre           0.497       0.549

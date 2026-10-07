@@ -148,8 +148,8 @@ def binom_thr(n, alpha=ALPHA):
     return k / n
 
 
-def subject_job(s, dec_ids, smoke, n_perm):
-    D = data.load_subject(s)
+def subject_job(s, dec_ids, smoke, n_perm, causal):
+    D = data.load_subject(s, causal)
     names = list(D["ch_names"])
     X = D["X"].astype(np.float64)
     y, run = D["y"], D["run"]
@@ -171,13 +171,13 @@ def subject_job(s, dec_ids, smoke, n_perm):
     return rows
 
 
-def cross_subject(dec_ids, subjects, smoke, n_perm):
+def cross_subject(dec_ids, subjects, smoke, n_perm, causal):
     """Pooled cross-subject accuracy with 8 subject-wise folds (D10); fixed fold assignment seed 0."""
     nf = min(N_FOLDS, len(subjects))   # only the smoke run (2 subjects) has fewer subjects than folds
     folds_of = {s: i % nf for i, s in enumerate(np.random.default_rng(0).permutation(subjects))}
     F, Y, R, S = {k: [] for k in dec_ids}, [], [], []
     for s in subjects:
-        D = data.load_subject(s)
+        D = data.load_subject(s, causal)
         names, X, y, run = list(D["ch_names"]), D["X"].astype(np.float64), D["y"], D["run"]
         if smoke:
             y = perm_labels(y, run, np.random.default_rng(10_000 + s))
@@ -250,13 +250,14 @@ def main():
     n_perm, n_pool = (5, 4) if smoke else (N_PERM_SUBJ, N_PERM_POOL)
     names = list(data.load_subject(subjects[0])["ch_names"])
     dec_ids = list(decoder_specs(names)) + ["R1", "R2", "R12"]
-    tag = "smoke_" if smoke else ""
+    causal = "--causal" in sys.argv   # minimum-phase pre-filter (DECISIONS D14); default = zero-phase run reported first
+    tag = ("smoke_" if smoke else "") + ("causal_" if causal else "")
 
-    res = Parallel(n_jobs=-1)(delayed(subject_job)(s, dec_ids, smoke, n_perm) for s in subjects)
+    res = Parallel(n_jobs=-1)(delayed(subject_job)(s, dec_ids, smoke, n_perm, causal) for s in subjects)
     within = pd.DataFrame([r for rows in res for r in rows])
     within.to_csv(OUT / f"{tag}a3_within_subject.csv", index=False)
 
-    xs, xs_sub = cross_subject(dec_ids, subjects, smoke, n_pool)
+    xs, xs_sub = cross_subject(dec_ids, subjects, smoke, n_pool, causal)
     xs.to_csv(OUT / f"{tag}a3_cross_subject.csv", index=False)
     xs_sub.to_csv(OUT / f"{tag}a3_cross_subject_per_subject.csv", index=False)
 
@@ -278,11 +279,11 @@ def main():
         lat = pd.read_csv(OUT / "a2_lateralisation.csv")[["subject", "mu_LI", "mu_p", "beta_LI", "beta_p", "label"]]
         wide = within.pivot(index="subject", columns="decoder", values="acc").add_prefix("acc_")
         thr = within.groupby("subject").thr_binom.first().rename("thr_binom")
-        pd.concat([lat.set_index("subject"), thr, wide], axis=1).reset_index().to_csv(OUT / "a3_per_subject_table.csv", index=False)
-        plot_summary(g, within)
+        pd.concat([lat.set_index("subject"), thr, wide], axis=1).reset_index().to_csv(OUT / f"{tag}a3_per_subject_table.csv", index=False)
+        plot_summary(g, within, tag)
 
 
-def plot_summary(g, within):
+def plot_summary(g, within, tag):
     ids = [d for d in ["F1", "F2", "O1", "O2", "G1", "N1", "N2", "R1", "R2", "R12", "M1", "A1"]]
     fig, ax = plt.subplots(figsize=(11, 4.5))
     for i, d in enumerate(ids):
@@ -296,7 +297,7 @@ def plot_summary(g, within):
     ax.set_xticks(range(len(ids))); ax.set_xticklabels(ids)
     ax.set_ylabel("within-subject leave-one-run-out accuracy")
     ax.set_title("A3: one dot per subject, black = mean, red dotted = mean of pre-cue twin (should be ~0.5)")
-    fig.savefig(OUT / "a3_within_subject.png", dpi=110, bbox_inches="tight")
+    fig.savefig(OUT / f"{tag}a3_within_subject.png", dpi=110, bbox_inches="tight")
     plt.close(fig)
 
 
