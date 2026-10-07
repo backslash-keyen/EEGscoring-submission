@@ -1,7 +1,7 @@
 """A3: confound audit. Restricted-channel / -band / -time decoders for every non-motor route that could separate left from right
 trials, each with an exact binomial chance threshold and a label-permutation check (DECISIONS D8-D13).
 
-python task1/confound.py            real labels (writes outputs/a3_*.csv, a3_*.png)
+python task1/confound.py            real labels, causal filter (writes outputs/a3_*.csv, a3_*.png); add --zero-phase for the first pass
 python task1/confound.py --smoke    2 subjects, labels shuffled within run, few permutations: tests the code without reading results
 """
 import sys, warnings
@@ -250,8 +250,8 @@ def main():
     n_perm, n_pool = (5, 4) if smoke else (N_PERM_SUBJ, N_PERM_POOL)
     names = list(data.load_subject(subjects[0])["ch_names"])
     dec_ids = list(decoder_specs(names)) + ["R1", "R2", "R12"]
-    causal = "--causal" in sys.argv   # minimum-phase pre-filter (DECISIONS D14); default = zero-phase run reported first
-    tag = ("smoke_" if smoke else "") + ("causal_" if causal else "")
+    causal = "--zero-phase" not in sys.argv   # default = minimum-phase pre-filter (DECISIONS D14); --zero-phase reproduces the first pass
+    tag = ("smoke_" if smoke else "") + ("" if causal else "firstpass_zerophase_")
 
     res = Parallel(n_jobs=-1)(delayed(subject_job)(s, dec_ids, smoke, n_perm, causal) for s in subjects)
     within = pd.DataFrame([r for rows in res for r in rows])

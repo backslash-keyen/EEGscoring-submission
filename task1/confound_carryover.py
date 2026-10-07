@@ -4,7 +4,7 @@ Separates "decoder reads the current cue" from "decoder reads carry-over of the 
 labels tend to alternate". Carry-over decoders are right on alternating trials and WRONG on repeat trials; cue decoders are right on both.
 Also trains with (current, previous) cell-balanced sample weights so the shortcut cannot be learned at all.
 
-python task1/confound_carryover.py [--causal]
+python task1/confound_carryover.py [--zero-phase]
 """
 import sys
 from pathlib import Path
@@ -17,8 +17,8 @@ from joblib import Parallel, delayed
 sys.path.insert(0, str(Path(__file__).parent))
 import data, confound as C
 
-CAUSAL = "--causal" in sys.argv
-TAG = "causal_" if CAUSAL else ""
+CAUSAL = "--zero-phase" not in sys.argv
+TAG = "" if CAUSAL else "firstpass_zerophase_"
 DEC = ["F1", "F1_pre", "F2", "O1", "O1_pre", "O2", "G1", "N1", "N2", "N2_pre", "M1", "A1"]
 
 
