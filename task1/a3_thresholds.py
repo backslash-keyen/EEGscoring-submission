@@ -1,4 +1,4 @@
-"""Chance thresholds for the A3 follow-up accuracies that had only a z-score or a dotted line (DECISIONS D11).
+"""Chance thresholds for the A3 follow-up accuracies that had only a z-score or a dotted line (DECISIONS D15).
 Every number is the exact one-sided binomial 5% threshold for that trial count, p0 = 0.5: the smallest k/n with P(X >= k) <= 0.05.
 For the repeat/alternate 'balanced' accuracy (mean of two independent proportions) there is no exact binomial; the threshold is the
 normal approximation 0.5 + 1.645 * SE, SE = 0.5 * sqrt(0.25/n_rep + 0.25/n_alt).   python task1/a3_thresholds.py"""

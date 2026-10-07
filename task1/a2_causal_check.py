@@ -1,4 +1,4 @@
-"""A2 re-check on the minimum-phase (causal) pre-filter (DECISIONS D14): does the zero-phase filter change the lateralisation labels?
+"""A2 re-check on the minimum-phase (causal) pre-filter (DECISIONS D18): does the zero-phase filter change the lateralisation labels?
 Laplacian reference only (the A2 primary). Compares with outputs/a2_lateralisation.csv.   python task1/a2_causal_check.py"""
 import sys
 from pathlib import Path

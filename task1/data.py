@@ -5,7 +5,7 @@ import numpy as np, mne
 mne.set_log_level("ERROR")
 ROOT = Path(__file__).resolve().parents[1]
 CACHE = ROOT / "data" / "cache"
-CACHE_CAUSAL = ROOT / "data" / "cache_causal"   # minimum-phase filter: nothing spreads backwards in time (DECISIONS D14)
+CACHE_CAUSAL = ROOT / "data" / "cache_causal"   # minimum-phase filter: nothing spreads backwards in time (DECISIONS D18)
 RUNS = [4, 8, 12]            # imagery left/right fist; verified in wiki/dataset.md
 SUBJECTS = list(range(70, 110))
 FS = 160.0

@@ -1,4 +1,4 @@
-"""A3 follow-up (POST-HOC, added after the first pass showed label order is not random; DECISIONS D14).
+"""A3 follow-up (POST-HOC, added after the first pass showed label order is not random; DECISIONS D18).
 
 Separates "decoder reads the current cue" from "decoder reads carry-over of the previous trial and exploits that consecutive
 labels tend to alternate". Carry-over decoders are right on alternating trials and WRONG on repeat trials; cue decoders are right on both.
