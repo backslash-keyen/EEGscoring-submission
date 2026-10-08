@@ -76,7 +76,7 @@ def evaluate(model, X, y, bs=256):
 
 
 def fit(model_name, test_fold, seed=0, n_train=None, epochs=150, patience=20, lr=1e-3, bs=64, log=print,
-        transform=None, model_kw=None, shuffle_labels=False, augment=None):
+        transform=None, model_kw=None, shuffle_labels=False, augment=None, history=None):
     """Train one model on one split. transform(X, subj) -> X lets B2 experiments alter inputs (e.g. remove a confound)
     identically for train/val/test. Returns (model, norm, result dict, per-trial test DataFrame)."""
     tr_s, va_s, te_s = split(test_fold, n_train, seed)
@@ -97,6 +97,7 @@ def fit(model_name, test_fold, seed=0, n_train=None, epochs=150, patience=20, lr
     best, best_state, wait, t0 = np.inf, None, 0, time.time()
     for ep in range(epochs):
         model.train()
+        tr_loss = []
         for idx in torch.randperm(len(Xtr), generator=gen).split(bs):
             i = idx.numpy()
             xb = Xtr[i] if augment is None else norm(augment(Xraw[i])).astype(np.float32)
@@ -105,7 +106,10 @@ def fit(model_name, test_fold, seed=0, n_train=None, epochs=150, patience=20, lr
             loss.backward()
             opt.step()
             model.apply_max_norm()
+            tr_loss.append(loss.item())
         vl, va, _ = evaluate(model, Xva, yva)
+        if history is not None:   # per-epoch curve, only for diagnostics
+            history.append(dict(epoch=ep, train_loss=float(np.mean(tr_loss)), val_loss=vl, val_acc=va))
         # early stopping on validation-subject loss only; the test fold is never looked at during training
         if vl < best - 1e-4:
             best, best_ep, wait = vl, ep, 0

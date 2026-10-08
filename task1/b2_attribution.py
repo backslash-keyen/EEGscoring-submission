@@ -82,6 +82,8 @@ def main():
         for model_name in (best, "eegnet"):
             for seed in b2_run.SEEDS:
                 jid = f"base_{model_name}_f{f}_s{seed}_n30"
+                if not (b2_run.RUNS / f"{jid}.pt").exists():
+                    continue   # lets the script run on a partial grid; the final run has every seed
                 m, norm, r = load_model(jid)
                 x = torch.from_numpy(norm(X).astype(np.float32))
                 with torch.no_grad():
