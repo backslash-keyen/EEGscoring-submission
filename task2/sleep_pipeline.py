@@ -186,7 +186,7 @@ def main():
           f"val: {len(val_s)} / {len(val_files)}  test: {len(test_s)} / {len(test_files)}")
 
     train_ds = SeqDataset([load_recording(*f) for f in train_files])
-    val_ds = SeqDataset([load_recording(*f) for f in val_files])   # not used until model selection is fixed
+    val_ds = SeqDataset([load_recording(*f) for f in val_files])
     test_ds = SeqDataset([load_recording(*f) for f in test_files])
 
     y_train = np.array([train_ds.recs[r][1][i + SEQ_LEN - 1] for r, i in train_ds.index])
@@ -209,9 +209,10 @@ def main():
             loss = loss_fn(model(xb), yb)
             loss.backward()
             opt.step()
-        y_true, y_pred = predict(model, test_ds)
+        # pick the epoch on VALIDATION subjects; the test subjects are scored once, below
+        y_true, y_pred = predict(model, val_ds)
         f1 = f1_score(y_true, y_pred, average="macro")
-        print(f"epoch {ep:2d}  loss {loss.item():.3f}  macro-F1 {f1:.3f}")
+        print(f"epoch {ep:2d}  loss {loss.item():.3f}  val macro-F1 {f1:.3f}")
         if f1 > best_f1:
             best_f1 = f1
             best_state = {k: v.clone() for k, v in model.state_dict().items()}
