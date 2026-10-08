@@ -18,16 +18,16 @@ TOKEN_MODELS = ["tf_time", "tf_chan_id", "tf_chan_noid"]
 
 
 def jobs(stage):
-    """Priority order: the 30-subject runs are shared by scaling, tokenisation, displacement and attribution."""
+    """Priority order, one seed at a time: if the deadline cuts the grid, a whole seed is missing, never a whole experiment.
+    Within a seed the 30-subject runs come first (shared by scaling, tokenisation, displacement and attribution)."""
     J = []
-    if stage in ("base", "all"):
-        for seed in SEEDS:
+    for seed in SEEDS:
+        if stage in ("base", "all"):
             for m in ["eegnet"] + TOKEN_MODELS:
                 J += [("base", m, f, seed, 30) for f in FOLDS]
             for n in SIZES[:-1]:
                 J += [("base", m, f, seed, n) for m in SCALING_MODELS for f in FOLDS]
-    if stage in ("extra", "all"):
-        for seed in SEEDS:
+        if stage in ("extra", "all"):
             J += [("noconf", m, f, seed, 30) for m in SCALING_MODELS for f in FOLDS]
             J += [("aug", "eegnet", f, seed, 30) for f in FOLDS]
     return J
