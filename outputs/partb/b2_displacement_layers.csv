@@ -31,6 +31,22 @@ aug_eegnet_f0_s1_n30,eegnet,aug,posterior,temporal,0.0992853119969368
 aug_eegnet_f0_s1_n30,eegnet,aug,posterior,spatial (depthwise),0.1083021014928817
 aug_eegnet_f0_s1_n30,eegnet,aug,posterior,block2,0.1437072306871414
 aug_eegnet_f0_s1_n30,eegnet,aug,posterior,logits,0.0719504356384277
+aug_eegnet_f0_s2_n30,eegnet,aug,right,temporal,0.1059013977646827
+aug_eegnet_f0_s2_n30,eegnet,aug,right,spatial (depthwise),0.1350633054971695
+aug_eegnet_f0_s2_n30,eegnet,aug,right,block2,0.239418938755989
+aug_eegnet_f0_s2_n30,eegnet,aug,right,logits,0.1557637900114059
+aug_eegnet_f0_s2_n30,eegnet,aug,left,temporal,0.1043945401906967
+aug_eegnet_f0_s2_n30,eegnet,aug,left,spatial (depthwise),0.1332908123731613
+aug_eegnet_f0_s2_n30,eegnet,aug,left,block2,0.2394161969423294
+aug_eegnet_f0_s2_n30,eegnet,aug,left,logits,0.1437165588140487
+aug_eegnet_f0_s2_n30,eegnet,aug,anterior,temporal,0.1032752320170402
+aug_eegnet_f0_s2_n30,eegnet,aug,anterior,spatial (depthwise),0.1117217093706131
+aug_eegnet_f0_s2_n30,eegnet,aug,anterior,block2,0.1495138108730316
+aug_eegnet_f0_s2_n30,eegnet,aug,anterior,logits,0.0887428596615791
+aug_eegnet_f0_s2_n30,eegnet,aug,posterior,temporal,0.0995269790291786
+aug_eegnet_f0_s2_n30,eegnet,aug,posterior,spatial (depthwise),0.1083068251609802
+aug_eegnet_f0_s2_n30,eegnet,aug,posterior,block2,0.1453610211610794
+aug_eegnet_f0_s2_n30,eegnet,aug,posterior,logits,0.0878139063715934
 aug_eegnet_f1_s0_n30,eegnet,aug,right,temporal,0.12451783567667
 aug_eegnet_f1_s0_n30,eegnet,aug,right,spatial (depthwise),0.1711972057819366
 aug_eegnet_f1_s0_n30,eegnet,aug,right,block2,0.2621701657772064
@@ -63,6 +79,22 @@ aug_eegnet_f1_s1_n30,eegnet,aug,posterior,temporal,0.1148295551538467
 aug_eegnet_f1_s1_n30,eegnet,aug,posterior,spatial (depthwise),0.1683267205953598
 aug_eegnet_f1_s1_n30,eegnet,aug,posterior,block2,0.1671091765165329
 aug_eegnet_f1_s1_n30,eegnet,aug,posterior,logits,0.0792618691921234
+aug_eegnet_f1_s2_n30,eegnet,aug,right,temporal,0.126546710729599
+aug_eegnet_f1_s2_n30,eegnet,aug,right,spatial (depthwise),0.1581752747297287
+aug_eegnet_f1_s2_n30,eegnet,aug,right,block2,0.247698426246643
+aug_eegnet_f1_s2_n30,eegnet,aug,right,logits,0.1389782279729843
+aug_eegnet_f1_s2_n30,eegnet,aug,left,temporal,0.1255190074443817
+aug_eegnet_f1_s2_n30,eegnet,aug,left,spatial (depthwise),0.1565051227807998
+aug_eegnet_f1_s2_n30,eegnet,aug,left,block2,0.2367561012506485
+aug_eegnet_f1_s2_n30,eegnet,aug,left,logits,0.1341826170682907
+aug_eegnet_f1_s2_n30,eegnet,aug,anterior,temporal,0.1224268600344657
+aug_eegnet_f1_s2_n30,eegnet,aug,anterior,spatial (depthwise),0.1352802067995071
+aug_eegnet_f1_s2_n30,eegnet,aug,anterior,block2,0.1633781343698501
+aug_eegnet_f1_s2_n30,eegnet,aug,anterior,logits,0.0737204328179359
+aug_eegnet_f1_s2_n30,eegnet,aug,posterior,temporal,0.1167686432600021
+aug_eegnet_f1_s2_n30,eegnet,aug,posterior,spatial (depthwise),0.1311903595924377
+aug_eegnet_f1_s2_n30,eegnet,aug,posterior,block2,0.1592632830142974
+aug_eegnet_f1_s2_n30,eegnet,aug,posterior,logits,0.0713641345500946
 aug_eegnet_f2_s0_n30,eegnet,aug,right,temporal,0.1228407397866249
 aug_eegnet_f2_s0_n30,eegnet,aug,right,spatial (depthwise),0.1841224431991577
 aug_eegnet_f2_s0_n30,eegnet,aug,right,block2,0.1684655547142028
@@ -95,6 +127,22 @@ aug_eegnet_f2_s1_n30,eegnet,aug,posterior,temporal,0.124832883477211
 aug_eegnet_f2_s1_n30,eegnet,aug,posterior,spatial (depthwise),0.1515809893608093
 aug_eegnet_f2_s1_n30,eegnet,aug,posterior,block2,0.1392421573400497
 aug_eegnet_f2_s1_n30,eegnet,aug,posterior,logits,0.1056593507528305
+aug_eegnet_f2_s2_n30,eegnet,aug,right,temporal,0.1238178163766861
+aug_eegnet_f2_s2_n30,eegnet,aug,right,spatial (depthwise),0.1360218971967697
+aug_eegnet_f2_s2_n30,eegnet,aug,right,block2,0.163053423166275
+aug_eegnet_f2_s2_n30,eegnet,aug,right,logits,0.1538332402706146
+aug_eegnet_f2_s2_n30,eegnet,aug,left,temporal,0.123255543410778
+aug_eegnet_f2_s2_n30,eegnet,aug,left,spatial (depthwise),0.133745938539505
+aug_eegnet_f2_s2_n30,eegnet,aug,left,block2,0.1651976704597473
+aug_eegnet_f2_s2_n30,eegnet,aug,left,logits,0.1527160853147506
+aug_eegnet_f2_s2_n30,eegnet,aug,anterior,temporal,0.1235942170023918
+aug_eegnet_f2_s2_n30,eegnet,aug,anterior,spatial (depthwise),0.118736483156681
+aug_eegnet_f2_s2_n30,eegnet,aug,anterior,block2,0.1207107305526733
+aug_eegnet_f2_s2_n30,eegnet,aug,anterior,logits,0.0982344225049018
+aug_eegnet_f2_s2_n30,eegnet,aug,posterior,temporal,0.125477448105812
+aug_eegnet_f2_s2_n30,eegnet,aug,posterior,spatial (depthwise),0.1217895895242691
+aug_eegnet_f2_s2_n30,eegnet,aug,posterior,block2,0.1301302164793014
+aug_eegnet_f2_s2_n30,eegnet,aug,posterior,logits,0.1044404879212379
 aug_eegnet_f3_s0_n30,eegnet,aug,right,temporal,0.1688113212585449
 aug_eegnet_f3_s0_n30,eegnet,aug,right,spatial (depthwise),0.2460605800151825
 aug_eegnet_f3_s0_n30,eegnet,aug,right,block2,0.2537615001201629
@@ -111,6 +159,38 @@ aug_eegnet_f3_s0_n30,eegnet,aug,posterior,temporal,0.192530557513237
 aug_eegnet_f3_s0_n30,eegnet,aug,posterior,spatial (depthwise),0.2491004914045334
 aug_eegnet_f3_s0_n30,eegnet,aug,posterior,block2,0.2324906289577484
 aug_eegnet_f3_s0_n30,eegnet,aug,posterior,logits,0.0945260524749755
+aug_eegnet_f3_s1_n30,eegnet,aug,right,temporal,0.167811781167984
+aug_eegnet_f3_s1_n30,eegnet,aug,right,spatial (depthwise),0.2205688059329986
+aug_eegnet_f3_s1_n30,eegnet,aug,right,block2,0.2506239414215088
+aug_eegnet_f3_s1_n30,eegnet,aug,right,logits,0.1235423758625984
+aug_eegnet_f3_s1_n30,eegnet,aug,left,temporal,0.165366917848587
+aug_eegnet_f3_s1_n30,eegnet,aug,left,spatial (depthwise),0.2157682180404663
+aug_eegnet_f3_s1_n30,eegnet,aug,left,block2,0.2409298121929168
+aug_eegnet_f3_s1_n30,eegnet,aug,left,logits,0.1281583607196808
+aug_eegnet_f3_s1_n30,eegnet,aug,anterior,temporal,0.1933054476976394
+aug_eegnet_f3_s1_n30,eegnet,aug,anterior,spatial (depthwise),0.2306787669658661
+aug_eegnet_f3_s1_n30,eegnet,aug,anterior,block2,0.2179324030876159
+aug_eegnet_f3_s1_n30,eegnet,aug,anterior,logits,0.109435923397541
+aug_eegnet_f3_s1_n30,eegnet,aug,posterior,temporal,0.1931850314140319
+aug_eegnet_f3_s1_n30,eegnet,aug,posterior,spatial (depthwise),0.2374043315649032
+aug_eegnet_f3_s1_n30,eegnet,aug,posterior,block2,0.2250869572162628
+aug_eegnet_f3_s1_n30,eegnet,aug,posterior,logits,0.1102858856320381
+aug_eegnet_f3_s2_n30,eegnet,aug,right,temporal,0.1713232398033142
+aug_eegnet_f3_s2_n30,eegnet,aug,right,spatial (depthwise),0.1862092018127441
+aug_eegnet_f3_s2_n30,eegnet,aug,right,block2,0.2457813620567321
+aug_eegnet_f3_s2_n30,eegnet,aug,right,logits,0.1209840476512909
+aug_eegnet_f3_s2_n30,eegnet,aug,left,temporal,0.1689275503158569
+aug_eegnet_f3_s2_n30,eegnet,aug,left,spatial (depthwise),0.1792221963405609
+aug_eegnet_f3_s2_n30,eegnet,aug,left,block2,0.2413678467273712
+aug_eegnet_f3_s2_n30,eegnet,aug,left,logits,0.1229660511016845
+aug_eegnet_f3_s2_n30,eegnet,aug,anterior,temporal,0.1967687904834747
+aug_eegnet_f3_s2_n30,eegnet,aug,anterior,spatial (depthwise),0.191055953502655
+aug_eegnet_f3_s2_n30,eegnet,aug,anterior,block2,0.2171067595481872
+aug_eegnet_f3_s2_n30,eegnet,aug,anterior,logits,0.0960781201720237
+aug_eegnet_f3_s2_n30,eegnet,aug,posterior,temporal,0.1968278586864471
+aug_eegnet_f3_s2_n30,eegnet,aug,posterior,spatial (depthwise),0.1864445954561233
+aug_eegnet_f3_s2_n30,eegnet,aug,posterior,block2,0.219485729932785
+aug_eegnet_f3_s2_n30,eegnet,aug,posterior,logits,0.1106282770633697
 base_eegnet_f0_s0_n30,eegnet,base,right,temporal,0.1059009507298469
 base_eegnet_f0_s0_n30,eegnet,base,right,spatial (depthwise),0.1531982272863388
 base_eegnet_f0_s0_n30,eegnet,base,right,block2,0.2778114378452301
@@ -191,6 +271,22 @@ base_eegnet_f1_s1_n30,eegnet,base,posterior,temporal,0.1146849915385246
 base_eegnet_f1_s1_n30,eegnet,base,posterior,spatial (depthwise),0.1683284938335418
 base_eegnet_f1_s1_n30,eegnet,base,posterior,block2,0.1767006963491439
 base_eegnet_f1_s1_n30,eegnet,base,posterior,logits,0.0760183781385421
+base_eegnet_f1_s2_n30,eegnet,base,right,temporal,0.1267502009868621
+base_eegnet_f1_s2_n30,eegnet,base,right,spatial (depthwise),0.151028499007225
+base_eegnet_f1_s2_n30,eegnet,base,right,block2,0.2564840614795685
+base_eegnet_f1_s2_n30,eegnet,base,right,logits,0.1491106748580932
+base_eegnet_f1_s2_n30,eegnet,base,left,temporal,0.1257101744413375
+base_eegnet_f1_s2_n30,eegnet,base,left,spatial (depthwise),0.1500257849693298
+base_eegnet_f1_s2_n30,eegnet,base,left,block2,0.2488601356744766
+base_eegnet_f1_s2_n30,eegnet,base,left,logits,0.1455120295286178
+base_eegnet_f1_s2_n30,eegnet,base,anterior,temporal,0.1225271895527839
+base_eegnet_f1_s2_n30,eegnet,base,anterior,spatial (depthwise),0.1311361640691757
+base_eegnet_f1_s2_n30,eegnet,base,anterior,block2,0.1648536473512649
+base_eegnet_f1_s2_n30,eegnet,base,anterior,logits,0.0744440481066703
+base_eegnet_f1_s2_n30,eegnet,base,posterior,temporal,0.1168260648846626
+base_eegnet_f1_s2_n30,eegnet,base,posterior,spatial (depthwise),0.1262853741645813
+base_eegnet_f1_s2_n30,eegnet,base,posterior,block2,0.1609725952148437
+base_eegnet_f1_s2_n30,eegnet,base,posterior,logits,0.0718421190977096
 base_eegnet_f2_s0_n30,eegnet,base,right,temporal,0.1232556030154228
 base_eegnet_f2_s0_n30,eegnet,base,right,spatial (depthwise),0.188841238617897
 base_eegnet_f2_s0_n30,eegnet,base,right,block2,0.1741433888673782
@@ -223,6 +319,22 @@ base_eegnet_f2_s1_n30,eegnet,base,posterior,temporal,0.1241877302527427
 base_eegnet_f2_s1_n30,eegnet,base,posterior,spatial (depthwise),0.1455283313989639
 base_eegnet_f2_s1_n30,eegnet,base,posterior,block2,0.1216018870472908
 base_eegnet_f2_s1_n30,eegnet,base,posterior,logits,0.0833473578095436
+base_eegnet_f2_s2_n30,eegnet,base,right,temporal,0.1236634254455566
+base_eegnet_f2_s2_n30,eegnet,base,right,spatial (depthwise),0.1276345402002334
+base_eegnet_f2_s2_n30,eegnet,base,right,block2,0.181573137640953
+base_eegnet_f2_s2_n30,eegnet,base,right,logits,0.1691684871912002
+base_eegnet_f2_s2_n30,eegnet,base,left,temporal,0.1231586411595344
+base_eegnet_f2_s2_n30,eegnet,base,left,spatial (depthwise),0.1268037110567093
+base_eegnet_f2_s2_n30,eegnet,base,left,block2,0.1822064667940139
+base_eegnet_f2_s2_n30,eegnet,base,left,logits,0.1654024869203567
+base_eegnet_f2_s2_n30,eegnet,base,anterior,temporal,0.1238658651709556
+base_eegnet_f2_s2_n30,eegnet,base,anterior,spatial (depthwise),0.1155984476208686
+base_eegnet_f2_s2_n30,eegnet,base,anterior,block2,0.1354991942644119
+base_eegnet_f2_s2_n30,eegnet,base,anterior,logits,0.1137653514742851
+base_eegnet_f2_s2_n30,eegnet,base,posterior,temporal,0.1258374601602554
+base_eegnet_f2_s2_n30,eegnet,base,posterior,spatial (depthwise),0.118087850511074
+base_eegnet_f2_s2_n30,eegnet,base,posterior,block2,0.1482792943716049
+base_eegnet_f2_s2_n30,eegnet,base,posterior,logits,0.1227100417017936
 base_eegnet_f3_s0_n30,eegnet,base,right,temporal,0.168434590101242
 base_eegnet_f3_s0_n30,eegnet,base,right,spatial (depthwise),0.2528824806213379
 base_eegnet_f3_s0_n30,eegnet,base,right,block2,0.2701645791530609
@@ -255,6 +367,22 @@ base_eegnet_f3_s1_n30,eegnet,base,posterior,temporal,0.1946142613887787
 base_eegnet_f3_s1_n30,eegnet,base,posterior,spatial (depthwise),0.2583803236484527
 base_eegnet_f3_s1_n30,eegnet,base,posterior,block2,0.2515634894371032
 base_eegnet_f3_s1_n30,eegnet,base,posterior,logits,0.13459213078022
+base_eegnet_f3_s2_n30,eegnet,base,right,temporal,0.1704494804143905
+base_eegnet_f3_s2_n30,eegnet,base,right,spatial (depthwise),0.1916098743677139
+base_eegnet_f3_s2_n30,eegnet,base,right,block2,0.2637746036052704
+base_eegnet_f3_s2_n30,eegnet,base,right,logits,0.1360196024179458
+base_eegnet_f3_s2_n30,eegnet,base,left,temporal,0.1680493503808975
+base_eegnet_f3_s2_n30,eegnet,base,left,spatial (depthwise),0.1850862950086593
+base_eegnet_f3_s2_n30,eegnet,base,left,block2,0.2570977807044983
+base_eegnet_f3_s2_n30,eegnet,base,left,logits,0.1351808309555053
+base_eegnet_f3_s2_n30,eegnet,base,anterior,temporal,0.1955523639917373
+base_eegnet_f3_s2_n30,eegnet,base,anterior,spatial (depthwise),0.1903374791145324
+base_eegnet_f3_s2_n30,eegnet,base,anterior,block2,0.2251276820898056
+base_eegnet_f3_s2_n30,eegnet,base,anterior,logits,0.1047034710645675
+base_eegnet_f3_s2_n30,eegnet,base,posterior,temporal,0.1955728381872177
+base_eegnet_f3_s2_n30,eegnet,base,posterior,spatial (depthwise),0.1876798421144485
+base_eegnet_f3_s2_n30,eegnet,base,posterior,block2,0.2274324744939804
+base_eegnet_f3_s2_n30,eegnet,base,posterior,logits,0.1197416186332702
 base_tf_chan_id_f0_s0_n30,tf_chan_id,base,right,temporal,0.109028160572052
 base_tf_chan_id_f0_s0_n30,tf_chan_id,base,right,tokens,0.0962037071585655
 base_tf_chan_id_f0_s0_n30,tf_chan_id,base,right,cls output,0.1139489635825157
@@ -287,6 +415,22 @@ base_tf_chan_id_f0_s1_n30,tf_chan_id,base,posterior,temporal,0.1014731898903846
 base_tf_chan_id_f0_s1_n30,tf_chan_id,base,posterior,tokens,0.0916475132107734
 base_tf_chan_id_f0_s1_n30,tf_chan_id,base,posterior,cls output,0.0888972878456115
 base_tf_chan_id_f0_s1_n30,tf_chan_id,base,posterior,logits,0.1360059082508087
+base_tf_chan_id_f0_s2_n30,tf_chan_id,base,right,temporal,0.1094188764691352
+base_tf_chan_id_f0_s2_n30,tf_chan_id,base,right,tokens,0.1011118963360786
+base_tf_chan_id_f0_s2_n30,tf_chan_id,base,right,cls output,0.1488212496042251
+base_tf_chan_id_f0_s2_n30,tf_chan_id,base,right,logits,0.2030408680438995
+base_tf_chan_id_f0_s2_n30,tf_chan_id,base,left,temporal,0.1077646985650062
+base_tf_chan_id_f0_s2_n30,tf_chan_id,base,left,tokens,0.0995980650186538
+base_tf_chan_id_f0_s2_n30,tf_chan_id,base,left,cls output,0.1383992880582809
+base_tf_chan_id_f0_s2_n30,tf_chan_id,base,left,logits,0.1867757737636566
+base_tf_chan_id_f0_s2_n30,tf_chan_id,base,anterior,temporal,0.1065913066267967
+base_tf_chan_id_f0_s2_n30,tf_chan_id,base,anterior,tokens,0.09723661839962
+base_tf_chan_id_f0_s2_n30,tf_chan_id,base,anterior,cls output,0.078271247446537
+base_tf_chan_id_f0_s2_n30,tf_chan_id,base,anterior,logits,0.107770636677742
+base_tf_chan_id_f0_s2_n30,tf_chan_id,base,posterior,temporal,0.1026837825775146
+base_tf_chan_id_f0_s2_n30,tf_chan_id,base,posterior,tokens,0.0941477939486503
+base_tf_chan_id_f0_s2_n30,tf_chan_id,base,posterior,cls output,0.0812490135431289
+base_tf_chan_id_f0_s2_n30,tf_chan_id,base,posterior,logits,0.1044361591339111
 base_tf_chan_id_f1_s0_n30,tf_chan_id,base,right,temporal,0.1371627151966095
 base_tf_chan_id_f1_s0_n30,tf_chan_id,base,right,tokens,0.10470861941576
 base_tf_chan_id_f1_s0_n30,tf_chan_id,base,right,cls output,0.2260208576917648
@@ -319,6 +463,22 @@ base_tf_chan_id_f1_s1_n30,tf_chan_id,base,posterior,temporal,0.1193218305706977
 base_tf_chan_id_f1_s1_n30,tf_chan_id,base,posterior,tokens,0.1123954579234123
 base_tf_chan_id_f1_s1_n30,tf_chan_id,base,posterior,cls output,0.0906546413898468
 base_tf_chan_id_f1_s1_n30,tf_chan_id,base,posterior,logits,0.1219640672206878
+base_tf_chan_id_f1_s2_n30,tf_chan_id,base,right,temporal,0.1467192471027374
+base_tf_chan_id_f1_s2_n30,tf_chan_id,base,right,tokens,0.1039754226803779
+base_tf_chan_id_f1_s2_n30,tf_chan_id,base,right,cls output,0.2022508680820465
+base_tf_chan_id_f1_s2_n30,tf_chan_id,base,right,logits,0.2122656106948852
+base_tf_chan_id_f1_s2_n30,tf_chan_id,base,left,temporal,0.1453936845064163
+base_tf_chan_id_f1_s2_n30,tf_chan_id,base,left,tokens,0.1030719950795173
+base_tf_chan_id_f1_s2_n30,tf_chan_id,base,left,cls output,0.2161897271871566
+base_tf_chan_id_f1_s2_n30,tf_chan_id,base,left,logits,0.2693038582801819
+base_tf_chan_id_f1_s2_n30,tf_chan_id,base,anterior,temporal,0.1364249885082245
+base_tf_chan_id_f1_s2_n30,tf_chan_id,base,anterior,tokens,0.1015824601054191
+base_tf_chan_id_f1_s2_n30,tf_chan_id,base,anterior,cls output,0.1628431379795074
+base_tf_chan_id_f1_s2_n30,tf_chan_id,base,anterior,logits,0.1774807274341583
+base_tf_chan_id_f1_s2_n30,tf_chan_id,base,posterior,temporal,0.1278844028711319
+base_tf_chan_id_f1_s2_n30,tf_chan_id,base,posterior,tokens,0.0987452715635299
+base_tf_chan_id_f1_s2_n30,tf_chan_id,base,posterior,cls output,0.1527957171201706
+base_tf_chan_id_f1_s2_n30,tf_chan_id,base,posterior,logits,0.1505194455385208
 base_tf_chan_id_f2_s0_n30,tf_chan_id,base,right,temporal,0.114554576575756
 base_tf_chan_id_f2_s0_n30,tf_chan_id,base,right,tokens,0.103253424167633
 base_tf_chan_id_f2_s0_n30,tf_chan_id,base,right,cls output,0.1241402700543403
@@ -351,6 +511,22 @@ base_tf_chan_id_f2_s1_n30,tf_chan_id,base,posterior,temporal,0.1206789761781692
 base_tf_chan_id_f2_s1_n30,tf_chan_id,base,posterior,tokens,0.0936060398817062
 base_tf_chan_id_f2_s1_n30,tf_chan_id,base,posterior,cls output,0.066608190536499
 base_tf_chan_id_f2_s1_n30,tf_chan_id,base,posterior,logits,0.0990507081151008
+base_tf_chan_id_f2_s2_n30,tf_chan_id,base,right,temporal,0.1162908300757408
+base_tf_chan_id_f2_s2_n30,tf_chan_id,base,right,tokens,0.094447024166584
+base_tf_chan_id_f2_s2_n30,tf_chan_id,base,right,cls output,0.1311514377593994
+base_tf_chan_id_f2_s2_n30,tf_chan_id,base,right,logits,0.1675223708152771
+base_tf_chan_id_f2_s2_n30,tf_chan_id,base,left,temporal,0.1155241206288337
+base_tf_chan_id_f2_s2_n30,tf_chan_id,base,left,tokens,0.0944525152444839
+base_tf_chan_id_f2_s2_n30,tf_chan_id,base,left,cls output,0.1563182175159454
+base_tf_chan_id_f2_s2_n30,tf_chan_id,base,left,logits,0.2021100968122482
+base_tf_chan_id_f2_s2_n30,tf_chan_id,base,anterior,temporal,0.1146207749843597
+base_tf_chan_id_f2_s2_n30,tf_chan_id,base,anterior,tokens,0.0964942425489425
+base_tf_chan_id_f2_s2_n30,tf_chan_id,base,anterior,cls output,0.0767204910516738
+base_tf_chan_id_f2_s2_n30,tf_chan_id,base,anterior,logits,0.0891232192516326
+base_tf_chan_id_f2_s2_n30,tf_chan_id,base,posterior,temporal,0.1163125112652778
+base_tf_chan_id_f2_s2_n30,tf_chan_id,base,posterior,tokens,0.0987064838409423
+base_tf_chan_id_f2_s2_n30,tf_chan_id,base,posterior,cls output,0.076940007507801
+base_tf_chan_id_f2_s2_n30,tf_chan_id,base,posterior,logits,0.0840488597750663
 base_tf_chan_id_f3_s0_n30,tf_chan_id,base,right,temporal,0.1438953578472137
 base_tf_chan_id_f3_s0_n30,tf_chan_id,base,right,tokens,0.1787768304347992
 base_tf_chan_id_f3_s0_n30,tf_chan_id,base,right,cls output,0.134438008069992
@@ -383,6 +559,22 @@ base_tf_chan_id_f3_s1_n30,tf_chan_id,base,posterior,temporal,0.1577919572591781
 base_tf_chan_id_f3_s1_n30,tf_chan_id,base,posterior,tokens,0.1827249825000763
 base_tf_chan_id_f3_s1_n30,tf_chan_id,base,posterior,cls output,0.0952068269252777
 base_tf_chan_id_f3_s1_n30,tf_chan_id,base,posterior,logits,0.1033730134367942
+base_tf_chan_id_f3_s2_n30,tf_chan_id,base,right,temporal,0.1397428065538406
+base_tf_chan_id_f3_s2_n30,tf_chan_id,base,right,tokens,0.1652576923370361
+base_tf_chan_id_f3_s2_n30,tf_chan_id,base,right,cls output,0.1237889900803566
+base_tf_chan_id_f3_s2_n30,tf_chan_id,base,right,logits,0.1317932903766632
+base_tf_chan_id_f3_s2_n30,tf_chan_id,base,left,temporal,0.1380054801702499
+base_tf_chan_id_f3_s2_n30,tf_chan_id,base,left,tokens,0.1639230102300644
+base_tf_chan_id_f3_s2_n30,tf_chan_id,base,left,cls output,0.1383179277181625
+base_tf_chan_id_f3_s2_n30,tf_chan_id,base,left,logits,0.1561542451381683
+base_tf_chan_id_f3_s2_n30,tf_chan_id,base,anterior,temporal,0.1521504521369934
+base_tf_chan_id_f3_s2_n30,tf_chan_id,base,anterior,tokens,0.196675643324852
+base_tf_chan_id_f3_s2_n30,tf_chan_id,base,anterior,cls output,0.0938605070114135
+base_tf_chan_id_f3_s2_n30,tf_chan_id,base,anterior,logits,0.0992837399244308
+base_tf_chan_id_f3_s2_n30,tf_chan_id,base,posterior,temporal,0.1520472466945648
+base_tf_chan_id_f3_s2_n30,tf_chan_id,base,posterior,tokens,0.1959223002195358
+base_tf_chan_id_f3_s2_n30,tf_chan_id,base,posterior,cls output,0.0922481194138526
+base_tf_chan_id_f3_s2_n30,tf_chan_id,base,posterior,logits,0.0904828384518623
 base_tf_chan_noid_f0_s0_n30,tf_chan_noid,base,right,temporal,0.1061656475067138
 base_tf_chan_noid_f0_s0_n30,tf_chan_noid,base,right,tokens,0.1015698686242103
 base_tf_chan_noid_f0_s0_n30,tf_chan_noid,base,right,cls output,0.0304150711745023
@@ -415,6 +607,22 @@ base_tf_chan_noid_f0_s1_n30,tf_chan_noid,base,posterior,temporal,0.1012992486357
 base_tf_chan_noid_f0_s1_n30,tf_chan_noid,base,posterior,tokens,0.1023405715823173
 base_tf_chan_noid_f0_s1_n30,tf_chan_noid,base,posterior,cls output,0.0361459031701087
 base_tf_chan_noid_f0_s1_n30,tf_chan_noid,base,posterior,logits,0.0434109531342983
+base_tf_chan_noid_f0_s2_n30,tf_chan_noid,base,right,temporal,0.1081396639347076
+base_tf_chan_noid_f0_s2_n30,tf_chan_noid,base,right,tokens,0.1026160567998886
+base_tf_chan_noid_f0_s2_n30,tf_chan_noid,base,right,cls output,0.0341413430869579
+base_tf_chan_noid_f0_s2_n30,tf_chan_noid,base,right,logits,0.0325277484953403
+base_tf_chan_noid_f0_s2_n30,tf_chan_noid,base,left,temporal,0.1065602302551269
+base_tf_chan_noid_f0_s2_n30,tf_chan_noid,base,left,tokens,0.1014214679598808
+base_tf_chan_noid_f0_s2_n30,tf_chan_noid,base,left,cls output,0.0334715023636817
+base_tf_chan_noid_f0_s2_n30,tf_chan_noid,base,left,logits,0.0360071621835231
+base_tf_chan_noid_f0_s2_n30,tf_chan_noid,base,anterior,temporal,0.1051047667860984
+base_tf_chan_noid_f0_s2_n30,tf_chan_noid,base,anterior,tokens,0.0980343371629715
+base_tf_chan_noid_f0_s2_n30,tf_chan_noid,base,anterior,cls output,0.0392738468945026
+base_tf_chan_noid_f0_s2_n30,tf_chan_noid,base,anterior,logits,0.0388367250561714
+base_tf_chan_noid_f0_s2_n30,tf_chan_noid,base,posterior,temporal,0.101221464574337
+base_tf_chan_noid_f0_s2_n30,tf_chan_noid,base,posterior,tokens,0.0951350927352905
+base_tf_chan_noid_f0_s2_n30,tf_chan_noid,base,posterior,cls output,0.035930648446083
+base_tf_chan_noid_f0_s2_n30,tf_chan_noid,base,posterior,logits,0.0401004180312156
 base_tf_chan_noid_f1_s0_n30,tf_chan_noid,base,right,temporal,0.1516674160957336
 base_tf_chan_noid_f1_s0_n30,tf_chan_noid,base,right,tokens,0.1021141186356544
 base_tf_chan_noid_f1_s0_n30,tf_chan_noid,base,right,cls output,0.0165754966437816
@@ -447,6 +655,22 @@ base_tf_chan_noid_f1_s1_n30,tf_chan_noid,base,posterior,temporal,0.1239790096879
 base_tf_chan_noid_f1_s1_n30,tf_chan_noid,base,posterior,tokens,0.1123802959918975
 base_tf_chan_noid_f1_s1_n30,tf_chan_noid,base,posterior,cls output,0.0289596300572156
 base_tf_chan_noid_f1_s1_n30,tf_chan_noid,base,posterior,logits,0.0305884424597024
+base_tf_chan_noid_f1_s2_n30,tf_chan_noid,base,right,temporal,0.1521827578544616
+base_tf_chan_noid_f1_s2_n30,tf_chan_noid,base,right,tokens,0.1057472229003906
+base_tf_chan_noid_f1_s2_n30,tf_chan_noid,base,right,cls output,0.025705873966217
+base_tf_chan_noid_f1_s2_n30,tf_chan_noid,base,right,logits,0.0287985503673553
+base_tf_chan_noid_f1_s2_n30,tf_chan_noid,base,left,temporal,0.1505037695169448
+base_tf_chan_noid_f1_s2_n30,tf_chan_noid,base,left,tokens,0.1050239503383636
+base_tf_chan_noid_f1_s2_n30,tf_chan_noid,base,left,cls output,0.0268836785107851
+base_tf_chan_noid_f1_s2_n30,tf_chan_noid,base,left,logits,0.031043704599142
+base_tf_chan_noid_f1_s2_n30,tf_chan_noid,base,anterior,temporal,0.1405809819698333
+base_tf_chan_noid_f1_s2_n30,tf_chan_noid,base,anterior,tokens,0.1031279638409614
+base_tf_chan_noid_f1_s2_n30,tf_chan_noid,base,anterior,cls output,0.0314191095530986
+base_tf_chan_noid_f1_s2_n30,tf_chan_noid,base,anterior,logits,0.0349345840513706
+base_tf_chan_noid_f1_s2_n30,tf_chan_noid,base,posterior,temporal,0.1309590935707092
+base_tf_chan_noid_f1_s2_n30,tf_chan_noid,base,posterior,tokens,0.1002697646617889
+base_tf_chan_noid_f1_s2_n30,tf_chan_noid,base,posterior,cls output,0.0286135133355855
+base_tf_chan_noid_f1_s2_n30,tf_chan_noid,base,posterior,logits,0.0323596484959125
 base_tf_chan_noid_f2_s0_n30,tf_chan_noid,base,right,temporal,0.1242793500423431
 base_tf_chan_noid_f2_s0_n30,tf_chan_noid,base,right,tokens,0.0961588397622108
 base_tf_chan_noid_f2_s0_n30,tf_chan_noid,base,right,cls output,0.0147000653669238
@@ -479,6 +703,22 @@ base_tf_chan_noid_f2_s1_n30,tf_chan_noid,base,posterior,temporal,0.1225477084517
 base_tf_chan_noid_f2_s1_n30,tf_chan_noid,base,posterior,tokens,0.1160652041435241
 base_tf_chan_noid_f2_s1_n30,tf_chan_noid,base,posterior,cls output,0.0278648752719163
 base_tf_chan_noid_f2_s1_n30,tf_chan_noid,base,posterior,logits,0.039428386837244
+base_tf_chan_noid_f2_s2_n30,tf_chan_noid,base,right,temporal,0.1255896687507629
+base_tf_chan_noid_f2_s2_n30,tf_chan_noid,base,right,tokens,0.1110613122582435
+base_tf_chan_noid_f2_s2_n30,tf_chan_noid,base,right,cls output,0.0229006428271532
+base_tf_chan_noid_f2_s2_n30,tf_chan_noid,base,right,logits,0.0335271656513214
+base_tf_chan_noid_f2_s2_n30,tf_chan_noid,base,left,temporal,0.1245458349585533
+base_tf_chan_noid_f2_s2_n30,tf_chan_noid,base,left,tokens,0.1114787980914115
+base_tf_chan_noid_f2_s2_n30,tf_chan_noid,base,left,cls output,0.0240728855133056
+base_tf_chan_noid_f2_s2_n30,tf_chan_noid,base,left,logits,0.0358896739780902
+base_tf_chan_noid_f2_s2_n30,tf_chan_noid,base,anterior,temporal,0.1221036240458488
+base_tf_chan_noid_f2_s2_n30,tf_chan_noid,base,anterior,tokens,0.1132509857416153
+base_tf_chan_noid_f2_s2_n30,tf_chan_noid,base,anterior,cls output,0.030615909025073
+base_tf_chan_noid_f2_s2_n30,tf_chan_noid,base,anterior,logits,0.0420525632798671
+base_tf_chan_noid_f2_s2_n30,tf_chan_noid,base,posterior,temporal,0.1233384981751442
+base_tf_chan_noid_f2_s2_n30,tf_chan_noid,base,posterior,tokens,0.115344613790512
+base_tf_chan_noid_f2_s2_n30,tf_chan_noid,base,posterior,cls output,0.0299786571413278
+base_tf_chan_noid_f2_s2_n30,tf_chan_noid,base,posterior,logits,0.0446080826222896
 base_tf_chan_noid_f3_s0_n30,tf_chan_noid,base,right,temporal,0.1566937267780304
 base_tf_chan_noid_f3_s0_n30,tf_chan_noid,base,right,tokens,0.1601457297801971
 base_tf_chan_noid_f3_s0_n30,tf_chan_noid,base,right,cls output,0.0219548102468252
@@ -511,6 +751,22 @@ base_tf_chan_noid_f3_s1_n30,tf_chan_noid,base,posterior,temporal,0.1665065735578
 base_tf_chan_noid_f3_s1_n30,tf_chan_noid,base,posterior,tokens,0.2112983912229538
 base_tf_chan_noid_f3_s1_n30,tf_chan_noid,base,posterior,cls output,0.0495473407208919
 base_tf_chan_noid_f3_s1_n30,tf_chan_noid,base,posterior,logits,0.0498223565518856
+base_tf_chan_noid_f3_s2_n30,tf_chan_noid,base,right,temporal,0.1489682495594024
+base_tf_chan_noid_f3_s2_n30,tf_chan_noid,base,right,tokens,0.1602140069007873
+base_tf_chan_noid_f3_s2_n30,tf_chan_noid,base,right,cls output,0.0237979609519243
+base_tf_chan_noid_f3_s2_n30,tf_chan_noid,base,right,logits,0.0442486777901649
+base_tf_chan_noid_f3_s2_n30,tf_chan_noid,base,left,temporal,0.1470827758312225
+base_tf_chan_noid_f3_s2_n30,tf_chan_noid,base,left,tokens,0.1579528301954269
+base_tf_chan_noid_f3_s2_n30,tf_chan_noid,base,left,cls output,0.0229843072593212
+base_tf_chan_noid_f3_s2_n30,tf_chan_noid,base,left,logits,0.0475775673985481
+base_tf_chan_noid_f3_s2_n30,tf_chan_noid,base,anterior,temporal,0.1602229177951812
+base_tf_chan_noid_f3_s2_n30,tf_chan_noid,base,anterior,tokens,0.1938658207654953
+base_tf_chan_noid_f3_s2_n30,tf_chan_noid,base,anterior,cls output,0.0309203322976827
+base_tf_chan_noid_f3_s2_n30,tf_chan_noid,base,anterior,logits,0.058948490768671
+base_tf_chan_noid_f3_s2_n30,tf_chan_noid,base,posterior,temporal,0.1590323597192764
+base_tf_chan_noid_f3_s2_n30,tf_chan_noid,base,posterior,tokens,0.1895983964204788
+base_tf_chan_noid_f3_s2_n30,tf_chan_noid,base,posterior,cls output,0.0338289588689804
+base_tf_chan_noid_f3_s2_n30,tf_chan_noid,base,posterior,logits,0.0719301775097847
 base_tf_time_f0_s0_n30,tf_time,base,right,temporal,0.1071197018027305
 base_tf_time_f0_s0_n30,tf_time,base,right,spatial (depthwise),0.1867363899946212
 base_tf_time_f0_s0_n30,tf_time,base,right,tokens,0.1950487345457077
@@ -551,6 +807,26 @@ base_tf_time_f0_s1_n30,tf_time,base,posterior,spatial (depthwise),0.105781026184
 base_tf_time_f0_s1_n30,tf_time,base,posterior,tokens,0.118725836277008
 base_tf_time_f0_s1_n30,tf_time,base,posterior,cls output,0.0887630432844162
 base_tf_time_f0_s1_n30,tf_time,base,posterior,logits,0.0956049114465713
+base_tf_time_f0_s2_n30,tf_time,base,right,temporal,0.1046880111098289
+base_tf_time_f0_s2_n30,tf_time,base,right,spatial (depthwise),0.1347151100635528
+base_tf_time_f0_s2_n30,tf_time,base,right,tokens,0.1579144895076751
+base_tf_time_f0_s2_n30,tf_time,base,right,cls output,0.1649856716394424
+base_tf_time_f0_s2_n30,tf_time,base,right,logits,0.213291510939598
+base_tf_time_f0_s2_n30,tf_time,base,left,temporal,0.1031533032655716
+base_tf_time_f0_s2_n30,tf_time,base,left,spatial (depthwise),0.1335429698228836
+base_tf_time_f0_s2_n30,tf_time,base,left,tokens,0.1551561951637268
+base_tf_time_f0_s2_n30,tf_time,base,left,cls output,0.1797502040863037
+base_tf_time_f0_s2_n30,tf_time,base,left,logits,0.2333288937807083
+base_tf_time_f0_s2_n30,tf_time,base,anterior,temporal,0.1036440432071685
+base_tf_time_f0_s2_n30,tf_time,base,anterior,spatial (depthwise),0.1021063327789306
+base_tf_time_f0_s2_n30,tf_time,base,anterior,tokens,0.1071574389934539
+base_tf_time_f0_s2_n30,tf_time,base,anterior,cls output,0.0927149876952171
+base_tf_time_f0_s2_n30,tf_time,base,anterior,logits,0.1169313117861747
+base_tf_time_f0_s2_n30,tf_time,base,posterior,temporal,0.0997905954718589
+base_tf_time_f0_s2_n30,tf_time,base,posterior,spatial (depthwise),0.0984010770916938
+base_tf_time_f0_s2_n30,tf_time,base,posterior,tokens,0.1037302538752555
+base_tf_time_f0_s2_n30,tf_time,base,posterior,cls output,0.0993520468473434
+base_tf_time_f0_s2_n30,tf_time,base,posterior,logits,0.1269187927246093
 base_tf_time_f1_s0_n30,tf_time,base,right,temporal,0.1349208056926727
 base_tf_time_f1_s0_n30,tf_time,base,right,spatial (depthwise),0.093940295279026
 base_tf_time_f1_s0_n30,tf_time,base,right,tokens,0.1466892212629318
@@ -591,6 +867,26 @@ base_tf_time_f1_s1_n30,tf_time,base,posterior,spatial (depthwise),0.090642489492
 base_tf_time_f1_s1_n30,tf_time,base,posterior,tokens,0.087828628718853
 base_tf_time_f1_s1_n30,tf_time,base,posterior,cls output,0.0752425119280815
 base_tf_time_f1_s1_n30,tf_time,base,posterior,logits,0.097663976252079
+base_tf_time_f1_s2_n30,tf_time,base,right,temporal,0.1654274314641952
+base_tf_time_f1_s2_n30,tf_time,base,right,spatial (depthwise),0.1611069589853286
+base_tf_time_f1_s2_n30,tf_time,base,right,tokens,0.1117088794708252
+base_tf_time_f1_s2_n30,tf_time,base,right,cls output,0.0142332194373011
+base_tf_time_f1_s2_n30,tf_time,base,right,logits,0.0417129285633564
+base_tf_time_f1_s2_n30,tf_time,base,left,temporal,0.1633462160825729
+base_tf_time_f1_s2_n30,tf_time,base,left,spatial (depthwise),0.151308998465538
+base_tf_time_f1_s2_n30,tf_time,base,left,tokens,0.1041743457317352
+base_tf_time_f1_s2_n30,tf_time,base,left,cls output,0.0136829521507024
+base_tf_time_f1_s2_n30,tf_time,base,left,logits,0.0519119389355182
+base_tf_time_f1_s2_n30,tf_time,base,anterior,temporal,0.1511473208665847
+base_tf_time_f1_s2_n30,tf_time,base,anterior,spatial (depthwise),0.1386956572532653
+base_tf_time_f1_s2_n30,tf_time,base,anterior,tokens,0.0917758867144584
+base_tf_time_f1_s2_n30,tf_time,base,anterior,cls output,0.0126447770744562
+base_tf_time_f1_s2_n30,tf_time,base,anterior,logits,0.070829652249813
+base_tf_time_f1_s2_n30,tf_time,base,posterior,temporal,0.1395094096660614
+base_tf_time_f1_s2_n30,tf_time,base,posterior,spatial (depthwise),0.1330532878637313
+base_tf_time_f1_s2_n30,tf_time,base,posterior,tokens,0.0909388065338134
+base_tf_time_f1_s2_n30,tf_time,base,posterior,cls output,0.009612713009119
+base_tf_time_f1_s2_n30,tf_time,base,posterior,logits,0.0369214676320552
 base_tf_time_f2_s0_n30,tf_time,base,right,temporal,0.119970329105854
 base_tf_time_f2_s0_n30,tf_time,base,right,spatial (depthwise),0.1264236271381378
 base_tf_time_f2_s0_n30,tf_time,base,right,tokens,0.1545202881097793
@@ -631,6 +927,26 @@ base_tf_time_f2_s1_n30,tf_time,base,posterior,spatial (depthwise),0.114300444722
 base_tf_time_f2_s1_n30,tf_time,base,posterior,tokens,0.1187197044491767
 base_tf_time_f2_s1_n30,tf_time,base,posterior,cls output,0.1489718556404113
 base_tf_time_f2_s1_n30,tf_time,base,posterior,logits,0.1667408347129821
+base_tf_time_f2_s2_n30,tf_time,base,right,temporal,0.1210642978549003
+base_tf_time_f2_s2_n30,tf_time,base,right,spatial (depthwise),0.1376257091760635
+base_tf_time_f2_s2_n30,tf_time,base,right,tokens,0.124652624130249
+base_tf_time_f2_s2_n30,tf_time,base,right,cls output,0.1523818522691726
+base_tf_time_f2_s2_n30,tf_time,base,right,logits,0.2133523523807525
+base_tf_time_f2_s2_n30,tf_time,base,left,temporal,0.1203975901007652
+base_tf_time_f2_s2_n30,tf_time,base,left,spatial (depthwise),0.1339527368545532
+base_tf_time_f2_s2_n30,tf_time,base,left,tokens,0.1245141774415969
+base_tf_time_f2_s2_n30,tf_time,base,left,cls output,0.1504812985658645
+base_tf_time_f2_s2_n30,tf_time,base,left,logits,0.2140737175941467
+base_tf_time_f2_s2_n30,tf_time,base,anterior,temporal,0.1204357743263244
+base_tf_time_f2_s2_n30,tf_time,base,anterior,spatial (depthwise),0.1189010888338089
+base_tf_time_f2_s2_n30,tf_time,base,anterior,tokens,0.095491386950016
+base_tf_time_f2_s2_n30,tf_time,base,anterior,cls output,0.0838077068328857
+base_tf_time_f2_s2_n30,tf_time,base,anterior,logits,0.1109035834670066
+base_tf_time_f2_s2_n30,tf_time,base,posterior,temporal,0.1221707090735435
+base_tf_time_f2_s2_n30,tf_time,base,posterior,spatial (depthwise),0.1222247257828712
+base_tf_time_f2_s2_n30,tf_time,base,posterior,tokens,0.1025700643658638
+base_tf_time_f2_s2_n30,tf_time,base,posterior,cls output,0.1075749397277832
+base_tf_time_f2_s2_n30,tf_time,base,posterior,logits,0.14894400537014
 base_tf_time_f3_s0_n30,tf_time,base,right,temporal,0.1494642049074173
 base_tf_time_f3_s0_n30,tf_time,base,right,spatial (depthwise),0.1564675867557525
 base_tf_time_f3_s0_n30,tf_time,base,right,tokens,0.2032502293586731
@@ -671,3 +987,23 @@ base_tf_time_f3_s1_n30,tf_time,base,posterior,spatial (depthwise),0.161071971058
 base_tf_time_f3_s1_n30,tf_time,base,posterior,tokens,0.2086090296506881
 base_tf_time_f3_s1_n30,tf_time,base,posterior,cls output,0.1868424415588379
 base_tf_time_f3_s1_n30,tf_time,base,posterior,logits,0.1998320966958999
+base_tf_time_f3_s2_n30,tf_time,base,right,temporal,0.1529502868652343
+base_tf_time_f3_s2_n30,tf_time,base,right,spatial (depthwise),0.1617504358291626
+base_tf_time_f3_s2_n30,tf_time,base,right,tokens,0.2056298851966858
+base_tf_time_f3_s2_n30,tf_time,base,right,cls output,0.1786747574806213
+base_tf_time_f3_s2_n30,tf_time,base,right,logits,0.2185698449611663
+base_tf_time_f3_s2_n30,tf_time,base,left,temporal,0.1509349942207336
+base_tf_time_f3_s2_n30,tf_time,base,left,spatial (depthwise),0.1549461632966995
+base_tf_time_f3_s2_n30,tf_time,base,left,tokens,0.1941496431827545
+base_tf_time_f3_s2_n30,tf_time,base,left,cls output,0.1718515902757644
+base_tf_time_f3_s2_n30,tf_time,base,left,logits,0.2029445022344589
+base_tf_time_f3_s2_n30,tf_time,base,anterior,temporal,0.1717491894960403
+base_tf_time_f3_s2_n30,tf_time,base,anterior,spatial (depthwise),0.1734803915023803
+base_tf_time_f3_s2_n30,tf_time,base,anterior,tokens,0.1922587007284164
+base_tf_time_f3_s2_n30,tf_time,base,anterior,cls output,0.156894102692604
+base_tf_time_f3_s2_n30,tf_time,base,anterior,logits,0.1986603885889053
+base_tf_time_f3_s2_n30,tf_time,base,posterior,temporal,0.1714975982904434
+base_tf_time_f3_s2_n30,tf_time,base,posterior,spatial (depthwise),0.1681914627552032
+base_tf_time_f3_s2_n30,tf_time,base,posterior,tokens,0.1977357119321823
+base_tf_time_f3_s2_n30,tf_time,base,posterior,cls output,0.128285214304924
+base_tf_time_f3_s2_n30,tf_time,base,posterior,logits,0.1454545259475708
