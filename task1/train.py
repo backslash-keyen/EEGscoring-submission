@@ -76,7 +76,7 @@ def evaluate(model, X, y, bs=256):
 
 
 def fit(model_name, test_fold, seed=0, n_train=None, epochs=150, patience=20, lr=1e-3, bs=64, log=print,
-        transform=None, model_kw=None, shuffle_labels=False):
+        transform=None, model_kw=None, shuffle_labels=False, augment=None):
     """Train one model on one split. transform(X, subj) -> X lets B2 experiments alter inputs (e.g. remove a confound)
     identically for train/val/test. Returns (model, norm, result dict, per-trial test DataFrame)."""
     tr_s, va_s, te_s = split(test_fold, n_train, seed)
@@ -87,6 +87,7 @@ def fit(model_name, test_fold, seed=0, n_train=None, epochs=150, patience=20, lr
     if transform is not None:
         Xtr, Xva, Xte = transform(Xtr, tr_s), transform(Xva, va_s), transform(Xte, te_s)
     norm = Norm().fit(Xtr)
+    Xraw = Xtr if augment is not None else None   # augmentation acts on the recorded field (microvolts), before normalisation
     Xtr, Xva, Xte = norm(Xtr), norm(Xva), norm(Xte)
 
     seed_all(seed)
@@ -97,7 +98,9 @@ def fit(model_name, test_fold, seed=0, n_train=None, epochs=150, patience=20, lr
     for ep in range(epochs):
         model.train()
         for idx in torch.randperm(len(Xtr), generator=gen).split(bs):
-            loss = nn.functional.cross_entropy(model(torch.from_numpy(Xtr[idx.numpy()])), torch.from_numpy(ytr[idx.numpy()]))
+            i = idx.numpy()
+            xb = Xtr[i] if augment is None else norm(augment(Xraw[i])).astype(np.float32)
+            loss = nn.functional.cross_entropy(model(torch.from_numpy(xb)), torch.from_numpy(ytr[i]))
             opt.zero_grad()
             loss.backward()
             opt.step()

@@ -19,3 +19,16 @@ History: the earlier draft of this entry (frontal-polar only, 10-15 subjects, fr
 
 ## A3 outcome (appended after results; the prediction text above is unchanged)
 Scorecard and numbers: outputs/A3_RESULTS.md. Short version: eyes decodable far above prediction (25/40 subjects, 72% pooled vs predicted 5-10 and 50-52%); occipital slightly above (59% vs 53-57%); motor control slightly below (54.6% vs 56-62%); pre-cue and order were NOT at chance: label order alternates (z = -17.6), previous label alone gives 72.6%, and my zero-phase filter made the pre-cue window look decodable until replaced by a causal filter (DECISIONS D18).
+
+## B2 - all six experiments (answers by Keyen, 2026-10-08, multiple-choice in chat; option text quoted as chosen)
+Setup fixed before answering: test subjects = folds 0-3 (20 subjects), 3 seeds; EEGNet and time-patch transformer for scaling; confound removal = local Laplacian then 21 sensorimotor channels; intervention = EEGNet trained with random simulated cap slides of 0-15 mm (DECISIONS D24-D26).
+Timing note: the training grid (task1/b2_run.py --stage base) was started before this commit to save time on the deadline; its log prints no accuracy and no result file was opened before this commit.
+
+1. Data scaling: "Crossover" - EEGNet ahead at 5-10 subjects (convolutional priors: shared temporal filter + one spatial filter), transformer catches up or passes by 30.
+2. EEGNet test accuracy at 30 training subjects: "> 72%" - combines eye and motor signal, beats every single A3 decoder.
+3. Tokenisation: "time > chan+id = chan-noid" - channel tokens struggle whether or not they have identity.
+4. Electrode displacement (10 mm): "Time-patch drops most" - its spatial filter feeds every token, so the error spreads to all of them.
+5. What the best transformer relies on: "Both" - eye signal early, motor later.
+6. Faithfulness: "Attention > gradient > random" - attention to CLS points to the decisive tokens.
+7. Link to Part A: "A2 LI; small drop" - networks mostly use real lateralised ERD; per-subject accuracy correlates most with the A2 lateralisation index, and removing the eye confound costs little.
+8. Intervention (spatial augmentation): "No effect" - if the model relies on the spatially broad eye signal, it was never displacement-sensitive.
