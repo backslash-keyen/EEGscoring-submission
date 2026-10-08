@@ -153,8 +153,8 @@ class SleepTransformer(nn.Module):
     def forward(self, x):                      # x: (B, L, C, T)
         B, L = x.shape[:2]
         z = self.encoder(x.flatten(0, 1)).view(B, L, -1)
-        z = self.transformer(z)
-        z = self.pos(z)
+        # positions must go in BEFORE attention; added afterwards the encoder sees an unordered set of epochs
+        z = self.transformer(self.pos(z))
         return self.head(z[:, L // 2])
 
 
