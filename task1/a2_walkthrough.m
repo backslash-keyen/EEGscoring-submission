@@ -16,7 +16,7 @@ if ~isfolder(figDir), mkdir(figDir); end
 subject = 72;
 chans = ["C3" "C4"];                       % channel 1 = left motor cortex, channel 2 = right motor cortex
 cfg.FS = 160; cfg.TMIN = -1.5; cfg.TMAX = 4.0; cfg.N_T = floor((cfg.TMAX - cfg.TMIN) * cfg.FS) + 1;
-cfg.BAND = [1 40];                         % general clean-up band (DECISIONS D5/D16)
+cfg.BAND = [1 40];                         % general clean-up band (DECISIONS D5/D9)
 cfg.MU = [8 13]; cfg.BETA = [13 30];
 T_BASE = [-1.0 -0.1];                      % baseline: inside the rest before the cue (DECISIONS D5)
 ACTIVE = [0.5 4.0];                        % active window: skips the first 0.5 s after the cue (DECISIONS D5)
@@ -38,7 +38,7 @@ fprintf('S%03d: %d left and %d right trials, %d samples per epoch\n', subject, s
 % (standard 10-10 positions, projected flat from the 3-D montage; outputs/electrode_positions_2d.csv). C3 (blue) lies over the left
 % sensorimotor cortex and C4 (orange) over the right; each hand is controlled mostly by the opposite hemisphere, so imagining the
 % LEFT fist should change C4 and imagining the RIGHT fist should change C3. The ring of electrodes around each is its 4 nearest
-% neighbours (a2_tfr.m, DECISIONS D17).
+% neighbours (a2_tfr.m, DECISIONS D10).
 pos = readtable(fullfile(repo, 'outputs', 'electrode_positions_2d.csv'));
 nbrNames = ["Cp3" "Fc3" "C5" "C1" "Cp4" "Fc4" "C6" "C2"];
 fig = figure('Position', [100 100 560 560], 'Color', 'w'); hold on; axis equal off;

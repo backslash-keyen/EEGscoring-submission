@@ -1,7 +1,7 @@
 """A3: confound audit. Restricted-channel / -band / -time decoders for every non-motor route that could separate left from right
-trials, each with an exact binomial chance threshold and a label-permutation check (DECISIONS D8-D13).
+trials, each with an exact binomial chance threshold and a label-permutation check (DECISIONS D12-D17).
 
-python task1/confound.py            real labels (writes outputs/a3_*.csv, a3_*.png)
+python task1/confound.py            real labels, causal filter (writes outputs/a3_*.csv, a3_*.png); add --zero-phase for the first pass
 python task1/confound.py --smoke    2 subjects, labels shuffled within run, few permutations: tests the code without reading results
 """
 import sys, warnings
@@ -22,7 +22,7 @@ import data
 warnings.filterwarnings("ignore")
 OUT = data.ROOT / "outputs"
 ALPHA = 0.05
-C_REG = 0.1            # fixed in advance, never tuned on test accuracy (D10)
+C_REG = 0.1            # fixed in advance, never tuned on test accuracy (D14)
 N_PERM_SUBJ, N_PERM_POOL = 200, 100
 N_FOLDS = 8
 BANDS = {"mu": (8, 13), "beta": (13, 30), "g": (30, 40)}
@@ -52,7 +52,7 @@ def mirror_pairs(names, chans):
 
 
 def feat_td(X, ch, win, base, binw):
-    """Per-trial baseline-subtracted bin means of raw channels (D9). X in volts -> microvolts."""
+    """Per-trial baseline-subtracted bin means of raw channels (D13). X in volts -> microvolts."""
     b = X[:, ch][:, :, (TIMES >= base[0]) & (TIMES < base[1])].mean(2, keepdims=True)
     t0, t1 = win
     out = []
@@ -63,7 +63,7 @@ def feat_td(X, ch, win, base, binw):
 
 
 def feat_bp(X, names, chans, win, bands):
-    """Welch log10 band power, left minus right over mirror pairs (D9)."""
+    """Welch log10 band power, left minus right over mirror pairs (D13)."""
     pr = mirror_pairs(names, chans)
     L, R = [p[0] for p in pr], [p[1] for p in pr]
     m = (TIMES >= win[0]) & (TIMES < win[1])
@@ -77,7 +77,7 @@ def feat_bp(X, names, chans, win, bands):
 
 
 def decoder_specs(names):
-    """id -> (route, kind, feature function X -> array). Twins (suffix _pre) move the window before the cue (D8)."""
+    """id -> (route, kind, feature function X -> array). Twins (suffix _pre) move the window before the cue (D12)."""
     nm = lambda cs: idx(names, cs)
     nonmotor = [c for c in names if c.lower() not in {s.lower() for s in SENSORIMOTOR}]
     S = {}
@@ -105,7 +105,7 @@ def decoder_specs(names):
 
 
 def order_features(D):
-    """R1 position in run + onset time; R2 previous 1-3 labels as +-1 (0 if absent) (D13)."""
+    """R1 position in run + onset time; R2 previous 1-3 labels as +-1 (0 if absent) (D17)."""
     y, run, trial, onset = D["y"], D["run"], D["trial"], D["onset"]
     sgn = np.where(y == 0, -1.0, 1.0)
     prev = np.zeros((len(y), 3))
@@ -124,7 +124,7 @@ def fit_predict(Xtr, ytr, Xte):
 
 
 def loro_acc(F, y, run):
-    """Leave-one-run-out accuracy pooled over held-out runs (D10)."""
+    """Leave-one-run-out accuracy pooled over held-out runs (D14)."""
     correct = 0
     for r in np.unique(run):
         te = run == r
@@ -141,7 +141,7 @@ def perm_labels(y, run, rng):
 
 
 def binom_thr(n, alpha=ALPHA):
-    """Smallest accuracy k/n with P(X >= k | n, 0.5) <= alpha (D11)."""
+    """Smallest accuracy k/n with P(X >= k | n, 0.5) <= alpha (D15)."""
     k = 0
     while binom.sf(k - 1, n, 0.5) > alpha:   # sf(k-1) = P(X >= k)
         k += 1
@@ -172,7 +172,7 @@ def subject_job(s, dec_ids, smoke, n_perm, causal):
 
 
 def cross_subject(dec_ids, subjects, smoke, n_perm, causal):
-    """Pooled cross-subject accuracy with 8 subject-wise folds (D10); fixed fold assignment seed 0."""
+    """Pooled cross-subject accuracy with 8 subject-wise folds (D14); fixed fold assignment seed 0."""
     nf = min(N_FOLDS, len(subjects))   # only the smoke run (2 subjects) has fewer subjects than folds
     folds_of = {s: i % nf for i, s in enumerate(np.random.default_rng(0).permutation(subjects))}
     F, Y, R, S = {k: [] for k in dec_ids}, [], [], []
@@ -223,7 +223,7 @@ def cross_subject(dec_ids, subjects, smoke, n_perm, causal):
 
 
 def sequence_stats(subjects, smoke):
-    """Lag-1 label agreement vs within-run permutation, pooled over subjects; run-majority oracle (D13)."""
+    """Lag-1 label agreement vs within-run permutation, pooled over subjects; run-majority oracle (D17)."""
     obs, exp, var, orc, n_tot = 0, 0, 0, 0, 0
     rows = []
     rng = np.random.default_rng(5)
@@ -240,7 +240,7 @@ def sequence_stats(subjects, smoke):
         obs += same; exp += null.mean(); var += null.var(); orc += orc_s; n_tot += len(y)
     df = pd.DataFrame(rows)
     summ = dict(lag1_observed=int(obs), lag1_expected=float(exp), z=float((obs - exp) / np.sqrt(var)), oracle_pooled=orc / n_tot,
-                oracle_thr_note="analytic worst case for any run-identity route (D13)")
+                oracle_thr_note="analytic worst case for any run-identity route (D17)")
     return df, summ
 
 
@@ -250,8 +250,8 @@ def main():
     n_perm, n_pool = (5, 4) if smoke else (N_PERM_SUBJ, N_PERM_POOL)
     names = list(data.load_subject(subjects[0])["ch_names"])
     dec_ids = list(decoder_specs(names)) + ["R1", "R2", "R12"]
-    causal = "--causal" in sys.argv   # minimum-phase pre-filter (DECISIONS D14); default = zero-phase run reported first
-    tag = ("smoke_" if smoke else "") + ("causal_" if causal else "")
+    causal = "--zero-phase" not in sys.argv   # default = minimum-phase pre-filter (DECISIONS D18); --zero-phase reproduces the first pass
+    tag = ("smoke_" if smoke else "") + ("" if causal else "firstpass_zerophase_")
 
     res = Parallel(n_jobs=-1)(delayed(subject_job)(s, dec_ids, smoke, n_perm, causal) for s in subjects)
     within = pd.DataFrame([r for rows in res for r in rows])
@@ -264,7 +264,7 @@ def main():
     sq, summ = sequence_stats(subjects, smoke)
     sq.to_csv(OUT / f"{tag}a3_sequence.csv", index=False)
 
-    # group-level summary per decoder: how many subjects pass vs the 5% expected, one-sided binomial excess test (D11)
+    # group-level summary per decoder: how many subjects pass vs the 5% expected, one-sided binomial excess test (D15)
     g = within.groupby("decoder").agg(mean_acc=("acc", "mean"), n_above=("above_binom", "sum"), n_subj=("subject", "count"),
                                       perm_false_pos=("null_frac_above_thr", "mean")).reset_index()
     g["expected_by_chance"] = g.n_subj * ALPHA

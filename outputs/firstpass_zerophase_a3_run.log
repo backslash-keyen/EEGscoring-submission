@@ -1,0 +1,42 @@
+  cross-subject F1 acc=0.743 thr=0.520 p_perm=0.010
+  cross-subject F1_pre acc=0.612 thr=0.520 p_perm=0.010
+  cross-subject F2 acc=0.649 thr=0.520 p_perm=0.010
+  cross-subject O1 acc=0.601 thr=0.520 p_perm=0.010
+  cross-subject O1_pre acc=0.549 thr=0.520 p_perm=0.010
+  cross-subject O2 acc=0.524 thr=0.520 p_perm=0.030
+  cross-subject O2_pre acc=0.506 thr=0.520 p_perm=0.376
+  cross-subject G1 acc=0.495 thr=0.520 p_perm=0.842
+  cross-subject G1_pre acc=0.485 thr=0.520 p_perm=0.970
+  cross-subject N1 acc=0.542 thr=0.520 p_perm=0.010
+  cross-subject N1_pre acc=0.493 thr=0.520 p_perm=0.673
+  cross-subject N2 acc=0.753 thr=0.520 p_perm=0.010
+  cross-subject N2_pre acc=0.595 thr=0.520 p_perm=0.010
+  cross-subject M1 acc=0.547 thr=0.520 p_perm=0.010
+  cross-subject M1_pre acc=0.510 thr=0.520 p_perm=0.168
+  cross-subject A1 acc=0.555 thr=0.520 p_perm=0.010
+  cross-subject A1_pre acc=0.521 thr=0.520 p_perm=0.069
+  cross-subject R1 acc=0.508 thr=0.520 p_perm=0.396
+  cross-subject R2 acc=0.726 thr=0.520 p_perm=0.010
+  cross-subject R12 acc=0.726 thr=0.520 p_perm=0.010
+decoder  mean_acc  n_above  n_subj  perm_false_pos  expected_by_chance  p_excess  pooled_xs_acc  pooled_thr  pooled_p_perm
+     A1     0.588       13      40           0.056                 2.0     0.000          0.555        0.52          0.010
+ A1_pre     0.493        1      40           0.066                 2.0     0.871          0.521        0.52          0.069
+     F1     0.688       26      40           0.068                 2.0     0.000          0.743        0.52          0.010
+ F1_pre     0.552        5      40           0.068                 2.0     0.048          0.612        0.52          0.010
+     F2     0.609       14      40           0.064                 2.0     0.000          0.649        0.52          0.010
+     G1     0.506        1      40           0.027                 2.0     0.871          0.495        0.52          0.842
+ G1_pre     0.475        0      40           0.039                 2.0     1.000          0.485        0.52          0.970
+     M1     0.551        7      40           0.067                 2.0     0.003          0.547        0.52          0.010
+ M1_pre     0.493        2      40           0.069                 2.0     0.601          0.510        0.52          0.168
+     N1     0.571       10      40           0.059                 2.0     0.000          0.542        0.52          0.010
+ N1_pre     0.479        0      40           0.060                 2.0     1.000          0.493        0.52          0.673
+     N2     0.683       26      40           0.076                 2.0     0.000          0.753        0.52          0.010
+ N2_pre     0.542        7      40           0.076                 2.0     0.003          0.595        0.52          0.010
+     O1     0.585       13      40           0.069                 2.0     0.000          0.601        0.52          0.010
+ O1_pre     0.507        4      40           0.071                 2.0     0.138          0.549        0.52          0.010
+     O2     0.573       10      40           0.057                 2.0     0.000          0.524        0.52          0.030
+ O2_pre     0.486        2      40           0.063                 2.0     0.601          0.506        0.52          0.376
+     R1     0.495        0      40           0.063                 2.0     1.000          0.508        0.52          0.396
+    R12     0.700       29      40           0.075                 2.0     0.000          0.726        0.52          0.010
+     R2     0.708       31      40           0.083                 2.0     0.000          0.726        0.52          0.010
+sequence: {'lag1_observed': 424, 'lag1_expected': 780.454, 'z': -17.567484202331297, 'oracle_pooled': np.float64(0.5292805354155048), 'oracle_thr_note': 'analytic worst case for any run-identity route (D13)'}

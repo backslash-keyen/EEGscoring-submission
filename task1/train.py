@@ -1,4 +1,4 @@
-"""B1/B2 training harness: cross-subject only. Test fold, validation fold and training pool are disjoint sets of subjects (DECISIONS D21)."""
+"""B1/B2 training harness: cross-subject only. Test fold, validation fold and training pool are disjoint sets of subjects (DECISIONS D22)."""
 import argparse, sys, time
 from pathlib import Path
 import numpy as np, pandas as pd, torch
@@ -11,11 +11,11 @@ from models import MODELS, n_params
 OUT = data.ROOT / "outputs" / "partb"
 N_FOLDS = 8
 T0 = int(-data.TMIN * data.FS)   # sample index of the cue
-N_T = 640                        # 0-4.0 s after the cue: the whole imagery period that every regular trial has (D3, D22)
+N_T = 640                        # 0-4.0 s after the cue: the whole imagery period that every regular trial has (D3, D23)
 
 
 def folds():
-    """Same assignment as A3 (D10): fold of each subject from np.random.default_rng(0).permutation, so per-subject
+    """Same assignment as A3 (D14): fold of each subject from np.random.default_rng(0).permutation, so per-subject
     network accuracies line up with the A3 decoders that were tested on the same held-out subjects."""
     return {int(s): i % N_FOLDS for i, s in enumerate(np.random.default_rng(0).permutation(data.SUBJECTS))}
 
@@ -33,7 +33,7 @@ def split(test_fold, n_train=None, seed=0):
 
 
 def load(subjects, win=(T0, T0 + N_T)):
-    D = [data.load_subject(s, causal=True) for s in subjects]   # minimum-phase cache: nothing post-cue leaks backwards (D14)
+    D = [data.load_subject(s, causal=True) for s in subjects]   # minimum-phase cache: nothing post-cue leaks backwards (D18)
     X = np.concatenate([d["X"][:, :, win[0]:win[1]] for d in D]) * 1e6   # volts -> microvolts
     y = np.concatenate([d["y"] for d in D])
     subj = np.concatenate([np.full(len(d["y"]), s) for s, d in zip(subjects, D)])

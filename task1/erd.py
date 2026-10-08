@@ -62,8 +62,8 @@ def perm_p(d, y, rng):
     return stat, (1 + (null >= stat).sum()) / (N_PERM + 1)
 
 
-def analyse(s, ref, keep_tfr=False):
-    D = data.load_subject(s)
+def analyse(s, ref, keep_tfr=False, causal=False):
+    D = data.load_subject(s, causal)
     X, y, names = D["X"].astype(np.float64), D["y"], D["ch_names"]
     times = np.arange(data.N_T) / data.FS + data.TMIN
     P = {ch: power(derive(X, names, ch, ref)) for ch in ("C3", "C4")}

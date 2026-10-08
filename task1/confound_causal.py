@@ -1,4 +1,4 @@
-"""A3 follow-up 2 (POST-HOC, DECISIONS D14): does the zero-phase 1-40 Hz filter leak the post-cue response into the pre-cue window?
+"""A3 follow-up 2 (POST-HOC, DECISIONS D18): does the zero-phase 1-40 Hz filter leak the post-cue response into the pre-cue window?
 Compares the pre-cue "null" twins and a bin-by-bin accuracy time course on the zero-phase cache vs a minimum-phase (causal) cache.
 
 python task1/confound_causal.py

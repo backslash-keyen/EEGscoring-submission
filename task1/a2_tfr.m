@@ -24,7 +24,7 @@ BAND = [1 40];                % zero-phase band-pass on the continuous recording
 freqs = 6:1:30;               % covers mu (8-13 Hz) and beta (13-30 Hz) with 1 Hz steps, plus 6-8 Hz as context
 T_BASE = [-1.0 -0.1];         % baseline inside the preceding rest, pooled over trials, label-blind (DECISIONS D5)
 % C3, C4 and the 4 nearest electrodes of each by 3-D distance in the standard 10-10 montage. MATLAB has no
-% montage built in, so the list is fixed here; it was checked against erd.neighbours() in task1/erd.py (DECISIONS D17).
+% montage built in, so the list is fixed here; it was checked against erd.neighbours() in task1/erd.py (DECISIONS D10).
 chans = ["C3" "Cp3" "Fc3" "C5" "C1"   "C4" "Cp4" "Fc4" "C6" "C2"];
 exampleSubject = 72;          % subject shown in the figures below
 recompute = false;            % true: ignore cached cubes
@@ -43,7 +43,7 @@ assert(freqs(iPk) == 10 && mid(freqs == 20) < 1e-3 * mid(iPk), 'Wavelet check fa
 %% Compute power for every subject
 % Power is computed on the continuous filtered recording and only then cut into epochs. Cutting first (as task1/erd.py
 % does) lets the wavelet run off both ends of each epoch onto zero padding. Measured on S072 against erd.py: power in the
-% last 0.25 s is only ~0.4% lower there, so this is a precaution, not a correction (DECISIONS D15).
+% last 0.25 s is only ~0.4% lower there, so this is a precaution, not a correction (DECISIONS D8).
 rows = cell(numel(subjects), 1);
 for si = 1:numel(subjects)
     s = subjects(si);
@@ -140,7 +140,7 @@ end
 function P = morletPower(X, fs, freqs)
 % Morlet wavelet power, written to match mne.time_frequency.tfr_array_morlet (n_cycles = f/2, zero_mean = true) so the
 % numbers port to Python unchanged. n_cycles = f/2 gives the same window width at every frequency (sigma_t = 1/(4 pi) = 0.08 s,
-% i.e. sigma_f = 2 Hz): a constant absolute bandwidth, adequate for 1 Hz steps in mu/beta (DECISIONS D18).
+% i.e. sigma_f = 2 Hz): a constant absolute bandwidth, adequate for 1 Hz steps in mu/beta (DECISIONS D11).
 [n, nCh] = size(X);
 P = zeros(n, nCh, numel(freqs), 'single');
 for k = 1:numel(freqs)

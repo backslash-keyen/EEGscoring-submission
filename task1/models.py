@@ -21,7 +21,7 @@ class TemporalConv(nn.Module):
 
 
 class EEGNet(nn.Module):
-    """EEGNet-8,2. The paper's numbers are for 128 Hz; every change for 160 Hz is listed in DECISIONS D19.
+    """EEGNet-8,2. The paper's numbers are for 128 Hz; every change for 160 Hz is listed in DECISIONS D20.
     kern_len = FS/2 keeps the first filter at 0.5 s (paper: 64 samples at 128 Hz) so its lowest resolvable frequency stays 2 Hz.
     sep_len = 20 keeps the separable filter at 0.5 s after the /4 pool (paper: 16 samples at 32 Hz)."""
 
@@ -59,7 +59,7 @@ class EEGTransformer(nn.Module):
     tokens="time":    token t = all electrodes in segment t (depthwise spatial filter, then pooled to 0.2 s segments).
     tokens="channel": token c = one electrode's filtered time series (pooled to 0.5 s segments), no spatial mixing before attention.
     ch_id: add a learned electrode-identity embedding to channel tokens. Without it the encoder sees an unordered set of electrodes.
-    Sizes are chosen to stay under 3x EEGNet's parameters (DECISIONS D20)."""
+    Sizes are chosen to stay under 3x EEGNet's parameters (DECISIONS D21)."""
 
     def __init__(self, tokens="time", ch_id=True, n_ch=64, n_t=640, n_cls=2, K=8, D=2, d=16, heads=2, ff=32,
                  layers=2, kern_len=FS // 2, drop=0.25):
