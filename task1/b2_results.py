@@ -122,6 +122,75 @@ def eegnet_spatial_sensitivity():
         pd.DataFrame(rows).to_csv(OUT / "b2_eegnet_spatial_sensitivity.csv", index=False)
 
 
+def pm(m, sd):
+    return f"{100 * m:.1f} +- {100 * sd:.1f}" if sd == sd else f"{100 * m:.1f}"
+
+
+def md(df):
+    cols = list(df.columns)
+    lines = ["| " + " | ".join(map(str, cols)) + " |", "|" + "---|" * len(cols)]
+    lines += ["| " + " | ".join(map(str, r)) + " |" for r in df.itertuples(index=False)]
+    return "\n".join(lines)
+
+
+def report(Sm):
+    """Fill the tables of task1/b2_report_template.md from the CSVs; the prose around them is written by hand."""
+    T = {}
+    b = Sm[Sm.exp == "base"]
+    rows = []
+    for m in ["eegnet", "tf_time"]:
+        g = b[b.model == m].set_index("n_train")
+        rows.append([m] + [f"{pm(g.loc[n, 'mean'], g.loc[n, 'std'])} (seeds={int(g.loc[n, 'count'])})" if n in g.index else "-"
+                           for n in b2_run.SIZES])
+    T["SCALING_TABLE"] = md(pd.DataFrame(rows, columns=["model"] + [f"{n} subjects (%, mean +- SD)" for n in b2_run.SIZES]))
+    g = b[b.n_train == 30].set_index("model")
+    T["TOKEN_TABLE"] = md(pd.DataFrame(
+        [[m, pm(g.loc[m, "mean"], g.loc[m, "std"]), f"{100 * g.loc[m, 'min']:.1f}-{100 * g.loc[m, 'max']:.1f}", int(g.loc[m, "count"])]
+         for m in ["eegnet", "tf_time", "tf_chan_id", "tf_chan_noid"] if m in g.index],
+        columns=["model", "accuracy % (mean +- SD)", "range over seeds", "seeds"]))
+    D = pd.read_csv(OUT / "b2_displacement.csv")
+    D["v"] = [pm(a, c) for a, c in zip(D["mean"], D["std"])]
+    T["DISP_TABLE"] = md(D.pivot(index="label", columns="shift_mm", values="v").rename(columns=lambda c: f"{c:g} mm").reset_index())
+    L = pd.read_csv(OUT / "b2_link_correlations.csv")
+    L = L[L.part_a_measure.isin(["LI_mean", "acc_F1", "acc_M1", "acc_O1"])].copy()
+    L["v"] = [f"{r:.2f} (p={p:.3f})" for r, p in zip(L.spearman_rho, L.p)]
+    T["LINK_TABLE"] = md(L.pivot(index=["exp", "model"], columns="part_a_measure", values="v").reset_index()
+                         .rename(columns={"LI_mean": "A2 LI (mean of mu, beta)", "acc_F1": "A3 F1 frontal 0-0.5 s",
+                                          "acc_M1": "A3 M1 motor strip", "acc_O1": "A3 O1 occipital"}))
+    g = Sm[Sm.n_train == 30].set_index(["exp", "model"])
+    T["NOCONF_TABLE"] = md(pd.DataFrame(
+        [[m, pm(g.loc[("base", m), "mean"], g.loc[("base", m), "std"]), pm(g.loc[("noconf", m), "mean"], g.loc[("noconf", m), "std"]),
+          int(g.loc[("noconf", m), "count"])] for m in ["eegnet", "tf_time"] if ("noconf", m) in g.index],
+        columns=["model", "full input %", "confound removed %", "seeds (removed)"]))
+    Dd = D.set_index(["label", "shift_mm"])
+    S = pd.read_csv(OUT / "b2_eegnet_spatial_sensitivity.csv").groupby("exp").spatial_sensitivity_10mm.mean()
+    T["INTERV_TABLE"] = md(pd.DataFrame(
+        [[lab] + [Dd.loc[(lab, s), "v"] for s in (0, 10, 20)] + [f"{S[e]:.3f}"] for lab, e in (("eegnet", "base"), ("eegnet+aug", "aug"))],
+        columns=["model", "0 mm %", "10 mm %", "20 mm %", "spatial-filter sensitivity at 10 mm"]))
+    A = pd.read_csv(OUT / "b2_attr_input.csv")
+    r = A[A.kind == "region"].copy()
+    r["share %"] = (100 * r.share).round(1)
+    r["per electrode %"] = (100 * r.share / r.n_electrodes).round(2)
+    t = A[A.kind == "time_0.1s"].copy()
+    t["window"] = pd.cut(t.key.astype(float), [-0.01, 0.45, 1.45, 4.0], labels=["0-0.5 s (A3 eye)", "0.5-1.5 s", "1.5-4 s"])
+    tw = (100 * t.groupby(["model", "window"], observed=True).share.sum()).round(1).unstack()
+    top = A[A.kind == "electrode"].sort_values("share", ascending=False).groupby("model").key.apply(lambda k: ", ".join(k[:6]))
+    F = pd.read_csv(OUT / "b2_faithfulness.csv")
+    F["v"] = [pm(a, c) for a, c in zip(F["mean"], F["std"])]
+    parts = ["Input-space grad x input by scalp region (`b2_attr_input.csv`, figure `b2_attribution_maps.png`):", "",
+             md(r[["model", "key", "n_electrodes", "share %", "per electrode %"]].rename(columns={"key": "region"})), "",
+             "By time window (% of attribution):", "", md(tw.reset_index()), "",
+             "Top 6 electrodes: " + "; ".join(f"{m}: {v}" for m, v in top.items()), "",
+             "Faithfulness (`b2_faithfulness.csv`, figure `b2_faithfulness.png`): accuracy after deleting each trial's top-ranked "
+             "tokens (key-padding mask + zeroed embedding), mean +- SD over the 12 models (4 folds x 3 seeds):", "",
+             md(F.pivot(index="method", columns="frac", values="v").rename(columns=lambda c: f"{100 * c:g}% deleted").reset_index())]
+    T["ATTR_TEXT"] = "\n".join(parts)
+    text = (Path(__file__).parent / "b2_report_template.md").read_text(encoding="utf-8")
+    for k, v in T.items():
+        text = text.replace(k, v)
+    (OUT / "B2_RESULTS.md").write_text(text, encoding="utf-8")
+
+
 def main():
     R, T = load_runs()
     R.sort_values(["exp", "model", "n_train", "fold", "seed"]).to_csv(OUT / "b2_all_runs.csv", index=False)
@@ -134,6 +203,8 @@ def main():
     link_to_part_a(T)
     displacement()
     eegnet_spatial_sensitivity()
+    if (OUT / "b2_attr_input.csv").exists() and (OUT / "b2_displacement.csv").exists():
+        report(Sm)
 
 
 if __name__ == "__main__":

@@ -32,3 +32,16 @@ Timing note: the training grid (task1/b2_run.py --stage base) was started before
 6. Faithfulness: "Attention > gradient > random" - attention to CLS points to the decisive tokens.
 7. Link to Part A: "A2 LI; small drop" - networks mostly use real lateralised ERD; per-subject accuracy correlates most with the A2 lateralisation index, and removing the eye confound costs little.
 8. Intervention (spatial augmentation): "No effect" - if the model relies on the spatially broad eye signal, it was never displacement-sensitive.
+
+## B2 outcome (appended after results; the prediction text above is unchanged)
+Full write-up and numbers: outputs/partb/B2_RESULTS.md. Scorecard:
+| # | Predicted (Keyen) | Found | Verdict |
+|---|---|---|---|
+| 1 | Scaling: crossover | EEGNet ahead at every size; gap shrinks from ~17 to ~5 points | wrong |
+| 2 | EEGNet at 30 subjects > 72% | ~77% | right |
+| 3 | time > chan+id = chan-noid | time ~ chan+id >> chan-noid (identity worth ~13 points; no-identity model exactly mirror-invariant) | partly wrong |
+| 4 | Displacement: time-patch drops most | yes at 15-20 mm, but every model loses < 1 point at 10 mm | right (ranking), effect tiny |
+| 5 | Reliance: both eye and motor | mainly the eye route (F7/F8/Ft7/Ft8; transformer peaks 0.2-0.4 s, EEGNet 0.6-1.1 s); motor not separable and does not survive removal | partly right |
+| 6 | Faithfulness: attention > gradient > random | attention > gradient ~ random | right |
+| 7 | Link: A2 LI, small drop when confound removed | EEGNet tracks LI most (and F1); removal drops both models to chance | half right |
+| 8 | Intervention: no effect | no effect on accuracy, curve or spatial-filter sensitivity | right |

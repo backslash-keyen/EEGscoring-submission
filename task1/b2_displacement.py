@@ -50,15 +50,20 @@ def stages(m, x):
 
 
 def main():
-    torch.set_num_threads(4)
+    torch.set_num_threads(2)   # runs beside the training grid
     names = list(data.load_subject(data.SUBJECTS[0], causal=True)["ch_names"])
     mats = {(s, d): spatial.displacement_matrix(names, s, v).astype(np.float32) for s in SHIFTS for d, v in DIRS.items()}
     jobs = sorted(p.stem for p in b2_run.RUNS.glob("*_n30.json") if p.stem.split("_")[0] in ("base", "aug"))
-    rows, layer_rows = [], []
+    CACHE = OUT / "displacement_per_model"   # one file per model, so the analysis can run while the grid is still training
+    CACHE.mkdir(exist_ok=True)
     for f in b2_run.FOLDS:
+        todo = [j for j in jobs if f"_f{f}_" in j and not (CACHE / f"{j}.csv").exists()]
+        if not todo:
+            continue
         te = train.split(f)[2]
         X, y, subj, _ = train.load(te)
-        for jid in [j for j in jobs if f"_f{f}_" in j]:
+        for jid in todo:
+            rows, layer_rows = [], []
             m, norm, r = load_model(jid)
             for (s, d), M in mats.items():
                 if s == 0 and d != "right":
@@ -75,9 +80,12 @@ def main():
                 for k, v in stages(m, xd).items():
                     layer_rows.append(dict(job=jid, model=r["model"], exp=r["exp"], direction=d, layer=k,
                                            rel_change=((v - ref[k]).norm() / ref[k].norm()).item()))
+            pd.DataFrame(layer_rows).to_csv(CACHE / f"{jid}_layers.csv", index=False)
+            pd.DataFrame(rows).to_csv(CACHE / f"{jid}.csv", index=False)
             print("done", jid, flush=True)
-    pd.DataFrame(rows).to_csv(OUT / "b2_displacement_runs.csv", index=False)
-    pd.DataFrame(layer_rows).to_csv(OUT / "b2_displacement_layers.csv", index=False)
+    files = sorted(CACHE.glob("*.csv"))
+    pd.concat([pd.read_csv(p) for p in files if not p.stem.endswith("_layers")]).to_csv(OUT / "b2_displacement_runs.csv", index=False)
+    pd.concat([pd.read_csv(p) for p in files if p.stem.endswith("_layers")]).to_csv(OUT / "b2_displacement_layers.csv", index=False)
 
 
 if __name__ == "__main__":

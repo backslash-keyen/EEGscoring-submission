@@ -1,0 +1,1 @@
+{"model": "eegnet", "fold": 3, "seed": 1, "n_train": 30, "n_params": 2962, "best_epoch": 28, "epochs_run": 39, "val_loss": 0.48635968565940857, "val_acc": 0.72, "test_acc": 0.8504273504273504, "n_test": 234, "sec": 920.9, "exp": "aug", "job": "aug_eegnet_f3_s1_n30"}

@@ -1,0 +1,1 @@
+model=eegnet fold=0 seed=0 n_train=30 n_params=2274 best_epoch=0 epochs_run=41 val_loss=0.7061 val_acc=0.4222 test_acc=0.4892 n_test=231 sec=3599.1000

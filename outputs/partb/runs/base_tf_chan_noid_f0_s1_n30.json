@@ -1,0 +1,1 @@
+{"model": "tf_chan_noid", "fold": 0, "seed": 1, "n_train": 30, "n_params": 6226, "best_epoch": 11, "epochs_run": 22, "val_loss": 0.6647048592567444, "val_acc": 0.6177777777777778, "test_acc": 0.5584415584415584, "n_test": 231, "sec": 654.2, "exp": "base", "job": "base_tf_chan_noid_f0_s1_n30"}

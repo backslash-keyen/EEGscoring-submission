@@ -1,0 +1,15 @@
+120 jobs to run
+[1/120] base_eegnet_f0_s0_n30 epochs=18 sec=400.6 elapsed=420s
+[2/120] base_eegnet_f2_s0_n30 epochs=24 sec=543.4 elapsed=562s
+[3/120] base_eegnet_f3_s0_n30 epochs=28 sec=631.1 elapsed=650s
+[4/120] base_eegnet_f1_s0_n30 epochs=28 sec=637.6 elapsed=656s
+[5/120] base_tf_time_f1_s0_n30 epochs=31 sec=791.9 elapsed=1375s
+[6/120] base_tf_time_f3_s0_n30 epochs=31 sec=788.0 elapsed=1462s
+[7/120] base_tf_time_f2_s0_n30 epochs=33 sec=826.2 elapsed=1494s
+[8/120] base_tf_time_f0_s0_n30 epochs=51 sec=1253.3 elapsed=1704s
+[9/120] base_tf_chan_id_f0_s0_n30 epochs=18 sec=441.0 elapsed=1835s
+[10/120] base_tf_chan_id_f1_s0_n30 epochs=25 sec=614.8 elapsed=2094s
+[11/120] base_tf_chan_noid_f1_s0_n30 epochs=11 sec=271.6 elapsed=2381s
+[12/120] base_tf_chan_noid_f0_s0_n30 epochs=27 sec=670.7 elapsed=2523s
+[13/120] base_tf_chan_noid_f2_s0_n30 epochs=14 sec=372.1 elapsed=2774s
+[14/120] base_tf_chan_id_f2_s0_n30 epochs=54 sec=1357.3 elapsed=2868s
