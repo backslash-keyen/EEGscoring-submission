@@ -10,6 +10,7 @@ Metrics: accuracy, macro-F1 and Cohen's kappa on held-out data.
 
 Run    : python sleep_pipeline.py
 """
+import os
 import random
 
 import mne
@@ -54,6 +55,11 @@ def set_seed(seed):
 
 def get_files(subjects):
     return fetch_data(subjects=subjects, recording=[1, 2], on_missing="warn")
+
+
+def subject_of(f):
+    # file name SC4<ss><n>E0-PSG.edf: ss = subject, n = night
+    return os.path.basename(f[0])[3:5]
 
 
 # --------------------------------------------------------------------------
@@ -167,12 +173,20 @@ def predict(model, ds):
 def main():
     set_seed(SEED)
     files = get_files(SUBJECTS)
-    random.Random(SEED).shuffle(files)
-    n_test = max(1, int(0.2 * len(files)))
-    test_files, train_files = files[:n_test], files[n_test:]
-    print(f"train recordings: {len(train_files)}  test recordings: {len(test_files)}")
+    # split by SUBJECT: both nights of a person share electrode placement, alpha rhythm and
+    # amplitude, so a recording-level split lets the model see test people during training
+    subj = sorted({subject_of(f) for f in files})
+    random.Random(SEED).shuffle(subj)
+    n_hold = max(1, int(0.2 * len(subj)))
+    test_s, val_s, train_s = set(subj[:n_hold]), set(subj[n_hold:2 * n_hold]), set(subj[2 * n_hold:])
+    test_files = [f for f in files if subject_of(f) in test_s]
+    val_files = [f for f in files if subject_of(f) in val_s]
+    train_files = [f for f in files if subject_of(f) in train_s]
+    print(f"train: {len(train_s)} subjects / {len(train_files)} recordings  "
+          f"val: {len(val_s)} / {len(val_files)}  test: {len(test_s)} / {len(test_files)}")
 
     train_ds = SeqDataset([load_recording(*f) for f in train_files])
+    val_ds = SeqDataset([load_recording(*f) for f in val_files])   # not used until model selection is fixed
     test_ds = SeqDataset([load_recording(*f) for f in test_files])
 
     y_train = np.array([train_ds.recs[r][1][i + SEQ_LEN - 1] for r, i in train_ds.index])

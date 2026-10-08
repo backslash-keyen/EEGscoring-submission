@@ -1,0 +1,25 @@
+train: 9 subjects / 18 recordings  val: 3 / 6  test: 3 / 5
+train label counts: {'W': 33749, 'N1': 1476, 'N2': 8893, 'N3': 2064, 'REM': 3362}
+epoch  0  loss 0.808  macro-F1 0.587
+epoch  1  loss 1.236  macro-F1 0.582
+epoch  2  loss 0.760  macro-F1 0.646
+epoch  3  loss 0.524  macro-F1 0.653
+epoch  4  loss 0.410  macro-F1 0.650
+epoch  5  loss 0.496  macro-F1 0.647
+epoch  6  loss 0.479  macro-F1 0.664
+epoch  7  loss 0.750  macro-F1 0.648
+epoch  8  loss 1.016  macro-F1 0.597
+epoch  9  loss 0.444  macro-F1 0.667
+epoch 10  loss 0.817  macro-F1 0.624
+epoch 11  loss 0.781  macro-F1 0.662
+
+=== held-out results ===
+accuracy 0.853
+macro-F1 0.667
+kappa    0.722
+per-class F1: {'W': 0.956, 'N1': 0.215, 'N2': 0.694, 'N3': 0.812, 'REM': 0.656}
+[[8738  466   50   24  184]
+ [  18  132   69   13  105]
+ [  37  196 1219  157  274]
+ [   3   15  206  928   11]
+ [  24   84   87    0  734]]
