@@ -73,7 +73,7 @@ Ten defects, one commit each; what, evidence, distortion and fix are in `DEFECTS
 Fixed pipeline, mean ± SD over seeds 42-44: **accuracy 0.827 ± 0.012, macro-F1 0.788 ± 0.015, kappa 0.769 ± 0.020**.
 
 ## 2c Impact ledger
-Each defect re-introduced alone into the fixed script by reversing its edit (`task2/ledger.py`), seeds 42-44 (a seed also draws the subject split); Δ = defective - fixed on the same seed, mean ± SD (`task2/ledger_table.md`, per run `task2/ledger_runs.csv`). Predictions were committed before any run (`PREDICTIONS.md`).
+Each defect re-introduced alone into the fixed script by reversing its edit (`task2/ledger.py`), seeds 42-44 (a seed also draws the subject split); Δ = defective - fixed on the same seed, mean ± SD (`task2/ledger_table.md`, per run `task2/ledger_runs.csv`). Predictions were committed before any run (`PREDICTIONS.md`). Every single defect has 3 seeds; the four combination rows marked † have seeds 42 and 43 only (their seed-44 runs were cut for time; the ALL run ran out of memory).
 
 | defect | Δ accuracy | Δ macro-F1 | Δ kappa | predicted (F1) | outcome |
 |---|---|---|---|---|---|
@@ -87,12 +87,12 @@ Each defect re-introduced alone into the fixed script by reversing its edit (`ta
 | 5 last-epoch label | +0.009 ± 0.011 | +0.007 ± 0.015 | +0.013 ± 0.014 | down | **within noise** |
 | 6 units (no rejection) | +0.006 ± 0.010 | +0.008 ± 0.014 | +0.009 ± 0.016 | ~0 | right (noise floor) |
 | 7 deletion | +0.011 ± 0.019 | +0.008 ± 0.015 | +0.014 ± 0.024 | ~0 | right (noise floor) |
-| 6N naive units fix | D6N_ACC | D6N_F1 | D6N_K | down | right |
-| 6N + 7 | D6N7_ACC | D6N7_F1 | D6N7_K | worse than 6N | **flips: less bad** |
+| 6N naive units fix † | -0.028 ± 0.004 | -0.049 ± 0.002 | -0.069 ± 0.000 | down | right |
+| 6N + 7 † | -0.016 ± 0.015 | -0.021 ± 0.026 | -0.029 ± 0.024 | worse than 6N | **flips: less bad** |
 | 3 + 4 | -0.037 ± 0.016 | -0.046 ± 0.031 | -0.048 ± 0.024 | = 3 | right (4 vanishes) |
 | 1 + 2 | +0.015 ± 0.033 | +0.012 ± 0.026 | +0.014 ± 0.053 | more than either | not additive |
-| 9 + 10 | D910_ACC | D910_F1 | D910_K | 9 grows | **9 vanishes** |
-| all ten | ALL_ACC | ALL_F1 | ALL_K | acc up, F1 -0.08..-0.20 | right |
+| 9 + 10 † | +0.097 ± 0.012 | +0.005 ± 0.017 | +0.081 ± 0.021 | 9 grows | **9 vanishes** |
+| all ten † | +0.027 ± 0.031 | -0.147 ± 0.032 | -0.059 ± 0.054 | acc up, F1 -0.08..-0.20 | right |
 
 **Noise floor.** Defects 6 and 7 change no test window here, and on seeds 42 and 43 their runs equal the fixed run exactly; on seed 44 both differ from it by the same +0.024 macro-F1. The difference is run-to-run nondeterminism (most likely the CPU thread count, which changes floating-point summation order), so effects under about ±0.02 macro-F1 are not resolved.
 
