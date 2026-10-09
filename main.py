@@ -6,7 +6,7 @@ interruption continues where it stopped. Delete data/cache*, data/cache_causal a
 
   python main.py                 everything (download ~0.3 GB, then ~12-14 h on an 8-core CPU, most of it the B2 grid)
   python main.py --list          show the steps
-  python main.py --only A2 A3    run selected parts (A1 A2 A3 B1 B2 T2)
+  python main.py --only A2 A3    run selected parts (A1 A2 A3 B1 B2 T2 R)
   python main.py --from B2       run from a part onwards
   python main.py --matlab        also run the MATLAB twins (needs `matlab` on PATH; not required for any Python number)
 """
@@ -41,12 +41,14 @@ STEPS = [
     # Task 2 is developed on its own branch; these entries run whatever of it is present and say so when a script is missing
     ("T2", ["task2/sleep_pipeline.py"], "Task 2: fixed sleep-staging pipeline"),
     ("T2", ["task2/impact_ledger.py"], "Task 2: impact ledger (2c)"),
+    # last, so the PDF typesets the outputs just produced; skipped with a message if pandoc/xelatex are missing
+    ("R", ["report/build_report.py"], "REPORT.pdf from report/REPORT.md + task1/WRITEUP.md"),
 ]
 
 MATLAB = [  # twins of Python steps; their outputs are comparisons only (D15-D18 and A3_RESULTS.md, MATLAB section)
     ("A1", "task1/audit.m"), ("A2", "task1/a2_tfr.m"), ("A2", "task1/a2_walkthrough.m"), ("A3", "task1/a3_confound.m"),
 ]
-PARTS = ["A1", "A2", "A3", "B1", "B2", "T2"]
+PARTS = ["A1", "A2", "A3", "B1", "B2", "T2", "R"]
 
 
 def run(cmd, label):
