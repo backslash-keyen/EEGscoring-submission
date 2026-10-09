@@ -245,6 +245,7 @@ def main():
     print("per-class F1:", dict(zip(CLASS_NAMES, np.round(
         f1_score(y_true, y_pred, average=None, labels=range(N_CLASSES)), 3).tolist())))
     print(confusion_matrix(y_true, y_pred, labels=range(N_CLASSES)))
+    return y_true, y_pred   # used by ledger.py; nothing else reads it
 
 
 if __name__ == "__main__":
