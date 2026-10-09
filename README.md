@@ -10,7 +10,7 @@ The write-up is [REPORT.pdf](REPORT.pdf) (4 pages, both tasks). All of it comes 
 ## Start here
 
 1. [REPORT.pdf](REPORT.pdf) for both tasks and the two write-ups.
-2. [outputs/a3_per_subject_table.csv](outputs/a3_per_subject_table.csv) for the per-subject A2 and A3 results, and [outputs/partb/b2_all_runs.csv](outputs/partb/b2_all_runs.csv) for every B2 run.
+2. The Task 1 outputs the brief lists: [audit.csv](audit.csv) (one row per subject), the ERD figures in [outputs/erd/](outputs/erd) (one per subject, with three present and three absent in [outputs/a2_examples_3present_3absent.png](outputs/a2_examples_3present_3absent.png)), the per-subject table [outputs/a3_per_subject_table.csv](outputs/a3_per_subject_table.csv) (lateralisation index, p-value, label and confound-decoder accuracies with thresholds), and every B2 run with every seed in [outputs/partb/b2_all_runs.csv](outputs/partb/b2_all_runs.csv).
 3. [DEFECTS.md](DEFECTS.md) and [task2/ledger_table.md](task2/ledger_table.md) for the Task 2 defects and what each one did.
 4. [PREDICTIONS.md](PREDICTIONS.md) and [DECISIONS.md](DECISIONS.md) for what was predicted before each result and why each choice was made.
 
