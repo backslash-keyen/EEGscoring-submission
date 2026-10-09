@@ -1,0 +1,2 @@
+given (batch_first=False): change in window 0's output when its own neighbour changes 0.00e+00; when another window in the batch changes 9.02e-04
+fixed (batch_first=True) : change in window 0's output when its own neighbour changes 2.37e-03; when another window in the batch changes 0.00e+00
