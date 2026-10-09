@@ -83,8 +83,10 @@ def load_recording(psg_file, hyp_file):
         start, stop = int(onset // EPOCH_SEC), int((onset + dur) // EPOCH_SEC)
         y[start:stop] = STAGE_MAP.get(desc, 0)
 
-    # drop electrode pops
-    keep = np.ptp(X, axis=-1).max(axis=1) < REJECT_PTP
+    # drop electrode pops. MNE data is in volts (threshold is uV), and only the EEG channels are
+    # tested: the EOG channel normally swings ~500 uV (median 534) and would lose over half the epochs
+    eeg = [i for i, c in enumerate(CHANNELS) if c != "horizontal"]
+    keep = (np.ptp(X[:, eeg], axis=-1) * 1e6).max(axis=1) < REJECT_PTP
     X, y = X[keep], y[keep]
 
     # standardise each epoch so the network is insensitive to amplitude drift

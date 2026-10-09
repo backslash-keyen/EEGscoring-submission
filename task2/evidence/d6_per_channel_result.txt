@@ -1,0 +1,4 @@
+Fpz-Cz     median    175  90%    284  99%    376  max     509  rejected@500:   0.0%  @1000:  0.0%
+Pz-Oz      median     85  90%    158  99%    244  max     414  rejected@500:   0.0%  @1000:  0.0%
+horizontal median    534  90%    796  99%   1094  max    1526  rejected@500:  54.1%  @1000:  1.8%
+EEG channels only (Fpz-Cz, Pz-Oz): epochs >=500 uV: 0.00%   >=250: 18.60%
