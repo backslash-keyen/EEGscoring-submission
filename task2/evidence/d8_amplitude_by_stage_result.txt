@@ -1,0 +1,8 @@
+Fpz-Cz, 0.5-2 Hz slow-wave band, peak-to-peak per epoch (uV), raw amplitude BEFORE z-scoring:
+stage  epochs  median   >75 uV
+W        5196     133    76.5%
+N1       2184      49    28.2%
+N2      13140      91    66.0%
+N3       3975     159    99.6%
+REM      5483      53    25.3%
+after the pipeline's z-scoring every epoch/channel has std = 0.999: absolute amplitude is identical for all stages

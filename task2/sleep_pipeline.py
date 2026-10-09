@@ -1,0 +1,252 @@
+"""
+Sleep staging: CNN epoch-encoder + Transformer sequence model
+==============================================================
+
+Data   : Sleep-EDF Expanded, Sleep Cassette (SC) subset, fetched with MNE.
+Task   : 5-class AASM staging (W, N1, N2, N3, REM). The model sees a window of
+         SEQ_LEN consecutive 30-s epochs and predicts the stage of the CENTRE
+         epoch of the window.
+Metrics: accuracy, macro-F1 and Cohen's kappa on held-out data.
+
+Run    : python sleep_pipeline.py
+"""
+import os
+import random
+
+import mne
+import numpy as np
+import torch
+import torch.nn as nn
+from mne.datasets.sleep_physionet.age import fetch_data
+from sklearn.metrics import (accuracy_score, cohen_kappa_score,
+                             confusion_matrix, f1_score)
+
+SEED = 42
+SUBJECTS = list(range(15))          # subjects 0-14, both nights where available
+SEQ_LEN = 11                        # 11 x 30 s = 5.5 min of context
+EPOCH_SEC = 30
+CHANNELS = ["Fpz-Cz", "Pz-Oz", "horizontal"]   # names after infer_types=True
+N_CLASSES = 5
+CLASS_NAMES = ["W", "N1", "N2", "N3", "REM"]
+
+# R&K -> AASM: stages 3 and 4 are merged into N3
+STAGE_MAP = {
+    "Sleep stage W": 0,
+    "Sleep stage 1": 1,
+    "Sleep stage 2": 2,
+    "Sleep stage 3": 3,
+    "Sleep stage 4": 3,
+    "Sleep stage R": 4,
+}
+
+WAKE_MARGIN = 60       # epochs (30 min) of Wake kept before the first and after the last sleep epoch
+REJECT_PTP = 500      # uV; epochs with larger peak-to-peak are electrode pops
+BATCH = 32
+TRAIN_EPOCHS = 12
+STEPS_PER_EPOCH = 150
+LR = 1e-3
+D_MODEL = 64
+
+
+def set_seed(seed):
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+
+
+def get_files(subjects):
+    return fetch_data(subjects=subjects, recording=[1, 2], on_missing="warn")
+
+
+def subject_of(f):
+    # file name SC4<ss><n>E0-PSG.edf: ss = subject, n = night
+    return os.path.basename(f[0])[3:5]
+
+
+# --------------------------------------------------------------------------
+# Data
+# --------------------------------------------------------------------------
+def load_recording(psg_file, hyp_file):
+    raw = mne.io.read_raw_edf(psg_file, stim_channel="Event marker",
+                              infer_types=True, preload=True, verbose="error")
+    raw.pick(CHANNELS)
+    raw.filter(0.3, 35.0, verbose="error")
+    sf = int(raw.info["sfreq"])
+    n_ep = raw.n_times // (EPOCH_SEC * sf)
+
+    data = raw.get_data()[:, : n_ep * EPOCH_SEC * sf]
+    X = data.reshape(len(CHANNELS), n_ep, EPOCH_SEC * sf).transpose(1, 0, 2)
+
+    # one label per 30-s epoch from the hypnogram
+    annot = mne.read_annotations(hyp_file)
+    y = np.full(n_ep, -1, dtype=np.int64)   # -1 = unlabelled; 0 would silently mean Wake
+    for onset, dur, desc in zip(annot.onset, annot.duration, annot.description):
+        start, stop = int(onset // EPOCH_SEC), int((onset + dur) // EPOCH_SEC)
+        y[start:stop] = STAGE_MAP.get(desc, -1)   # 'Sleep stage ?' and 'Movement time' are not stages
+
+    # drop electrode pops. MNE data is in volts (threshold is uV), and only the EEG channels are
+    # tested: the EOG channel normally swings ~500 uV (median 534) and would lose over half the epochs
+    eeg = [i for i, c in enumerate(CHANNELS) if c != "horizontal"]
+    keep = (np.ptp(X[:, eeg], axis=-1) * 1e6).max(axis=1) < REJECT_PTP
+    # rejected epochs stay in the array (so neighbours stay 30 s apart) and are masked out of the windows instead
+
+    # crop to the sleep period +- 30 min: recordings run ~23 h and 97% of all Wake is lights-on time before/after
+    # the night, which makes 'always Wake' score 68.7% accuracy
+    asleep = np.where(y > 0)[0]
+    lo, hi = max(0, asleep[0] - WAKE_MARGIN), min(len(y), asleep[-1] + 1 + WAKE_MARGIN)
+    X, y, keep = X[lo:hi], y[lo:hi], keep[lo:hi]
+
+    # standardise per RECORDING and channel: removes between-person scale (skull, impedance) but keeps the
+    # within-night amplitude contrast between stages (N3 is defined by >75 uV slow waves; per-epoch z-scoring erased it).
+    # Statistics use the non-rejected epochs only, so an electrode pop cannot distort the scale.
+    mu = X[keep].mean(axis=(0, 2), keepdims=True)
+    sd = X[keep].std(axis=(0, 2), keepdims=True)
+    X = (X - mu) / (sd + 1e-8)
+    return X.astype(np.float32), y, keep
+
+
+class SeqDataset(torch.utils.data.Dataset):
+    """Windows of SEQ_LEN consecutive epochs from each recording."""
+
+    def __init__(self, recordings):
+        self.recs = recordings
+        # skip any window containing a rejected epoch: it would not be SEQ_LEN consecutive epochs in time
+        self.index = [(r, i) for r, (X, y, keep) in enumerate(recordings)
+                      for i in range(len(y) - SEQ_LEN + 1)
+                      if keep[i:i + SEQ_LEN].all() and y[i + SEQ_LEN // 2] >= 0]  # unscored epochs may be context, never targets
+
+    def __len__(self):
+        return len(self.index)
+
+    def __getitem__(self, k):
+        r, i = self.index[k]
+        X, y, _ = self.recs[r]
+        # label = CENTRE epoch: the head reads position SEQ_LEN // 2, and the last epoch is a different stage in 8% of windows
+        return torch.from_numpy(X[i:i + SEQ_LEN]), int(y[i + SEQ_LEN // 2])
+
+
+# --------------------------------------------------------------------------
+# Model
+# --------------------------------------------------------------------------
+class EpochEncoder(nn.Module):
+    def __init__(self, n_ch, d):
+        super().__init__()
+        self.net = nn.Sequential(
+            nn.Conv1d(n_ch, 16, 50, stride=6), nn.BatchNorm1d(16), nn.ReLU(), nn.MaxPool1d(8),
+            nn.Conv1d(16, 32, 8), nn.BatchNorm1d(32), nn.ReLU(), nn.MaxPool1d(4),
+            nn.Conv1d(32, d, 8), nn.BatchNorm1d(d), nn.ReLU(), nn.AdaptiveAvgPool1d(1),
+        )
+
+    def forward(self, x):                      # (N, C, T) -> (N, d)
+        return self.net(x).squeeze(-1)
+
+
+class PositionalEncoding(nn.Module):
+    def __init__(self, d, max_len=64):
+        super().__init__()
+        pos = torch.arange(max_len).unsqueeze(1)
+        div = torch.exp(torch.arange(0, d, 2) * (-np.log(10000.0) / d))
+        pe = torch.zeros(max_len, d)
+        pe[:, 0::2] = torch.sin(pos * div)
+        pe[:, 1::2] = torch.cos(pos * div)
+        self.register_buffer("pe", pe)
+
+    def forward(self, z):                      # (B, L, d)
+        return z + self.pe[: z.size(1)]
+
+
+class SleepTransformer(nn.Module):
+    def __init__(self, n_ch, d=D_MODEL, n_classes=N_CLASSES):
+        super().__init__()
+        self.encoder = EpochEncoder(n_ch, d)
+        # batch_first: input is (B, L, d); the default (L, B, d) would attend across the batch, not across epochs
+        layer = nn.TransformerEncoderLayer(d_model=d, nhead=4, dim_feedforward=128, dropout=0.1,
+                                           batch_first=True)
+        self.transformer = nn.TransformerEncoder(layer, num_layers=2)
+        self.pos = PositionalEncoding(d)
+        self.head = nn.Linear(d, n_classes)
+
+    def forward(self, x):                      # x: (B, L, C, T)
+        B, L = x.shape[:2]
+        z = self.encoder(x.flatten(0, 1)).view(B, L, -1)
+        # positions must go in BEFORE attention; added afterwards the encoder sees an unordered set of epochs
+        z = self.transformer(self.pos(z))
+        return self.head(z[:, L // 2])
+
+
+# --------------------------------------------------------------------------
+# Train / evaluate
+# --------------------------------------------------------------------------
+@torch.no_grad()
+def predict(model, ds):
+    model.eval()
+    loader = torch.utils.data.DataLoader(ds, batch_size=256, shuffle=False)
+    ys, ps = [], []
+    for xb, yb in loader:
+        ps.append(model(xb).argmax(1).numpy())
+        ys.append(yb.numpy())
+    return np.concatenate(ys), np.concatenate(ps)
+
+
+def main():
+    set_seed(SEED)
+    files = get_files(SUBJECTS)
+    # split by SUBJECT: both nights of a person share electrode placement, alpha rhythm and
+    # amplitude, so a recording-level split lets the model see test people during training
+    subj = sorted({subject_of(f) for f in files})
+    random.Random(SEED).shuffle(subj)
+    n_hold = max(1, int(0.2 * len(subj)))
+    test_s, val_s, train_s = set(subj[:n_hold]), set(subj[n_hold:2 * n_hold]), set(subj[2 * n_hold:])
+    test_files = [f for f in files if subject_of(f) in test_s]
+    val_files = [f for f in files if subject_of(f) in val_s]
+    train_files = [f for f in files if subject_of(f) in train_s]
+    print(f"train: {len(train_s)} subjects / {len(train_files)} recordings  "
+          f"val: {len(val_s)} / {len(val_files)}  test: {len(test_s)} / {len(test_files)}")
+
+    train_ds = SeqDataset([load_recording(*f) for f in train_files])
+    val_ds = SeqDataset([load_recording(*f) for f in val_files])
+    test_ds = SeqDataset([load_recording(*f) for f in test_files])
+
+    y_train = np.array([train_ds.recs[r][1][i + SEQ_LEN // 2] for r, i in train_ds.index])
+    counts = np.bincount(y_train, minlength=N_CLASSES)
+    print("train label counts:", dict(zip(CLASS_NAMES, counts.tolist())))
+    weights = torch.tensor(len(y_train) / (N_CLASSES * np.maximum(counts, 1)), dtype=torch.float32)
+
+    print("class weights (inverse frequency of the training windows):", dict(zip(CLASS_NAMES, np.round(weights.numpy(), 2).tolist())))
+    model = SleepTransformer(n_ch=len(CHANNELS))
+    opt = torch.optim.Adam(model.parameters(), lr=LR)
+    loss_fn = nn.CrossEntropyLoss(weight=weights)
+    sampler = torch.utils.data.RandomSampler(train_ds, replacement=True,
+                                             num_samples=BATCH * STEPS_PER_EPOCH)
+    loader = torch.utils.data.DataLoader(train_ds, batch_size=BATCH, sampler=sampler)
+
+    best_f1, best_state = -1.0, None
+    for ep in range(TRAIN_EPOCHS):
+        model.train()
+        for xb, yb in loader:
+            opt.zero_grad()
+            loss = loss_fn(model(xb), yb)
+            loss.backward()
+            opt.step()
+        # pick the epoch on VALIDATION subjects; the test subjects are scored once, below
+        y_true, y_pred = predict(model, val_ds)
+        f1 = f1_score(y_true, y_pred, average="macro")
+        print(f"epoch {ep:2d}  loss {loss.item():.3f}  val macro-F1 {f1:.3f}")
+        if f1 > best_f1:
+            best_f1 = f1
+            best_state = {k: v.clone() for k, v in model.state_dict().items()}
+
+    model.load_state_dict(best_state)
+    y_true, y_pred = predict(model, test_ds)
+    print("\n=== held-out results ===")
+    print(f"accuracy {accuracy_score(y_true, y_pred):.3f}")
+    print(f"macro-F1 {f1_score(y_true, y_pred, average='macro'):.3f}")
+    print(f"kappa    {cohen_kappa_score(y_true, y_pred):.3f}")
+    print("per-class F1:", dict(zip(CLASS_NAMES, np.round(
+        f1_score(y_true, y_pred, average=None, labels=range(N_CLASSES)), 3).tolist())))
+    print(confusion_matrix(y_true, y_pred, labels=range(N_CLASSES)))
+    return y_true, y_pred   # used by ledger.py; nothing else reads it
+
+
+if __name__ == "__main__":
+    main()

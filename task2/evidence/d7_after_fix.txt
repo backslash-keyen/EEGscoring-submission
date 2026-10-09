@@ -1,0 +1,4 @@
+recording SC4061E0: epochs 2770  rejected epoch index: [1659]
+windows if nothing were skipped: 2760  windows kept: 2749  skipped: 11
+any kept window contains the rejected epoch: False
+a sample window still loads: (11, 3, 3000) 0

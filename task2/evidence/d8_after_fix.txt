@@ -1,0 +1,7 @@
+per-recording check: mean of means -0.0000, mean of channel stds 0.999  (should be ~0 and ~1)
+Fpz-Cz per-epoch std AFTER the new normalisation (relative amplitude by stage):
+  W    median 1.03   (per-epoch z-scoring would give 1.00 for every stage)
+  N1   median 0.51   (per-epoch z-scoring would give 1.00 for every stage)
+  N2   median 0.76   (per-epoch z-scoring would give 1.00 for every stage)
+  N3   median 1.45   (per-epoch z-scoring would give 1.00 for every stage)
+  REM  median 0.52   (per-epoch z-scoring would give 1.00 for every stage)

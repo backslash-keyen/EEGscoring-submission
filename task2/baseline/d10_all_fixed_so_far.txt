@@ -1,0 +1,26 @@
+train: 9 subjects / 18 recordings  val: 3 / 6  test: 3 / 5
+train label counts: {'W': 2694, 'N1': 1476, 'N2': 8893, 'N3': 2064, 'REM': 3362}
+class weights (inverse frequency of the training windows): {'W': 1.3700000047683716, 'N1': 2.509999990463257, 'N2': 0.41999998688697815, 'N3': 1.7899999618530273, 'REM': 1.100000023841858}
+epoch  0  loss 0.565  val macro-F1 0.595
+epoch  1  loss 0.370  val macro-F1 0.816
+epoch  2  loss 0.259  val macro-F1 0.800
+epoch  3  loss 0.499  val macro-F1 0.800
+epoch  4  loss 0.491  val macro-F1 0.774
+epoch  5  loss 0.251  val macro-F1 0.697
+epoch  6  loss 0.280  val macro-F1 0.754
+epoch  7  loss 0.303  val macro-F1 0.768
+epoch  8  loss 0.246  val macro-F1 0.780
+epoch  9  loss 0.261  val macro-F1 0.815
+epoch 10  loss 0.179  val macro-F1 0.774
+epoch 11  loss 0.122  val macro-F1 0.805
+
+=== held-out results ===
+accuracy 0.821
+macro-F1 0.778
+kappa    0.769
+per-class F1: {'W': 0.942, 'N1': 0.404, 'N2': 0.828, 'N3': 0.893, 'REM': 0.825}
+[[1056   45    1    1    0]
+ [  68  228   24    0   17]
+ [   7  283 1434  114   45]
+ [   4   43   85 1031    0]
+ [   4  192   37    0  696]]

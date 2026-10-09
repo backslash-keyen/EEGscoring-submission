@@ -1,0 +1,58 @@
+D:\EEGScoring\.claude\worktrees\a4-questions-3e9994\task2\sleep_pipeline.py:56: RuntimeWarning: Requested recording 2 for subject 13, but it is not available in corpus.
+
+  return fetch_data(subjects=subjects, recording=[1, 2], on_missing="warn")
+
+train recordings: 24  test recordings: 5
+
+train label counts: {'W': 45332, 'N1': 1902, 'N2': 10850, 'N3': 3354, 'REM': 4628}
+
+D:\EEGScoring\.claude\worktrees\a4-questions-3e9994\task2\sleep_pipeline.py:141: UserWarning: enable_nested_tensor is True, but self.use_nested_tensor is False because encoder_layer.self_attn.batch_first was not True(use batch_first for better inference performance)
+
+  self.transformer = nn.TransformerEncoder(layer, num_layers=2)
+
+epoch  0  loss 0.573  macro-F1 0.528
+
+epoch  1  loss 0.684  macro-F1 0.514
+
+epoch  2  loss 0.518  macro-F1 0.555
+
+epoch  3  loss 0.890  macro-F1 0.596
+
+epoch  4  loss 0.615  macro-F1 0.574
+
+epoch  5  loss 0.960  macro-F1 0.586
+
+epoch  6  loss 0.393  macro-F1 0.614
+
+epoch  7  loss 0.762  macro-F1 0.612
+
+epoch  8  loss 0.429  macro-F1 0.628
+
+epoch  9  loss 0.592  macro-F1 0.570
+
+epoch 10  loss 0.336  macro-F1 0.597
+
+epoch 11  loss 1.067  macro-F1 0.627
+
+
+
+=== held-out results ===
+
+accuracy 0.847
+
+macro-F1 0.628
+
+kappa    0.693
+
+per-class F1: {'W': 0.945, 'N1': 0.207, 'N2': 0.703, 'N3': 0.642, 'REM': 0.641}
+
+[[8862  265  254  140  145]
+
+ [  27   79   86   17   73]
+
+ [ 109  112 1546  242  281]
+
+ [  36    6   89  487    3]
+
+ [  53   21  131   10  640]]
+
