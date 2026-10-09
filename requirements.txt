@@ -15,12 +15,6 @@ pynndescent==0.6.0
 edfio==0.4.18
 pooch==1.9.0
 tqdm==4.70.1
-# executed A3 walkthrough notebook (task1/a3_walkthrough/make_notebook.py)
-nbformat==5.11.1
-nbclient==0.11.0
-nbconvert==7.17.1
-jupyter_client==8.10.0
-ipykernel==7.4.0
 # report figures (report/build_report.py) and the Task 2 parallel download helper (task2/prefetch.py)
 pillow==12.3.0
 requests==2.34.2

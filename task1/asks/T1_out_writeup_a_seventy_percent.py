@@ -36,11 +36,9 @@ A = csv("partb/b2_attr_input.csv")
 top = {m: ", ".join(g[g.kind == "electrode"].sort_values("share", ascending=False).key.head(5)) for m, g in A.groupby("model")}
 section("Supporting evidence")
 sq = csv("a3_sequence.csv")
-ml = csv("a3_matlab_pooled.csv").set_index("decoder")
 print(f"  subjects with the frontal decoder above their own threshold: {int(S.loc['F1', 'n_above'])}/40; motor strip: {int(S.loc['M1', 'n_above'])}/40")
 print(f"  lateralised ERD present (A2): {(csv('a2_lateralisation.csv').label == 'present').sum()}/40")
 print(f"  label order: {sq.lag1_same.sum()} same-label neighbours vs {sq.null_mean.sum():.0f} expected (alternating)")
-print(f"  frontal decoder with a causal Butterworth instead of MNE's FIR (MATLAB): {100 * ml.loc['F1', 'acc']:.1f}% (effect size depends on the filter, conclusion does not)")
 print(f"  most-attributed electrodes: EEGNet {top['eegnet']}; transformer {top['tf_time']} (horizontal EOG sites)")
 
 section("Answer")

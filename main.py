@@ -8,9 +8,8 @@ interruption continues where it stopped. Delete data/cache*, data/cache_causal a
   python main.py --list          show the steps
   python main.py --only A2 A3    run selected parts (A1 A2 A3 B1 B2 ASK T2 R)
   python main.py --from B2       run from a part onwards
-  python main.py --matlab        also run the MATLAB twins (needs `matlab` on PATH; not required for any Python number)
 """
-import argparse, os, shutil, subprocess, sys, time
+import argparse, os, subprocess, sys, time
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
@@ -33,7 +32,6 @@ STEPS = [
     ("A3", ["task1/confound_causal.py"], "a3c_causal_twins.csv, a3c_timecourse.*"),
     ("A3", ["task1/a3_thresholds.py"], "*_with_thresholds.csv"),
     ("A3", ["task1/artifact_scan.py"], "a3d_artifact_scan.csv"),
-    ("A3", ["task1/a3_walkthrough/make_notebook.py"], "task1/a3_walkthrough/a3_walkthrough.ipynb (executed), outputs/a3_walkthrough/"),
     ("B1", ["task1/models.py"], "parameter counts of the four models (printed)"),
     ("B2", ["task1/b2_run.py", "--stage", "all"], "outputs/partb/runs: 156 trained models + per-trial predictions (resumable)"),
     ("B2", ["task1/b2_noconf_check.py"], "b2_noconf_check.csv (post-hoc diagnostic, D27)"),
@@ -55,9 +53,6 @@ STEPS = [
     ("R", ["report/build_report.py"], "REPORT.pdf from report/REPORT.md + task1/WRITEUP.md"),
 ]
 
-MATLAB = [  # twins of Python steps; their outputs are comparisons only (D15-D18 and A3_RESULTS.md, MATLAB section)
-    ("A1", "task1/audit.m"), ("A2", "task1/a2_tfr.m"), ("A2", "task1/a2_walkthrough.m"), ("A3", "task1/a3_confound.m"),
-]
 PARTS = ["A1", "A2", "A3", "B1", "B2", "ASK", "T2", "R"]
 
 
@@ -75,7 +70,6 @@ def main():
     ap.add_argument("--only", nargs="+", choices=PARTS)
     ap.add_argument("--from", dest="start", choices=PARTS)
     ap.add_argument("--list", action="store_true")
-    ap.add_argument("--matlab", action="store_true")
     ap.add_argument("--workers", type=int, default=4, help="parallel training jobs in B2 (each uses --threads threads)")
     ap.add_argument("--threads", type=int, default=3)
     a = ap.parse_args()
@@ -93,12 +87,6 @@ def main():
         if s[0] == "task1/b2_run.py":
             s = s + ["--workers", str(a.workers), "--threads", str(a.threads)]
         run(PY + s, p)
-    if a.matlab:
-        if not shutil.which("matlab"):
-            sys.exit("--matlab given but `matlab` is not on PATH")
-        for p, m in MATLAB:
-            if p in parts:
-                run(["matlab", "-batch", f"run('{m}')"], f"{p} MATLAB")
     print(f"\nall steps finished in {(time.time() - t0) / 3600:.1f} h")
 
 

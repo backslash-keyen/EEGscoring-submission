@@ -54,7 +54,7 @@ def main():
     names = list(data.load_subject(data.SUBJECTS[0], causal=True)["ch_names"])
     mats = {(s, d): spatial.displacement_matrix(names, s, v).astype(np.float32) for s in SHIFTS for d, v in DIRS.items()}
     jobs = sorted(p.stem for p in b2_run.RUNS.glob("*_n30.json") if p.stem.split("_")[0] in ("base", "aug"))
-    CACHE = OUT / "displacement_per_model"   # one file per model, so the analysis can run while the grid is still training
+    CACHE = OUT.parent.parent / "data" / "cache_displacement"   # per-model cache (lets the analysis run while the grid trains); not a result, so it lives in data/
     CACHE.mkdir(exist_ok=True)
     for f in b2_run.FOLDS:
         todo = [j for j in jobs if f"_f{f}_" in j and not (CACHE / f"{j}.csv").exists()]
