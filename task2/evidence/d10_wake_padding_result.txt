@@ -1,0 +1,11 @@
+29 recordings, 80070 epochs (667 h)
+Wake 54348 = 67.9% of all epochs;  sleep stages 24782 = 31.0%
+Wake BEFORE first sleep epoch: 26091  AFTER last sleep epoch: 26540  (97% of all Wake)   Wake inside the sleep period: 1717
+always predicting Wake would give accuracy 68.7% (kappa 0)
+per recording, lead-in / lead-out Wake in hours (worst 5):
+  SC4051E  before 10.7 h  after  7.3 h  of a 22.7 h recording
+  SC4112E  before 10.0 h  after  7.5 h  of a 23.2 h recording
+  SC4061E  before  7.8 h  after  9.3 h  of a 23.1 h recording
+  SC4031E  before  7.3 h  after  9.3 h  of a 23.5 h recording
+  SC4071E  before  7.8 h  after  8.5 h  of a 23.4 h recording
+if only 30 min of lead-in/out Wake were kept: Wake 5197 epochs, i.e. 17.3% of kept epochs

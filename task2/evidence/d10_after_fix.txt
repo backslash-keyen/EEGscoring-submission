@@ -1,0 +1,5 @@
+all recordings after crop: epochs 30013  Wake share 17.3%  (was 67.9%)
+train windows: 18489  counts {'W': 2694, 'N1': 1476, 'N2': 8893, 'N3': 2064, 'REM': 3362}
+weights      : {'W': 1.37, 'N1': 2.51, 'N2': 0.42, 'N3': 1.79, 'REM': 1.1}
+weight*count per class (should be identical = N/5): [3697.8, 3697.8, 3697.8, 3697.8, 3697.8]  N/5 = 3697.8
+total weighted mass per class is equal -> each class contributes the same to the loss expectation

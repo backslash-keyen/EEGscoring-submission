@@ -1,0 +1,4 @@
+whole recordings (as given): windows 78851, last-epoch label != centre label in 6844 (8.7%)
+   by centre stage: W 1.5%, N1 71.3%, N2 19.9%, N3 22.0%, REM 17.6%
+cropped to sleep +- 30 min: windows 29688, last-epoch label != centre label in 6832 (23.0%)
+   by centre stage: W 16.6%, N1 71.3%, N2 19.9%, N3 22.0%, REM 17.6%

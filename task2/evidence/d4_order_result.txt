@@ -1,0 +1,2 @@
+before fix: max |output change| after shuffling the 10 neighbours (5 shuffles): 3.58e-07, 3.58e-07, 3.58e-07, 2.98e-07, 4.77e-07
+after  fix: max |output change| after shuffling the 10 neighbours (5 shuffles): 4.94e-03, 3.30e-03, 3.34e-03, 3.01e-03, 4.00e-03

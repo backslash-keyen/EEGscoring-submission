@@ -1,0 +1,4 @@
+29 recordings from 15 subjects
+seed 42: given split  test recordings 5, test subjects 5, also in train 5 ['05', '07', '09', '10', '11']  |  fixed split shared subjects 0
+seed 43: given split  test recordings 5, test subjects 5, also in train 4 ['09', '10', '12', '14']  |  fixed split shared subjects 0
+seed 44: given split  test recordings 5, test subjects 5, also in train 5 ['00', '05', '07', '09', '14']  |  fixed split shared subjects 0

@@ -1,0 +1,7 @@
+epochs: 80070
+peak-to-peak of the worst channel, in volts : median 5.34e-04  99.9% 1.29e-03  max 1.53e-03
+threshold in the code                       : REJECT_PTP = 500 compared against these numbers as-is
+epochs rejected by the code as written      : 0  (the largest value is 1.53e-03, 500 is never reached)
+in uV: median 534  99.9% 1294  max 1526
+epochs a 500 uV threshold WOULD reject      : 43355  (54.15%)
+epochs a 1000 uV threshold WOULD reject      : 1460  (1.82%)

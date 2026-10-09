@@ -1,0 +1,2 @@
+epochs: 80070  unlabelled (-1): 940  Wake: 54348
+windows: 78840  min target label: 0  windows per class: [54062, 2184, 13136, 3975, 5483]

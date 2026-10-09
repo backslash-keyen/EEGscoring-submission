@@ -6,15 +6,18 @@ interruption continues where it stopped. Delete data/cache*, data/cache_causal a
 
   python main.py                 everything (download ~0.3 GB, then ~12-14 h on an 8-core CPU, most of it the B2 grid)
   python main.py --list          show the steps
-  python main.py --only A2 A3    run selected parts (A1 A2 A3 B1 B2 T2)
+  python main.py --only A2 A3    run selected parts (A1 A2 A3 B1 B2 ASK T2 R)
   python main.py --from B2       run from a part onwards
   python main.py --matlab        also run the MATLAB twins (needs `matlab` on PATH; not required for any Python number)
 """
-import argparse, shutil, subprocess, sys, time
+import argparse, os, shutil, subprocess, sys, time
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
 PY = [sys.executable, "-W", "ignore"]
+# Sleep-EDF goes under data/ like the EEGBCI files; without this, MNE's default is ~/mne_data, outside the repo, so a
+# second checkout downloads the ~1.4 GB again at PhysioNet's throttled rate. Task 1 passes explicit paths and is unaffected.
+os.environ.setdefault("MNE_DATA", str(ROOT / "data" / "mne_sleep"))
 
 # (part, script and arguments, what it produces). Order matters: later steps read earlier outputs.
 STEPS = [
@@ -38,15 +41,22 @@ STEPS = [
     ("B2", ["task1/b2_invariance.py"], "b2_invariance_runs.csv"),
     ("B2", ["task1/b2_attribution.py"], "b2_attr_*.csv, b2_faithfulness*.csv/png, b2_attribution_maps.png"),
     ("B2", ["task1/b2_results.py"], "b2_summary.csv, b2_scaling.png, b2_displacement.png, link tables, B2_RESULTS.md"),
-    # Task 2 is developed on its own branch; these entries run whatever of it is present and say so when a script is missing
-    ("T2", ["task2/sleep_pipeline.py"], "Task 2: fixed sleep-staging pipeline"),
-    ("T2", ["task2/impact_ledger.py"], "Task 2: impact ledger (2c)"),
+    # one script per ask of the brief (task1/asks/README.md); they read the outputs above, so they run after B2
+    ("ASK", ["task1/asks/run_all.py"], "every Task 1 ask answered and checked against the outputs; figures in outputs/asks/"),
+    # 2a: the given script, byte-identical to commit fb4a5e7, so the baseline can be re-run after the fixes
+    ("T2", ["task2/baseline/sleep_pipeline_given.py"], "2a: given pipeline, seed 42 (printed; saved copy task2/baseline/2a_baseline_seed42.txt)"),
+    ("T2", ["task2/evidence/run_all.py"], "2b: task2/evidence/*_result.txt, the evidence cited in DEFECTS.md"),
+    ("T2", ["task2/sleep_pipeline.py"], "fixed pipeline, seed 42 (printed)"),
+    ("T2", ["task2/ledger.py", "--all", "--jobs", "4"], "2c: task2/ledger_results/*.json, ledger_runs.csv, ledger_table.md (resumable)"),
+    ("T2", ["task2/physiology.py"], "2d: task2/physiology/ (dataset facts, per-epoch uV features, per-window test predictions, report)"),
+    # last, so the PDF typesets the outputs just produced; skipped with a message if pandoc/xelatex are missing
+    ("R", ["report/build_report.py"], "REPORT.pdf from report/REPORT.md + task1/WRITEUP.md"),
 ]
 
 MATLAB = [  # twins of Python steps; their outputs are comparisons only (D15-D18 and A3_RESULTS.md, MATLAB section)
     ("A1", "task1/audit.m"), ("A2", "task1/a2_tfr.m"), ("A2", "task1/a2_walkthrough.m"), ("A3", "task1/a3_confound.m"),
 ]
-PARTS = ["A1", "A2", "A3", "B1", "B2", "T2"]
+PARTS = ["A1", "A2", "A3", "B1", "B2", "ASK", "T2", "R"]
 
 
 def run(cmd, label):

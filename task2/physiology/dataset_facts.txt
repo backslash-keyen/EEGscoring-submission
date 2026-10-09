@@ -1,0 +1,7 @@
+29 PSG files (subjects 0-14, both nights; subject 13 night 2 absent from the corpus)
+
+29 files with signals: EEG Fpz-Cz @ 100 Hz, EEG Pz-Oz @ 100 Hz, EOG horizontal @ 100 Hz, Resp oro-nasal @ 1 Hz, EMG submental @ 1 Hz, Temp rectal @ 1 Hz, Event marker @ 1 Hz
+recording length 21.4-23.8 h
+
+hypnogram labels (30-s epochs): Movement time: 35, Sleep stage 1: 2184, Sleep stage 2: 13140, Sleep stage 3: 2216, Sleep stage 4: 1759, Sleep stage ?: 4355, Sleep stage R: 5483, Sleep stage W: 54348
+pipeline uses: ['Fpz-Cz', 'Pz-Oz', 'horizontal'] (EMG submental, resp, temp are in the file but not used)
