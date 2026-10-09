@@ -106,7 +106,8 @@ class SeqDataset(torch.utils.data.Dataset):
     def __getitem__(self, k):
         r, i = self.index[k]
         X, y = self.recs[r]
-        return torch.from_numpy(X[i:i + SEQ_LEN]), int(y[i + SEQ_LEN - 1])
+        # label = CENTRE epoch: the head reads position SEQ_LEN // 2, and the last epoch is a different stage in 8% of windows
+        return torch.from_numpy(X[i:i + SEQ_LEN]), int(y[i + SEQ_LEN // 2])
 
 
 # --------------------------------------------------------------------------
@@ -191,7 +192,7 @@ def main():
     val_ds = SeqDataset([load_recording(*f) for f in val_files])
     test_ds = SeqDataset([load_recording(*f) for f in test_files])
 
-    y_train = np.array([train_ds.recs[r][1][i + SEQ_LEN - 1] for r, i in train_ds.index])
+    y_train = np.array([train_ds.recs[r][1][i + SEQ_LEN // 2] for r, i in train_ds.index])
     counts = np.bincount(y_train, minlength=N_CLASSES)
     print("train label counts:", dict(zip(CLASS_NAMES, counts.tolist())))
     weights = torch.tensor(len(y_train) / (N_CLASSES * np.maximum(counts, 1)), dtype=torch.float32)
