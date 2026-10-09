@@ -147,6 +147,7 @@ def run_all(jobs, seeds, variants):
 
 
 def table():
+    sys.stdout.reconfigure(encoding="utf-8")   # the table prints delta and plus-minus signs; a Windows pipe is cp1252
     rows = [json.load(open(p)) for p in sorted(glob.glob(os.path.join(OUT, "*.json")))]
     by = {(r["variant"], r["seed"]): r for r in rows}
     with open(os.path.join(HERE, "ledger_runs.csv"), "w", newline="") as f:
@@ -178,7 +179,7 @@ def table():
                      f"| {v} | {what} | {len(ss)} | {ms(d('accuracy'))} | {ms(d('macro_f1'))} | {ms(d('kappa'))} | "
                      f"{ms(dp(1))} | {ms(dp(3))} | {ms(dp(4))} |"))
     lines += [b for _, b in sorted(body, key=lambda x: -x[0])]
-    open(os.path.join(HERE, "ledger_table.md"), "w").write("\n".join(lines) + "\n")
+    open(os.path.join(HERE, "ledger_table.md"), "w", encoding="utf-8").write("\n".join(lines) + "\n")
     print("\n".join(lines))
 
 
