@@ -87,11 +87,11 @@ def load_recording(psg_file, hyp_file):
     # tested: the EOG channel normally swings ~500 uV (median 534) and would lose over half the epochs
     eeg = [i for i, c in enumerate(CHANNELS) if c != "horizontal"]
     keep = (np.ptp(X[:, eeg], axis=-1) * 1e6).max(axis=1) < REJECT_PTP
-    X, y = X[keep], y[keep]
+    # rejected epochs stay in the array (so neighbours stay 30 s apart) and are masked out of the windows instead
 
     # standardise each epoch so the network is insensitive to amplitude drift
     X = (X - X.mean(axis=-1, keepdims=True)) / (X.std(axis=-1, keepdims=True) + 1e-8)
-    return X.astype(np.float32), y
+    return X.astype(np.float32), y, keep
 
 
 class SeqDataset(torch.utils.data.Dataset):
@@ -99,15 +99,16 @@ class SeqDataset(torch.utils.data.Dataset):
 
     def __init__(self, recordings):
         self.recs = recordings
-        self.index = [(r, i) for r, (X, y) in enumerate(recordings)
-                      for i in range(len(y) - SEQ_LEN + 1)]
+        # skip any window containing a rejected epoch: it would not be SEQ_LEN consecutive epochs in time
+        self.index = [(r, i) for r, (X, y, keep) in enumerate(recordings)
+                      for i in range(len(y) - SEQ_LEN + 1) if keep[i:i + SEQ_LEN].all()]
 
     def __len__(self):
         return len(self.index)
 
     def __getitem__(self, k):
         r, i = self.index[k]
-        X, y = self.recs[r]
+        X, y, _ = self.recs[r]
         # label = CENTRE epoch: the head reads position SEQ_LEN // 2, and the last epoch is a different stage in 8% of windows
         return torch.from_numpy(X[i:i + SEQ_LEN]), int(y[i + SEQ_LEN // 2])
 
