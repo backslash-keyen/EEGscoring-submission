@@ -1,13 +1,13 @@
 # Task 2d: the worst stage in the fixed model, and why
 
-Model: the fixed `task2/sleep_pipeline.py`, seeds 42-44 (each seed is also a different subject split, 3 test subjects).
-Metrics from `task2/ledger_results/FIXED_*.json`; signal facts from the files themselves (`task2/physiology/dataset_facts.txt`);
-per-epoch physiology in microvolts on the same cropped epochs (`task2/physiology/epoch_features.csv`). All produced by `task2/physiology.py` and `task2/ledger.py`.
+The fixed `task2/sleep_pipeline.py` ran on seeds 42-44 (each seed is also a different subject split, 3 test subjects).
+Metrics come from `task2/ledger_results/FIXED_*.json`, signal facts from the files themselves (`task2/physiology/dataset_facts.txt`),
+and per-epoch physiology in microvolts on the same cropped epochs from `task2/physiology/epoch_features.csv`, all produced by `task2/physiology.py` and `task2/ledger.py`.
 
 ## What this dataset records
-Sleep Cassette, 29 nights (subjects 0-14; subject 13 has one night). Each file: EEG Fpz-Cz and Pz-Oz at 100 Hz, horizontal EOG at 100 Hz,
-and submental EMG, oro-nasal respiration and rectal temperature only as **1 Hz** envelopes (`dataset_facts.txt`). The pipeline uses Fpz-Cz, Pz-Oz and EOG; the EMG is in the file but unused.
-Labels are Rechtschaffen & Kales (R&K) stages per 30-s epoch, mapped to AASM by merging stages 3 and 4 into N3. There are no central (C3/C4) or occipital (O1/O2) AASM derivations: Fpz-Cz stands in for the central channel and Pz-Oz for the occipital one.
+Sleep Cassette has 29 nights (subjects 0-14, subject 13 with one night). Each file holds EEG Fpz-Cz and Pz-Oz at 100 Hz and horizontal EOG at 100 Hz,
+while submental EMG, oro-nasal respiration and rectal temperature exist only as **1 Hz** envelopes (`dataset_facts.txt`). The pipeline uses Fpz-Cz, Pz-Oz and EOG and ignores the EMG in the file.
+Labels are Rechtschaffen & Kales (R&K) stages per 30-s epoch, mapped to AASM by merging stages 3 and 4 into N3. The AASM central (C3/C4) and occipital (O1/O2) derivations are absent, so Fpz-Cz stands in for the central channel and Pz-Oz for the occipital one.
 
 ## Worst stage: N1
 | stage | W | N1 | N2 | N3 | REM |
@@ -24,9 +24,9 @@ Row-normalised confusion, P(predicted | true), mean of 3 seeds:
 | N3 | 0.001 | 0.008 | 0.175 | **0.815** | 0.001 |
 | REM | 0.033 | 0.078 | 0.073 | 0.001 | **0.816** |
 
-N1 recall is 0.61, but precision only 0.44: N1 is where the model puts epochs it cannot place. Of the windows it called N1 (summed over seeds), 486 were N2, 276 REM and 262 Wake, against 832 that were N1.
+N1 recall is 0.61, but precision is only 0.44 because N1 is where the model puts epochs it cannot place. Of the windows it called N1 (summed over seeds), 832 were N1, 486 N2, 276 REM and 262 Wake.
 
-**Why, from the scoring rules and these signals.** N1 is defined by what is *absent* or *transitional*: alpha falls to under half the epoch (from Wake), low-amplitude mixed-frequency 2-7 Hz activity appears, with slow rolling eye movements and vertex sharp waves; it ends at the first spindle or K-complex (N2) or when REM signs appear. Every one of its features is shared with a neighbour (median per-epoch values, all epochs):
+**Why, from the scoring rules and these signals.** The rules define N1 by what is *absent* or *transitional*. Alpha falls to under half the epoch (from Wake), and low-amplitude mixed-frequency 2-7 Hz activity appears with slow rolling eye movements and vertex sharp waves. It ends at the first spindle or K-complex (N2) or when REM signs appear, so each of its features is shared with a neighbour (median per-epoch values, all epochs):
 
 | median | W | N1 | N2 | N3 | REM |
 |---|---|---|---|---|---|
@@ -37,11 +37,11 @@ N1 recall is 0.61, but precision only 0.44: N1 is where the model puts epochs it
 | EOG 0.3-1 Hz power (uV²), slow eye movements | 1757 | 284 | 38 | 119 | 271 |
 | chin EMG (uV, 1 Hz envelope) | 3.23 | 2.68 | 1.98 | 1.48 | **0.69** |
 
-On amplitude, alpha, theta and slow eye movements, N1 sits almost on top of REM (78 vs 79 uV, alpha 0.084 vs 0.088, EOG 284 vs 271), and between Wake and N2 on the rest. What separates it from REM in the rules is muscle tone (N1 2.68 uV vs REM 0.69 uV), which the pipeline never sees. What separates it from N2 is a single transient event (spindle or K-complex) that a 30-s spectrum dilutes. It is also the rarest stage (2184 of 29978 scored epochs, 7%) and the one human scorers agree on least (Rosenberg & Van Hout 2013, J Clin Sleep Med: N1 had the lowest inter-scorer agreement of all stages, about 63%), so its labels are the noisiest targets.
+On amplitude, alpha, theta and slow eye movements, N1 sits almost on top of REM (78 vs 79 uV, alpha 0.084 vs 0.088, EOG 284 vs 271), and between Wake and N2 on the rest. Muscle tone separates N1 from REM in the rules (N1 2.68 uV vs REM 0.69 uV), but the pipeline never sees it. N2 differs by a single transient event (spindle or K-complex) that a 30-s spectrum dilutes. N1 is also the rarest stage (2184 of 29978 scored epochs, 7%). Human scorers agree on it least (about 63% inter-scorer agreement, the lowest of all stages, in Rosenberg & Van Hout 2013, J Clin Sleep Med), so its labels are the noisiest targets.
 
-## One expected confusion: N3 → N2 (17.5% of true N3)
-R&K stage 3 starts when 20% of the epoch contains >75 uV, 0.5-2 Hz waves. That is a threshold on a continuum: the median N3 epoch has 27% coverage by our 1-s approximation (`delta_cover`), close to the boundary, and N2 epochs carry K-complexes and some slow waves. Epochs near the 20% line are labelled by a count a scorer makes by eye, so N3 → N2 (517 windows over the 3 seeds) is the confusion the rules themselves predict. It goes almost only one way (N2 → N3 is 3.2%), which fits a frontal Fpz-Cz derivation that sees the slow waves well: what is lost is the borderline, not the clear N3.
+## One expected confusion: N3 scored as N2 (17.5% of true N3)
+R&K stage 3 starts when 20% of the epoch contains >75 uV, 0.5-2 Hz waves. That is a threshold on a continuum. By our 1-s approximation (`delta_cover`) the median N3 epoch has 27% coverage, close to the boundary, and N2 epochs carry K-complexes and some slow waves. A scorer labels epochs near the 20% line by counting by eye, so N3 scored as N2 (517 windows over the 3 seeds) is the confusion the rules themselves predict. The error runs almost only one way (N2 as N3 is 3.2%), which fits a frontal Fpz-Cz derivation that sees slow waves well. The model loses the borderline and keeps the clear N3.
 
-## One unexpected confusion: Wake ↔ REM (5.1% of Wake → REM, 3.3% of REM → Wake; 304 windows)
-For a human scorer these two are rarely confused: REM requires atonia of the chin muscle, and Wake has high tone. This recording has the cleanest separator of any feature in the table (chin EMG median 3.23 uV in Wake vs 0.69 in REM, a 4.7-fold difference), but the pipeline drops it (and its 0.3 Hz high-pass would remove most of a slowly varying 1 Hz envelope's level if it were added as is). On the channels it does use, REM looks like relaxed Wake: low-amplitude mixed EEG, alpha bursts on Pz-Oz (0.088 vs 0.113), and rapid eye movements on the EOG. The error is unexpected from the physiology and fully explained by the channel choice. Adding the EMG envelope as a per-epoch scalar input would be the targeted fix.
+## One unexpected confusion: Wake and REM (5.1% of Wake as REM, 3.3% of REM as Wake, 304 windows)
+A human scorer rarely confuses these two, because REM requires atonia of the chin muscle and Wake has high tone. This recording holds the cleanest separator of any feature in the table (chin EMG median 3.23 uV in Wake vs 0.69 in REM, a 4.7-fold difference), but the pipeline drops it. Added as is, the slowly varying 1 Hz envelope would also lose most of its level to the 0.3 Hz high-pass. On the channels it does use, REM looks like relaxed Wake, with low-amplitude mixed EEG, alpha bursts on Pz-Oz (0.088 vs 0.113) and rapid eye movements on the EOG. The error is unexpected from the physiology, but the channel choice explains it fully. The targeted fix is to feed the EMG envelope in as a per-epoch scalar.
 
