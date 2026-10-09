@@ -1,0 +1,23 @@
+# Exact versions used for every result in this repository (pip freeze of the project venv, 2026-10-09).
+# Python 3.14.3, Windows 11, CPU only (torch 2.14.1+cpu wheel: pip install torch==2.14.1 --index-url https://download.pytorch.org/whl/cpu).
+mne==1.13.2
+numpy==2.5.3
+scipy==1.18.1
+pandas==3.0.6
+scikit-learn==1.9.1
+joblib==1.6.0
+threadpoolctl==3.7.0
+matplotlib==3.11.2
+torch==2.14.1
+umap-learn==0.5.12
+numba==0.68.0
+pynndescent==0.6.0
+edfio==0.4.18
+pooch==1.9.0
+tqdm==4.70.1
+# executed A3 walkthrough notebook (task1/a3_walkthrough/make_notebook.py)
+nbformat==5.11.1
+nbclient==0.11.0
+nbconvert==7.17.1
+jupyter_client==8.10.0
+ipykernel==7.4.0
