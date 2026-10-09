@@ -6,7 +6,7 @@ interruption continues where it stopped. Delete data/cache*, data/cache_causal a
 
   python main.py                 everything (download ~0.3 GB, then ~12-14 h on an 8-core CPU, most of it the B2 grid)
   python main.py --list          show the steps
-  python main.py --only A2 A3    run selected parts (A1 A2 A3 B1 B2 T2)
+  python main.py --only A2 A3    run selected parts (A1 A2 A3 B1 B2 ASK T2)
   python main.py --from B2       run from a part onwards
   python main.py --matlab        also run the MATLAB twins (needs `matlab` on PATH; not required for any Python number)
 """
@@ -38,6 +38,8 @@ STEPS = [
     ("B2", ["task1/b2_invariance.py"], "b2_invariance_runs.csv"),
     ("B2", ["task1/b2_attribution.py"], "b2_attr_*.csv, b2_faithfulness*.csv/png, b2_attribution_maps.png"),
     ("B2", ["task1/b2_results.py"], "b2_summary.csv, b2_scaling.png, b2_displacement.png, link tables, B2_RESULTS.md"),
+    # one script per ask of the brief (task1/asks/README.md); they read the outputs above, so they run after B2
+    ("ASK", ["task1/asks/run_all.py"], "every Task 1 ask answered and checked against the outputs; figures in outputs/asks/"),
     # Task 2 is developed on its own branch; these entries run whatever of it is present and say so when a script is missing
     ("T2", ["task2/sleep_pipeline.py"], "Task 2: fixed sleep-staging pipeline"),
     ("T2", ["task2/impact_ledger.py"], "Task 2: impact ledger (2c)"),
@@ -46,7 +48,7 @@ STEPS = [
 MATLAB = [  # twins of Python steps; their outputs are comparisons only (D15-D18 and A3_RESULTS.md, MATLAB section)
     ("A1", "task1/audit.m"), ("A2", "task1/a2_tfr.m"), ("A2", "task1/a2_walkthrough.m"), ("A3", "task1/a3_confound.m"),
 ]
-PARTS = ["A1", "A2", "A3", "B1", "B2", "T2"]
+PARTS = ["A1", "A2", "A3", "B1", "B2", "ASK", "T2"]
 
 
 def run(cmd, label):
