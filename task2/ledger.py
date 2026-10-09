@@ -146,6 +146,35 @@ def run_all(jobs, seeds, variants):
         list(ex.map(go, todo))
 
 
+# Predicted direction: copied from PREDICTIONS.md (Task 2 / 2c), which was committed before any ledger run.
+PREDICTED = {
+    "D1": "up +0.01..+0.05, sign unstable", "D2": "up +0.005..+0.02", "D3": "down -0.03..-0.10",
+    "D4": "down 0..-0.03", "D5": "down -0.01..-0.04", "D6": "about 0", "D7": "about 0",
+    "D8": "down -0.01..-0.04 (N3 most)", "D9": "down 0..-0.01", "D10": "acc up +0.08..+0.14, F1 about 0",
+    "D3+D4": "= D3 (D4 vanishes)", "D1+D2": "up, more than either", "D9+D10": "D9 effect grows",
+    "D6N": "down -0.03..-0.10", "D6N+D7": "worse than D6N", "ALL": "acc same/up, F1 -0.08..-0.20, kappa -0.05..-0.15",
+}
+# Mechanism, one line each; the evidence for each is in DEFECTS.md.
+MECHANISM = {
+    "D1": "test subjects' other night in training; also changes which subjects are tested",
+    "D2": "reported score = max over 12 noisy test evaluations",
+    "D3": "attention mixes windows of the batch; no epoch context",
+    "D4": "attention is order-blind; neighbours are an unordered set",
+    "D5": "target is the last epoch, the head reads the centre one",
+    "D6": "no rejection at all; EEG rarely exceeds 500 uV, so ~nothing changes",
+    "D7": "deleted epochs splice windows across time gaps; nothing deleted while D6 is present",
+    "D8": "per-epoch scaling erases the >75 uV slow-wave amplitude",
+    "D9": "940 unscored/movement epochs become Wake targets",
+    "D10": "~16 h/recording of lights-on Wake; easy class dominates acc and kappa",
+    "D3+D4": "with batch attention there is no epoch order to lose",
+    "D1+D2": "two optimistic biases, not additive here",
+    "D9+D10": "mislabelled epochs drown in the uncropped Wake",
+    "D6N": "units fixed on all channels: EOG swings reject 54% of epochs; masking then drops most windows",
+    "D6N+D7": "deletion keeps the data (spliced) where masking drops whole windows",
+    "ALL": "given-script approximation: acc inflated by Wake, sleep stages worse",
+}
+
+
 def table():
     sys.stdout.reconfigure(encoding="utf-8")   # the table prints delta and plus-minus signs; a Windows pipe is cp1252
     rows = [json.load(open(p)) for p in sorted(glob.glob(os.path.join(OUT, "*.json")))]
@@ -158,7 +187,8 @@ def table():
                         *(f"{x:.4f}" for x in r["per_class_f1"]), r["n_test_windows"]])
     seeds = sorted({r["seed"] for r in rows})
     ms = lambda a: f"{np.mean(a):+.3f} ± {np.std(a, ddof=1) if len(a) > 1 else float('nan'):.3f}"
-    lines = ["| variant | what | n seeds | Δ accuracy | Δ macro-F1 | Δ kappa | Δ F1 N1 | Δ F1 N3 | Δ F1 REM |", "|---|---|---|---|---|---|---|---|---|"]
+    lines = ["| variant | what | n seeds | Δ accuracy | Δ macro-F1 | Δ kappa | Δ F1 N1 | Δ F1 N3 | Δ F1 REM | predicted (macro-F1 unless stated) | mechanism |",
+             "|---|---|---|---|---|---|---|---|---|---|---|"]
     ref = {s: by[("FIXED", s)] for s in seeds if ("FIXED", s) in by}
     if ref:
         a = lambda k: [ref[s][k] for s in ref]
@@ -177,7 +207,7 @@ def table():
         dp = lambda i: [by[(v, s)]["per_class_f1"][i] - ref[s]["per_class_f1"][i] for s in ss]
         body.append((abs(np.mean(d("macro_f1"))),
                      f"| {v} | {what} | {len(ss)} | {ms(d('accuracy'))} | {ms(d('macro_f1'))} | {ms(d('kappa'))} | "
-                     f"{ms(dp(1))} | {ms(dp(3))} | {ms(dp(4))} |"))
+                     f"{ms(dp(1))} | {ms(dp(3))} | {ms(dp(4))} | {PREDICTED.get(v, '')} | {MECHANISM.get(v, '')} |"))
     lines += [b for _, b in sorted(body, key=lambda x: -x[0])]
     open(os.path.join(HERE, "ledger_table.md"), "w", encoding="utf-8").write("\n".join(lines) + "\n")
     print("\n".join(lines))
