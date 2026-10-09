@@ -13,7 +13,7 @@ Pooled = cross-subject, train on some subjects and test on unseen ones; chance t
 5. Pre-cue-window decoder and trial-order / previous-label decoders: both at chance.
 6. Positive control, motor strip only (C3/C4 neighbourhood, mu+beta, 0.5-4 s), pooled cross-subject accuracy: 56-62%.
 
-Reasoning (drafted by Claude from Keyen's answers; Keyen to edit): the cue is lateralised in space, so gaze shift and a lateralised visual response are unavoidable routes; a randomised order leaves no label information in time or baseline. Items 2 and 3 together imply the eye signal is strong in a few subjects but not consistent in polarity or timing across subjects, so it cancels when pooled; the visual response is expected to transfer across subjects better than the eye signal. Pre-cue and order decoders are the method check: if they beat chance, the pipeline leaks, not the physiology.
+Reasoning (drafted by Claude from my answers): the cue is lateralised in space, so gaze shift and a lateralised visual response are unavoidable routes; a randomised order leaves no label information in time or baseline. Items 2 and 3 together imply the eye signal is strong in a few subjects but not consistent in polarity or timing across subjects, so it cancels when pooled; the visual response is expected to transfer across subjects better than the eye signal. Pre-cue and order decoders are the method check: if they beat chance, the pipeline leaks, not the physiology.
 
 History: the earlier draft of this entry (frontal-polar only, 10-15 subjects, frontal pooled 55-60%, occipital ~50%) is in commit fcf1214 and was superseded by the answers above before any result existed.
 
@@ -35,7 +35,7 @@ Timing note: the training grid (task1/b2_run.py --stage base) was started before
 
 ## B2 outcome (appended after results; the prediction text above is unchanged)
 Full write-up and numbers: outputs/partb/B2_RESULTS.md. Scorecard:
-| # | Predicted (Keyen) | Found | Verdict |
+| # | Predicted | Found | Verdict |
 |---|---|---|---|
 | 1 | Scaling: crossover | EEGNet ahead at every size; gap shrinks from ~17 to ~5 points | wrong |
 | 2 | EEGNet at 30 subjects > 72% | ~77% | right |
@@ -46,7 +46,7 @@ Full write-up and numbers: outputs/partb/B2_RESULTS.md. Scorecard:
 | 7 | Link: A2 LI, small drop when confound removed | EEGNet tracks LI most (and F1); removal drops both models to chance | half right |
 | 8 | Intervention: no effect | no effect on accuracy, curve or spatial-filter sensitivity | right |
 
-## Task 2 / 2c - direction of each defect's effect (written by Claude BEFORE the ledger was run; Keyen may edit before the results commit)
+## Task 2 / 2c - direction of each defect's effect (written by Claude BEFORE the ledger was run)
 Setup: fixed pipeline (task2/sleep_pipeline.py, defects 1-10 fixed) vs the same pipeline with ONE defect re-introduced; seeds 42, 43, 44, each seed also changes the subject split; delta = defective - fixed on the same seed; test metrics are accuracy / macro-F1 / kappa. Seed 42 of the fixed pipeline has been run before (acc .845, macro-F1 .810, kappa .799), so that row is a reproducibility check, not a prediction.
 Expected sign and size (macro-F1 unless stated). "Seed spread" will be large: the test set is only 3 subjects.
 - D1 recording-level split: UP, +0.01 to +0.05 on all three metrics (person-specific EEG leaks); the single seed-42 pair already run went the other way (+.04 for the FIXED split) so I expect the sign to be unstable across seeds.
