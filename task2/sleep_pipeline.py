@@ -96,8 +96,12 @@ def load_recording(psg_file, hyp_file):
     lo, hi = max(0, asleep[0] - WAKE_MARGIN), min(len(y), asleep[-1] + 1 + WAKE_MARGIN)
     X, y, keep = X[lo:hi], y[lo:hi], keep[lo:hi]
 
-    # standardise each epoch so the network is insensitive to amplitude drift
-    X = (X - X.mean(axis=-1, keepdims=True)) / (X.std(axis=-1, keepdims=True) + 1e-8)
+    # standardise per RECORDING and channel: removes between-person scale (skull, impedance) but keeps the
+    # within-night amplitude contrast between stages (N3 is defined by >75 uV slow waves; per-epoch z-scoring erased it).
+    # Statistics use the non-rejected epochs only, so an electrode pop cannot distort the scale.
+    mu = X[keep].mean(axis=(0, 2), keepdims=True)
+    sd = X[keep].std(axis=(0, 2), keepdims=True)
+    X = (X - mu) / (sd + 1e-8)
     return X.astype(np.float32), y, keep
 
 
