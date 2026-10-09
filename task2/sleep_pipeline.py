@@ -78,10 +78,10 @@ def load_recording(psg_file, hyp_file):
 
     # one label per 30-s epoch from the hypnogram
     annot = mne.read_annotations(hyp_file)
-    y = np.zeros(n_ep, dtype=np.int64)
+    y = np.full(n_ep, -1, dtype=np.int64)   # -1 = unlabelled; 0 would silently mean Wake
     for onset, dur, desc in zip(annot.onset, annot.duration, annot.description):
         start, stop = int(onset // EPOCH_SEC), int((onset + dur) // EPOCH_SEC)
-        y[start:stop] = STAGE_MAP.get(desc, 0)
+        y[start:stop] = STAGE_MAP.get(desc, -1)   # 'Sleep stage ?' and 'Movement time' are not stages
 
     # drop electrode pops. MNE data is in volts (threshold is uV), and only the EEG channels are
     # tested: the EOG channel normally swings ~500 uV (median 534) and would lose over half the epochs
@@ -101,7 +101,8 @@ class SeqDataset(torch.utils.data.Dataset):
         self.recs = recordings
         # skip any window containing a rejected epoch: it would not be SEQ_LEN consecutive epochs in time
         self.index = [(r, i) for r, (X, y, keep) in enumerate(recordings)
-                      for i in range(len(y) - SEQ_LEN + 1) if keep[i:i + SEQ_LEN].all()]
+                      for i in range(len(y) - SEQ_LEN + 1)
+                      if keep[i:i + SEQ_LEN].all() and y[i + SEQ_LEN // 2] >= 0]  # unscored epochs may be context, never targets
 
     def __len__(self):
         return len(self.index)
