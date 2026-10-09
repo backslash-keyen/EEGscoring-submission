@@ -1,4 +1,4 @@
-# Task 1 write-up (draft for Keyen to edit)
+# Task 1 write-up
 Numbers come from `outputs/A3_RESULTS.md`, `outputs/partb/B2_RESULTS.md` and `PREDICTIONS.md`. Chance thresholds: exact one-sided binomial at 5% (D15). A3 pooled: 1793 trials, 52.0%. B2 test set: 20 subjects, 913 trials, 52.8%.
 
 ## (a) If a model scores 70% on these subjects, how much of that needs motor imagery?

@@ -1,7 +1,7 @@
 # PREDICTIONS
 Rule: each entry is committed before the commit that contains its result.
 
-## A3 - which non-motor route is decodable? (answers by Keyen, 2026-10-07, before any confound decoder was run)
+## A3 - which non-motor route is decodable? (2026-10-07, before any confound decoder was run)
 Context: in this experiment a target appears on the left or right of the screen and the subject imagines until it disappears; trials are separated by rest periods; order is randomised within run.
 Routes: (1) oculomotor: target side drives gaze shift / EOG (frontal Fp/AF/F7/F8); (2) visual: lateralised visual-evoked response and attention-related alpha (occipital); (3) EMG/posture or blink artefacts; (4) trial order / time-in-run drift / previous-trial label; (5) pre-cue baseline (no label information should exist); (6) run identity / cue-length protocol differences (128 Hz subjects).
 Pooled = cross-subject, train on some subjects and test on unseen ones; chance threshold from the binomial/permutation null (about 52% for ~1800 trials).
@@ -20,7 +20,7 @@ History: the earlier draft of this entry (frontal-polar only, 10-15 subjects, fr
 ## A3 outcome (appended after results; the prediction text above is unchanged)
 Scorecard and numbers: outputs/A3_RESULTS.md. Short version: eyes decodable far above prediction (25/40 subjects, 72% pooled vs predicted 5-10 and 50-52%); occipital slightly above (59% vs 53-57%); motor control slightly below (54.6% vs 56-62%); pre-cue and order were NOT at chance: label order alternates (z = -17.6), previous label alone gives 72.6%, and my zero-phase filter made the pre-cue window look decodable until replaced by a causal filter (DECISIONS D18).
 
-## B2 - all six experiments (answers by Keyen, 2026-10-08, multiple-choice in chat; option text quoted as chosen)
+## B2 - all six experiments (2026-10-08, multiple choice, option text quoted as chosen)
 Setup fixed before answering: test subjects = folds 0-3 (20 subjects), 3 seeds; EEGNet and time-patch transformer for scaling; confound removal = local Laplacian then 21 sensorimotor channels; intervention = EEGNet trained with random simulated cap slides of 0-15 mm (DECISIONS D24-D26).
 Timing note: the training grid (task1/b2_run.py --stage base) was started before this commit to save time on the deadline; its log prints no accuracy and no result file was opened before this commit.
 

@@ -5,7 +5,16 @@ Two tasks, both on public PhysioNet data.
 - Task 1 is motor imagery (EEGBCI, subjects 70-109). It looks at what is actually in the signal, and then at what EEGNet and a transformer learn from it.
 - Task 2 is sleep staging (Sleep-EDF Expanded, Sleep Cassette, subjects 0-14). The given pipeline looks like it works. I find its defects and measure what each one did to the reported numbers.
 
-The write-up is [REPORT.pdf](REPORT.pdf) (6 pages, both tasks). All of it comes from code in this repo run on the real data, and `python main.py` regenerates everything without manual steps.
+The write-up is [REPORT.pdf](REPORT.pdf) (4 pages, both tasks). All of it comes from code in this repo run on the real data, and `python main.py` regenerates everything without manual steps.
+
+## Start here
+
+1. [REPORT.pdf](REPORT.pdf) for both tasks and the two write-ups.
+2. [outputs/a3_per_subject_table.csv](outputs/a3_per_subject_table.csv) for the per-subject A2 and A3 results, and [outputs/partb/b2_all_runs.csv](outputs/partb/b2_all_runs.csv) for every B2 run.
+3. [DEFECTS.md](DEFECTS.md) and [task2/ledger_table.md](task2/ledger_table.md) for the Task 2 defects and what each one did.
+4. [PREDICTIONS.md](PREDICTIONS.md) and [DECISIONS.md](DECISIONS.md) for what was predicted before each result and why each choice was made.
+
+The two headline findings: on these 40 subjects a 70% left/right decoder is explained by eye movements toward the cue (72% on the eye route alone, under 55% on the motor route), and the given sleep pipeline's 85% accuracy rested on lights-on Wake (fixed, accuracy 0.827 and macro-F1 0.788, up from 0.628).
 
 ## Deliverables
 
@@ -13,7 +22,7 @@ The write-up is [REPORT.pdf](REPORT.pdf) (6 pages, both tasks). All of it comes 
 |---|---|
 | `main.py`, pinned `requirements.txt` | [main.py](main.py), [requirements.txt](requirements.txt) |
 | Predictions committed before their results | [PREDICTIONS.md](PREDICTIONS.md) has A3, B2 and Task 2c, with each outcome added afterwards. Git history shows the order. |
-| Every non-trivial choice | [DECISIONS.md](DECISIONS.md), D1-D27 for Task 1 and T2-1 to T2-10 for Task 2 |
+| Every non-trivial choice | [DECISIONS.md](DECISIONS.md), D-numbers for Task 1 and T2-1 to T2-10 for Task 2 |
 | Task 2 defects (2b) | [DEFECTS.md](DEFECTS.md) |
 | Report, at most 6 pages | [REPORT.pdf](REPORT.pdf), built from [report/REPORT.md](report/REPORT.md) |
 | Task 1 audit.csv, ERD figures, per-subject table | [audit.csv](audit.csv), `outputs/erd/`, [outputs/a3_per_subject_table.csv](outputs/a3_per_subject_table.csv) |
