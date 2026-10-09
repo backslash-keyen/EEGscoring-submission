@@ -39,6 +39,7 @@ STAGE_MAP = {
     "Sleep stage R": 4,
 }
 
+WAKE_MARGIN = 60       # epochs (30 min) of Wake kept before the first and after the last sleep epoch
 REJECT_PTP = 500      # uV; epochs with larger peak-to-peak are electrode pops
 BATCH = 32
 TRAIN_EPOCHS = 12
@@ -88,6 +89,12 @@ def load_recording(psg_file, hyp_file):
     eeg = [i for i, c in enumerate(CHANNELS) if c != "horizontal"]
     keep = (np.ptp(X[:, eeg], axis=-1) * 1e6).max(axis=1) < REJECT_PTP
     # rejected epochs stay in the array (so neighbours stay 30 s apart) and are masked out of the windows instead
+
+    # crop to the sleep period +- 30 min: recordings run ~23 h and 97% of all Wake is lights-on time before/after
+    # the night, which makes 'always Wake' score 68.7% accuracy
+    asleep = np.where(y > 0)[0]
+    lo, hi = max(0, asleep[0] - WAKE_MARGIN), min(len(y), asleep[-1] + 1 + WAKE_MARGIN)
+    X, y, keep = X[lo:hi], y[lo:hi], keep[lo:hi]
 
     # standardise each epoch so the network is insensitive to amplitude drift
     X = (X - X.mean(axis=-1, keepdims=True)) / (X.std(axis=-1, keepdims=True) + 1e-8)
@@ -201,6 +208,7 @@ def main():
     print("train label counts:", dict(zip(CLASS_NAMES, counts.tolist())))
     weights = torch.tensor(len(y_train) / (N_CLASSES * np.maximum(counts, 1)), dtype=torch.float32)
 
+    print("class weights (inverse frequency of the training windows):", dict(zip(CLASS_NAMES, np.round(weights.numpy(), 2).tolist())))
     model = SleepTransformer(n_ch=len(CHANNELS))
     opt = torch.optim.Adam(model.parameters(), lr=LR)
     loss_fn = nn.CrossEntropyLoss(weight=weights)
