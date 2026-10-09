@@ -49,6 +49,8 @@ STEPS = [
     ("T2", ["task2/sleep_pipeline.py"], "fixed pipeline, seed 42 (printed)"),
     ("T2", ["task2/ledger.py", "--all", "--jobs", "4"], "2c: task2/ledger_results/*.json, ledger_runs.csv, ledger_table.md (resumable)"),
     ("T2", ["task2/physiology.py"], "2d: task2/physiology/ (dataset facts, per-epoch uV features, per-window test predictions, report)"),
+    # one script per ask of the brief (task2/asks/README.md); they read the outputs above, so they run last in T2
+    ("T2", ["task2/asks/run_all.py"], "every Task 2 ask answered and checked against the outputs; figures in outputs/asks/"),
     # last, so the PDF typesets the outputs just produced; skipped with a message if pandoc/xelatex are missing
     ("R", ["report/build_report.py"], "REPORT.pdf from report/REPORT.md + task1/WRITEUP.md"),
 ]

@@ -7,9 +7,12 @@ from sleep_pipeline import SleepTransformer, SEQ_LEN, set_seed
 def run(label):
     set_seed(0)
     m = SleepTransformer(n_ch=3).eval()
-    if label == "after":   # fix: positions go in BEFORE the transformer
-        m.forward = lambda x: m.head(m.transformer(m.pos(
-            m.encoder(x.flatten(0, 1)).view(x.shape[0], x.shape[1], -1)))[:, SEQ_LEN // 2])
+    # both orders are written out, so the test does not depend on which one sleep_pipeline.py currently has
+    enc = lambda x: m.encoder(x.flatten(0, 1)).view(x.shape[0], x.shape[1], -1)
+    if label == "before":  # given script: positions added AFTER the transformer
+        m.forward = lambda x: m.head(m.pos(m.transformer(enc(x)))[:, SEQ_LEN // 2])
+    else:                  # fix: positions go in BEFORE the transformer
+        m.forward = lambda x: m.head(m.transformer(m.pos(enc(x)))[:, SEQ_LEN // 2])
     x = torch.randn(16, SEQ_LEN, 3, 3000); c = SEQ_LEN // 2
     others = [i for i in range(SEQ_LEN) if i != c]
     g = torch.Generator().manual_seed(1)
