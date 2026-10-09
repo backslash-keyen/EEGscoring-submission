@@ -1,0 +1,17 @@
+job,model,exp,direction,layer,rel_change
+aug_eegnet_f1_s0_n30,eegnet,aug,right,temporal,0.12451783567667007
+aug_eegnet_f1_s0_n30,eegnet,aug,right,spatial (depthwise),0.17119720578193665
+aug_eegnet_f1_s0_n30,eegnet,aug,right,block2,0.2621701657772064
+aug_eegnet_f1_s0_n30,eegnet,aug,right,logits,0.14181523025035858
+aug_eegnet_f1_s0_n30,eegnet,aug,left,temporal,0.12351600080728531
+aug_eegnet_f1_s0_n30,eegnet,aug,left,spatial (depthwise),0.1682717651128769
+aug_eegnet_f1_s0_n30,eegnet,aug,left,block2,0.24711138010025024
+aug_eegnet_f1_s0_n30,eegnet,aug,left,logits,0.14028719067573547
+aug_eegnet_f1_s0_n30,eegnet,aug,anterior,temporal,0.12143956124782562
+aug_eegnet_f1_s0_n30,eegnet,aug,anterior,spatial (depthwise),0.14760169386863708
+aug_eegnet_f1_s0_n30,eegnet,aug,anterior,block2,0.18411573767662048
+aug_eegnet_f1_s0_n30,eegnet,aug,anterior,logits,0.08976351469755173
+aug_eegnet_f1_s0_n30,eegnet,aug,posterior,temporal,0.11595358699560165
+aug_eegnet_f1_s0_n30,eegnet,aug,posterior,spatial (depthwise),0.14108027517795563
+aug_eegnet_f1_s0_n30,eegnet,aug,posterior,block2,0.1758279949426651
+aug_eegnet_f1_s0_n30,eegnet,aug,posterior,logits,0.08732842653989792

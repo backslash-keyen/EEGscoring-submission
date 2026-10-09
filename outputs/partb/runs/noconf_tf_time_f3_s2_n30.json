@@ -1,0 +1,1 @@
+{"model": "tf_time", "fold": 3, "seed": 2, "n_train": 30, "n_params": 6146, "best_epoch": 19, "epochs_run": 30, "val_loss": 0.6912797093391418, "val_acc": 0.48444444444444446, "test_acc": 0.4658119658119658, "n_test": 234, "sec": 227.3, "exp": "noconf", "job": "noconf_tf_time_f3_s2_n30"}

@@ -1,0 +1,21 @@
+job,model,exp,direction,layer,rel_change
+base_tf_time_f0_s0_n30,tf_time,base,right,temporal,0.10711970180273056
+base_tf_time_f0_s0_n30,tf_time,base,right,spatial (depthwise),0.18673638999462128
+base_tf_time_f0_s0_n30,tf_time,base,right,tokens,0.1950487345457077
+base_tf_time_f0_s0_n30,tf_time,base,right,cls output,0.17099860310554504
+base_tf_time_f0_s0_n30,tf_time,base,right,logits,0.22383151948451996
+base_tf_time_f0_s0_n30,tf_time,base,left,temporal,0.10553547739982605
+base_tf_time_f0_s0_n30,tf_time,base,left,spatial (depthwise),0.1856742650270462
+base_tf_time_f0_s0_n30,tf_time,base,left,tokens,0.19245390594005585
+base_tf_time_f0_s0_n30,tf_time,base,left,cls output,0.20316074788570404
+base_tf_time_f0_s0_n30,tf_time,base,left,logits,0.2817838490009308
+base_tf_time_f0_s0_n30,tf_time,base,anterior,temporal,0.10506109148263931
+base_tf_time_f0_s0_n30,tf_time,base,anterior,spatial (depthwise),0.1379544883966446
+base_tf_time_f0_s0_n30,tf_time,base,anterior,tokens,0.1396259367465973
+base_tf_time_f0_s0_n30,tf_time,base,anterior,cls output,0.0983501672744751
+base_tf_time_f0_s0_n30,tf_time,base,anterior,logits,0.13179133832454681
+base_tf_time_f0_s0_n30,tf_time,base,posterior,temporal,0.1012861356139183
+base_tf_time_f0_s0_n30,tf_time,base,posterior,spatial (depthwise),0.1300923228263855
+base_tf_time_f0_s0_n30,tf_time,base,posterior,tokens,0.1301485002040863
+base_tf_time_f0_s0_n30,tf_time,base,posterior,cls output,0.10048768669366837
+base_tf_time_f0_s0_n30,tf_time,base,posterior,logits,0.13830043375492096

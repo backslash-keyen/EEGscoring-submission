@@ -1,0 +1,17 @@
+job,model,exp,direction,layer,rel_change
+base_tf_chan_id_f2_s0_n30,tf_chan_id,base,right,temporal,0.11455457657575607
+base_tf_chan_id_f2_s0_n30,tf_chan_id,base,right,tokens,0.10325342416763306
+base_tf_chan_id_f2_s0_n30,tf_chan_id,base,right,cls output,0.12414027005434036
+base_tf_chan_id_f2_s0_n30,tf_chan_id,base,right,logits,0.1975855529308319
+base_tf_chan_id_f2_s0_n30,tf_chan_id,base,left,temporal,0.11375891417264938
+base_tf_chan_id_f2_s0_n30,tf_chan_id,base,left,tokens,0.10340981185436249
+base_tf_chan_id_f2_s0_n30,tf_chan_id,base,left,cls output,0.1527262181043625
+base_tf_chan_id_f2_s0_n30,tf_chan_id,base,left,logits,0.24917443096637726
+base_tf_chan_id_f2_s0_n30,tf_chan_id,base,anterior,temporal,0.11315254867076874
+base_tf_chan_id_f2_s0_n30,tf_chan_id,base,anterior,tokens,0.1050751805305481
+base_tf_chan_id_f2_s0_n30,tf_chan_id,base,anterior,cls output,0.09303110837936401
+base_tf_chan_id_f2_s0_n30,tf_chan_id,base,anterior,logits,0.14158155024051666
+base_tf_chan_id_f2_s0_n30,tf_chan_id,base,posterior,temporal,0.11470184475183487
+base_tf_chan_id_f2_s0_n30,tf_chan_id,base,posterior,tokens,0.1068403571844101
+base_tf_chan_id_f2_s0_n30,tf_chan_id,base,posterior,cls output,0.07862510532140732
+base_tf_chan_id_f2_s0_n30,tf_chan_id,base,posterior,logits,0.11861474812030792
