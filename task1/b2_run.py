@@ -38,10 +38,9 @@ def job_id(j):
     return f"{exp}_{m}_f{f}_s{seed}_n{n}"
 
 
-def run_job(j, threads):
-    torch.set_num_threads(threads)
+def fit_kwargs(j):
+    """train.fit arguments of one job; shared with task1/asks so a re-run there trains exactly what the grid trained."""
     exp, m, f, seed, n = j
-    jid = job_id(j)
     kw = dict(test_fold=f, seed=seed, n_train=n, log=lambda s: None,
               # equal number of gradient steps per run at every training-set size, so small sets are not undertrained
               epochs=int(60 * 30 / n), patience=int(10 * 30 / n))
@@ -49,7 +48,14 @@ def run_job(j, threads):
         kw.update(transform=confound_free.transform, model_kw=dict(n_ch=len(confound_free.KEEP)))
     if exp == "aug":
         kw.update(augment=augment.Augmenter(seed))
-    model, norm, res, per_trial = train.fit(m, **kw)
+    return kw
+
+
+def run_job(j, threads):
+    torch.set_num_threads(threads)
+    exp, m, f, seed, n = j
+    jid = job_id(j)
+    model, norm, res, per_trial = train.fit(m, **fit_kwargs(j))
     res.update(exp=exp, job=jid)
     torch.save(dict(state=model.state_dict(), m=norm.m, s=norm.s, res=res), RUNS / f"{jid}.pt")
     per_trial.assign(exp=exp).to_csv(RUNS / f"{jid}.csv", index=False)

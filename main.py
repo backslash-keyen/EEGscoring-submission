@@ -6,7 +6,7 @@ interruption continues where it stopped. Delete data/cache*, data/cache_causal a
 
   python main.py                 everything (download ~0.3 GB, then ~12-14 h on an 8-core CPU, most of it the B2 grid)
   python main.py --list          show the steps
-  python main.py --only A2 A3    run selected parts (A1 A2 A3 B1 B2 T2 R)
+  python main.py --only A2 A3    run selected parts (A1 A2 A3 B1 B2 ASK T2 R)
   python main.py --from B2       run from a part onwards
   python main.py --matlab        also run the MATLAB twins (needs `matlab` on PATH; not required for any Python number)
 """
@@ -41,6 +41,8 @@ STEPS = [
     ("B2", ["task1/b2_invariance.py"], "b2_invariance_runs.csv"),
     ("B2", ["task1/b2_attribution.py"], "b2_attr_*.csv, b2_faithfulness*.csv/png, b2_attribution_maps.png"),
     ("B2", ["task1/b2_results.py"], "b2_summary.csv, b2_scaling.png, b2_displacement.png, link tables, B2_RESULTS.md"),
+    # one script per ask of the brief (task1/asks/README.md); they read the outputs above, so they run after B2
+    ("ASK", ["task1/asks/run_all.py"], "every Task 1 ask answered and checked against the outputs; figures in outputs/asks/"),
     # 2a: the given script, byte-identical to commit fb4a5e7, so the baseline can be re-run after the fixes
     ("T2", ["task2/baseline/sleep_pipeline_given.py"], "2a: given pipeline, seed 42 (printed; saved copy task2/baseline/2a_baseline_seed42.txt)"),
     ("T2", ["task2/evidence/run_all.py"], "2b: task2/evidence/*_result.txt, the evidence cited in DEFECTS.md"),
@@ -54,7 +56,7 @@ STEPS = [
 MATLAB = [  # twins of Python steps; their outputs are comparisons only (D15-D18 and A3_RESULTS.md, MATLAB section)
     ("A1", "task1/audit.m"), ("A2", "task1/a2_tfr.m"), ("A2", "task1/a2_walkthrough.m"), ("A3", "task1/a3_confound.m"),
 ]
-PARTS = ["A1", "A2", "A3", "B1", "B2", "T2", "R"]
+PARTS = ["A1", "A2", "A3", "B1", "B2", "ASK", "T2", "R"]
 
 
 def run(cmd, label):
