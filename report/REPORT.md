@@ -94,7 +94,7 @@ Each defect re-introduced alone into the fixed script by reversing its edit (`ta
 | 9 + 10 † | +0.097 ± 0.012 | +0.005 ± 0.017 | +0.081 ± 0.021 | 9 grows | **9 vanishes** |
 | all ten † | +0.027 ± 0.031 | -0.147 ± 0.032 | -0.059 ± 0.054 | acc up, F1 -0.08..-0.20 | right |
 
-**Noise floor.** Defects 6 and 7 change no test window here, and on seeds 42 and 43 their runs equal the fixed run exactly; on seed 44 both differ from it by the same +0.024 macro-F1. The difference is run-to-run nondeterminism (most likely the CPU thread count, which changes floating-point summation order), so effects under about ±0.02 macro-F1 are not resolved.
+**Noise floor.** Runs are deterministic: same code, seed and thread count give bit-identical results (defects 6 and 7 equal the fixed run exactly on seeds 42 and 43, where the one epoch they touch lies in a validation subject). On seed 44 that recording is in training, and changing its 11 of ~17,000 training windows moves macro-F1 by +0.024. Training is that sensitive to small data changes, so effects under about ±0.02 macro-F1 are not resolved by 3 seeds.
 
 **Ranked by how much each would have misled the report.** (1) **10**: it alone adds ~10 points of accuracy and 9 of kappa from lights-on Wake, while N1 gets worse; the headline would have been inflated by the easiest class. (2) **3**: the context model the architecture advertises never ran; the CNN alone still scores well, so nothing looks wrong. (3) **8**: removes the amplitude criterion of N3 and N1. (4) **9** and (5) **2**: consistent across all seeds but small. Defects 1, 4, 5, 6 and 7 are inside the noise floor on their own.
 

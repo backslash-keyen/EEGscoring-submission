@@ -125,7 +125,7 @@ Alternative: keep per-epoch z-scoring, or feed the epoch's log-amplitude as an e
 
 ## T2-9 Left unchanged on purpose
 - Class-weighted loss + uniform sampling with replacement: after the crop the weights match the training windows exactly, so this is a metric choice (balanced loss favours macro-F1 over accuracy), not a defect.
-- Printed training loss is the last batch only (reporting detail). Seeding: torch/numpy/random are seeded and identical seeds reproduced identical loss curves (checked on seed 42), so no determinism flags were added.
+- Printed training loss is the last batch only (reporting detail). Seeding: torch/numpy/random are seeded and identical seeds reproduced identical loss curves (checked on seed 42), so no determinism flags were added. Results are bit-identical only at the same CPU thread count: the ledger fixes 3 threads (D6/D7 equal FIXED exactly on seeds 42-43), while a standalone run uses all cores, which is the likely reason the committed seed-42 run (macro-F1 0.810) differs from the ledger's (0.803); not verified.
 - The EMG channel (1 Hz envelope) is not used. Relevant to 2d: REM atonia is the scoring rule the model cannot see.
 
 ## T2-10 batch_first=True instead of permuting dimensions
